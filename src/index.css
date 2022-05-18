@@ -1,9 +1,22 @@
+:root {
+	font-size: 16px;
+	--red-orange: #ff4d00;
+	/* todo: changing this color in settings pannel */
+} 
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+  /* font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+    sans-serif; */
+	font-family: 'PT Sans Caption', sans-serif;
+	font-size: 2em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+	width: 100vw;
 }
 
+.container {
+	margin: 0 auto;
+	max-width: 55vw;
+}

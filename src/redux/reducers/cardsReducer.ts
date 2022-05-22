@@ -6,7 +6,7 @@ const initialState = {
 }
 
 const cardsReducer = createSlice({
-	name: "headerReducer",
+	name: "cardsReducer",
 	initialState,
 	reducers: {
 		distributeCard(state: any, action: any)  {

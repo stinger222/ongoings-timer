@@ -1,0 +1,57 @@
+
+/*
+Soo, yea, this is looks like shit, I know, BUT... 
+1st: no one will ever read this code,
+and 2nd: I couldn't find another way to cast one type (or just a number) to another.
+That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)_/¯
+*/
+
+.card {
+	--border-radius: 2;
+	--border-width: 2;
+	display: flex;
+
+	height: 350px;
+	margin-bottom: 1em;
+	border: calc(1px * var(--border-width)) solid rgb(226, 17, 17);
+	border-radius: calc(1em * var(--border-radius));
+}
+
+.image {
+	border-top-left-radius: calc((16px * var(--border-radius)) - calc(1px * var(--border-width)));
+	border-bottom-left-radius: calc((16px * var(--border-radius)) - calc(1px * var(--border-width)));
+	margin: -1px;
+  z-index: -1;
+}
+
+@media only screen and (max-width: 1100px) {
+	.card {
+		height: 32vw;
+	}
+	
+	.container {
+		padding: 0 !important;
+	}
+}
+
+@media only screen and (max-width: 750px) {
+	.card {
+		--border-radius: 1.5;
+
+	}
+}
+
+@media only screen and (max-width: 570px) {
+	.card {
+		--border-radius: 1.2;
+		--border-width: 1;
+
+	}
+}
+
+@media only screen and (max-width: 350px) {
+	.card {
+		--border-radius: 0.9;
+	}
+}
+

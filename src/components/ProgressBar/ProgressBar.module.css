@@ -1,0 +1,9 @@
+.progress_bar span {
+	font-size: 2em;
+	margin-right: 0.5em;
+	font-weight: 400;
+}
+
+.progress_bar:nth-child(1) {
+	color: red !important;
+}

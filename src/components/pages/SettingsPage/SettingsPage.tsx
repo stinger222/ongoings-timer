@@ -1,7 +1,8 @@
-import styles from "./SettingsPage.module.css"
-
 export default function SettingsPage() {
+
 	return (
-		<div>SettingsPage</div>
+		<div className="container">
+			<div>SettingsPage</div>
+		</div>
 	)
 }

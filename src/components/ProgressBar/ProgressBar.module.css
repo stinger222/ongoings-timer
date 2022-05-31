@@ -13,6 +13,6 @@
 	display: none;
 }
 
-.is_more_after span:nth-child(12)::after {
+.is_more_after span:nth-last-child(2)::after {
 	content: ' ...';
 }

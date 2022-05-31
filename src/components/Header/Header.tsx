@@ -34,7 +34,7 @@ export default function Header() {
 					<div className={styles.settings_icon}></div>
 				</nav>
 			</div>
-			<h1>Selected Day ID: {selectedDay}</h1>
+			<span>Selected Day ID: {selectedDay}</span>
 			{/* Link to=settings > settings icon */}
 		</header>
 	)

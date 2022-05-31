@@ -1,34 +1,34 @@
-import { useSelector } from 'react-redux'
+import { useAppSelector } from '../../hooks/redux'
 import HeaderButton from '../HeaderButton'
 import styles from './Header.module.css'
 
 export default function Header() {
 
-	const { selectedDay } = useSelector((state:any) => state.headerReducer)
+	const { selectedDay } = useAppSelector(state => state.headerReducer)
 
 	return (
 		<header className={styles.header}>
 			<div className="container">
 				<nav className={styles.navbar}>
-					<HeaderButton id="1">
+					<HeaderButton id={1}>
 						Пн
 					</HeaderButton>
-					<HeaderButton id="2">
+					<HeaderButton id={2}>
 						Вт
 					</HeaderButton>
-					<HeaderButton id="3">
+					<HeaderButton id={3}>
 						Ср
 					</HeaderButton>
-					<HeaderButton id="4">
+					<HeaderButton id={4}>
 						Чт
 					</HeaderButton>
-					<HeaderButton id="5">
+					<HeaderButton id={5}>
 						Пт
 					</HeaderButton>
-					<HeaderButton id="6">
+					<HeaderButton id={6}>
 						Сб
 					</HeaderButton>
-					<HeaderButton id="0">
+					<HeaderButton id={0}>
 						Вс
 					</HeaderButton>
 					<div className={styles.settings_icon}></div>

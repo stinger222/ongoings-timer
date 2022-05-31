@@ -1,11 +1,17 @@
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { selectDay } from "../redux/reducers/headerReducer";
 import styles from './Header/Header.module.css';
 
-export default function HeaderButton({id, children}:any) {
+interface IHeaderButtonProps {
+	id: number,
+	children?: React.ReactNode,
+} 
 
-	const { selectedDay, today} = useSelector((state:any) => state.headerReducer)
-	const dispatch = useDispatch()
+export default function HeaderButton({id, children}: IHeaderButtonProps) {
+
+	const { selectedDay, today} = useAppSelector(state => state.headerReducer)
+	const dispatch = useAppDispatch()
 
 	const classNames = `
 		${selectedDay == id ? styles.is_selected : ''} 

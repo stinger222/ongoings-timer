@@ -1,6 +1,11 @@
+import { ITrelloCardData } from './../../models/cardsModels';
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = {
+interface ICardsState {
+	distributedData: ITrelloCardData[]
+}
+
+const initialState: ICardsState = {
 	// Array index represents day of the week (0 - Sunday, 6 - Saturday)
 	distributedData: []
 }
@@ -14,6 +19,7 @@ const cardsReducer = createSlice({
 		}
 	}
 })
+
 
 export const { distributeCard } = cardsReducer.actions
 

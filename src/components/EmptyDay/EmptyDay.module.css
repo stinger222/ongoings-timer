@@ -1,0 +1,7 @@
+.img_204 {
+	position: fixed;
+	bottom: 0;
+	left: 50%;
+	transform: translate(-50%, 0);
+	height: min(85vh, 115vw);
+}

@@ -1,6 +1,6 @@
+import { animated, useSpring } from "react-spring"
 import styles from './EmptyDay.module.css'
 import img from "../../images/204_1.png"
-import { animated, useSpring } from "react-spring"
 
 export default function EmptyDay() {
 
@@ -13,7 +13,7 @@ export default function EmptyDay() {
 		},
 		delay: 50,
 		config: {
-			duration: 250
+			duration: 150
 		}
 	})
 

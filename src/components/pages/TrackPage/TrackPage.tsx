@@ -1,8 +1,7 @@
-import { useEffect } from "react";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { fetchCardsData } from "../../../redux/reducers/cardsReducer";
-import EmptyDay from "../../EmptyDay/EmptyDay";
 import TrackItem from "../../TrackItem/TrackItem";
+import EmptyDay from "../../EmptyDay/EmptyDay";
 import styles from "./TrackPage.module.css";
 
 export default function TrackPage() {
@@ -19,8 +18,11 @@ export default function TrackPage() {
 		<section className={`${styles.track_list} container`}>
 			<button onClick={fetchCards}>adslfksdlfk</button>
 			{
-				selectedDayCardsData?.length !== 0 && selectedDayCardsData.map(data => <TrackItem {...data} key={data.cardId}/>)
+				selectedDayCardsData?.length !== 0 && selectedDayCardsData.map((data, index) => (
+					<TrackItem cardData={data} index={index} key={data.cardId}/>)
+				)
 			}
+			
 			{
 				selectedDayCardsData?.length === 0 && <EmptyDay/> 
 			}

@@ -10,22 +10,45 @@ That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)
 	--border-width: 2;
 	display: flex;
 	gap: 2em;
+
+	position: relative;
 	
-	height: 300px;
+	height: 250px;
 	margin-bottom: 1em;
 
-	border: calc(1px * var(--border-width)) solid rgb(90, 17, 226);
+	border: calc(1px * var(--border-width)) solid rgb(0, 0, 0);
 	border-radius: calc(1em * var(--border-radius));
 }
 
-.card h2 {
+.card a {
 	font-size: 2.1em;
 	font-weight: 600;
 }
 
+.icon_wrapper {
+	position: absolute;
+	top: 2.3em;
+	right: 2em;
+
+	display: flex;
+	justify-content: space-around;
+	gap: 0.8em;
+
+	height: 1.4em;
+}
+
+.icon {
+	line-height: 0 !important;
+	font-size: 0 !important;
+}
+
+.icon img {
+	height: 100%;
+}
+
 .image {
-	border-top-left-radius: calc((16px * var(--border-radius)) - calc(1px * var(--border-width)));
-	border-bottom-left-radius: calc((16px * var(--border-radius)) - calc(1px * var(--border-width)));
+	border-top-left-radius: calc((14px * var(--border-radius)) - calc(1px * var(--border-width)));
+	border-bottom-left-radius: calc((14px * var(--border-radius)) - calc(1px * var(--border-width)));
 	margin: -1px;
   z-index: -1;
 }
@@ -37,15 +60,22 @@ That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)
 	padding: 1.5em 0 1.5em 0;
 }
 
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 850px) {
 	.card {
-		height: 29vw;
+		height: 29.5vw;
 		margin-bottom: 1.7vw;
 		gap: 3.2vw;
 	}
+
+	.icon_wrapper {
+		top: 3.8vw;
+		right: 3.2vw;
+		gap: 1.2vw;
+		height: 2.3vw;
+	}
 	
 	.info {
-		font-size: 1.55vw;
+		font-size: 1.65vw;
 	}
 }
 
@@ -58,12 +88,13 @@ That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)
 @media only screen and (max-width: 570px) {
 	.card {
 		--border-radius: 1.2;
-		--border-width: 1;
+		--border-width: 2;
 	}
 }
 
 @media only screen and (max-width: 350px) {
 	.card {
 		--border-radius: 0.7;
+		--border-width: 1;
 	}
 }

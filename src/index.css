@@ -8,11 +8,10 @@
 }
 
 html, :root, #root {
-	font-size: 16px;
-	/* todo: changing this color in settings pannel */
+	font-size: 14px;
 	width: 100vw;
 	display: inline;
-} 
+}
 
 body {
 	box-sizing: border-box;
@@ -26,15 +25,26 @@ body {
 	width: 100vw;
 }
 
+a {
+	text-decoration: none;
+	color: inherit;
+}
+
+button {
+	background: none;
+	outline: none;
+	border: none;
+	font-size: inherit;
+}
 
 .container {
 	margin: 0 auto;
 	padding: 0 50px;
-	max-width: 930px;
+	max-width: 750px;
 }
 
-@media only screen and (max-width: 1030px) {
+@media only screen and (max-width: 850px) {
 	.container {
-		padding: 0 4.5vw !important;
+		padding: 0 5.8vw !important; 
 	}
 }

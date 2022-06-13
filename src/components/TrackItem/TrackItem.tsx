@@ -3,14 +3,15 @@ import { ITrelloCardData } from "../../models/cardsModels";
 import ProgressBar from "../ProgressBar/ProgressBar";
 import Timer from "../Timer/Timer";
 import styles from "./TrackItem.module.css";
+import CheckIcon from '../../images/check.svg';
+import TrelloIcon from '../../images/trello.svg';
 
-
-interface iProps {
+interface IProps {
 	cardData: ITrelloCardData,
 	index: number
 }
 
-export default function TrackItem({ cardData, index }: iProps) {
+export default function TrackItem({ cardData, index }: IProps) {
 	const {
 		checkItems,
 		checkItemsChecked,
@@ -25,8 +26,8 @@ export default function TrackItem({ cardData, index }: iProps) {
 	const [playerUrl, imageUrl] = cardDesc.split('\n')
 
 	const spring = useSpring({
-		from: {x: -80, opacity: 0},
-		to: {x: 0, opacity: 1},
+		from: { x: -80, opacity: 0 },
+		to: { x: 0, opacity: 1 },
 		delay: 90 * index + 40,
 		config: {
 			duration: 300,
@@ -36,9 +37,18 @@ export default function TrackItem({ cardData, index }: iProps) {
 
 	return (
 		<animated.div style={spring} className={styles.card}>
+			<div className={styles.icon_wrapper}>
+				<a href="#" className={styles.icon}>
+					<img src={CheckIcon} />
+				</a>
+				<a className={styles.icon}>
+					<img src={TrelloIcon} />
+				</a>
+			</div>
+
 			<img className={styles.image} src={imageUrl}/>
 			<div className={styles.info}>
-				<h2>{title}</h2>
+				<a href={playerUrl} title="Go to player...">{title}</a>
 				<ProgressBar checkItems={checkItems} checkItemsChecked={checkItemsChecked}/>
 				<Timer targetDate={rawTargetDate}/>
 			</div>

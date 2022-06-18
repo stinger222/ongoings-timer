@@ -1,0 +1,28 @@
+.loader_wrapper {
+	display: flex;
+	justify-content: center;
+}
+
+.loader {
+	--loader-size: min(100px, 12vw);
+	--loader-color: rgb(60, 60, 60);
+
+	height: var(--loader-size);
+	width: var(--loader-size);
+
+	border: min(8px, 1vw) solid transparent;
+	border-radius: 50%;
+	border-top-color: var(--loader-color);
+	border-bottom-color: var(--loader-color);
+
+	animation: spin .8s linear infinite;
+}
+
+@keyframes spin {
+	0% {
+		transform: rotateZ(0deg);
+	}
+	100% {
+		transform: rotateZ(360deg);
+	}
+}

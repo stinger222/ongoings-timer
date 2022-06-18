@@ -20,8 +20,8 @@ const initialState: ICardsState = {
 		[],
 		[
 			{
-				checkItems: 13,
-				checkItemsChecked: 2,
+				checkItems: 99,
+				checkItemsChecked: 93,
 				checklistId: "sldfkfjs#(*98342",
 				cardTitle: "Перестану Быть Героем - Вт 20:00",
 				cardDesc: `https://amedia.online/1086-perestanu-byt-geroem.html\nhttps://amedia.online/uploads/posts/2022-03/thumbs/1648116177_1647531170_2.jpg`,

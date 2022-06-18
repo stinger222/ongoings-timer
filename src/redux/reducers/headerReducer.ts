@@ -13,13 +13,10 @@ const headerReducer = createSlice({
 	reducers: {
 		selectDay(state: any, action: any)  {
 			state.selectedDay = action.payload
-		},
-		defineToday(state: any, action: any)  {
-			state.todayIs = action.payload
 		}
 	}
 })
 
-export const {selectDay, defineToday} = headerReducer.actions
+export const { selectDay } = headerReducer.actions
 
 export default headerReducer.reducer

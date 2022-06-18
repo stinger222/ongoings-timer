@@ -38,17 +38,17 @@ export default function TrackItem({ cardData, index }: IProps) {
 	return (
 		<animated.div style={spring} className={styles.card}>
 			<div className={styles.icon_wrapper}>
-				<a href="#" className={styles.icon}>
+				<button className={styles.icon} title="complete next episode">
 					<img src={CheckIcon} />
-				</a>
-				<a className={styles.icon}>
+				</button>
+				<a className={styles.icon} title="card on trllo">
 					<img src={TrelloIcon} />
 				</a>
 			</div>
 
 			<img className={styles.image} src={imageUrl}/>
 			<div className={styles.info}>
-				<a href={playerUrl} title="Go to player...">{title}</a>
+				<a className={styles.title} href={playerUrl} title="go to player">{title}</a>
 				<ProgressBar checkItems={checkItems} checkItemsChecked={checkItemsChecked}/>
 				<Timer targetDate={rawTargetDate}/>
 			</div>

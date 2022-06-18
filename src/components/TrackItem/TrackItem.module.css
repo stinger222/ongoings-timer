@@ -7,7 +7,7 @@ That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)
 
 .card {
 	--border-radius: 2;
-	--border-width: 2;
+	--border-width: 1;
 	display: flex;
 	gap: 2em;
 
@@ -18,11 +18,22 @@ That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)
 
 	border: calc(1px * var(--border-width)) solid rgb(0, 0, 0);
 	border-radius: calc(1em * var(--border-radius));
+	overflow: hidden;
 }
 
-.card a {
+.info {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	padding: 1.5em 0 1.5em 0;
+}
+
+.title {
+	font-family: 'Poiret One', cursive;
 	font-size: 2.1em;
-	font-weight: 600;
+	font-weight: 100;
+	text-shadow: 0.1px 0.1px;
+	width: fit-content;
 }
 
 .icon_wrapper {
@@ -40,6 +51,7 @@ That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)
 .icon {
 	line-height: 0 !important;
 	font-size: 0 !important;
+	cursor: pointer;
 }
 
 .icon img {
@@ -47,17 +59,11 @@ That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)
 }
 
 .image {
-	border-top-left-radius: calc((14px * var(--border-radius)) - calc(1px * var(--border-width)));
-	border-bottom-left-radius: calc((14px * var(--border-radius)) - calc(1px * var(--border-width)));
+	border-top-left-radius: calc((15px * var(--border-radius)) - calc(1px * var(--border-width)));
+	border-bottom-left-radius: calc((15px * var(--border-radius)) - calc(1px * var(--border-width)));
+	border: 4px solid #fff;
 	margin: -1px;
   z-index: -1;
-}
-
-.info {
-	display: flex;
-	flex-direction: column;
-	justify-content: space-between;
-	padding: 1.5em 0 1.5em 0;
 }
 
 @media only screen and (max-width: 850px) {
@@ -77,6 +83,10 @@ That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)
 	.info {
 		font-size: 1.65vw;
 	}
+
+	.image {
+		border: max(0.5vw, 3px) solid #fff;
+	}
 }
 
 @media only screen and (max-width: 750px) {
@@ -88,7 +98,7 @@ That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)
 @media only screen and (max-width: 570px) {
 	.card {
 		--border-radius: 1.2;
-		--border-width: 2;
+		--border-width: 1;
 	}
 }
 

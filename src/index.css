@@ -5,6 +5,7 @@
 
 :root {
 	--red-orange: #ff4d00;
+	--hover-color: #818181; 
 }
 
 html, :root, #root {
@@ -15,9 +16,7 @@ html, :root, #root {
 
 body {
 	box-sizing: border-box;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: 'JetBrains Mono', monospace;
 	font-size: 2em;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;

@@ -1,12 +1,12 @@
 .progress_bar span {
-	font-size: 2em;
+	font-size: 1.9em;
 	margin-right: 0.5em;
-	font-weight: 400;
+	font-weight: 100;
 }
 
 .watched {
 	color: red;
-	font-weight: 500 !important;
+	font-weight: 400 !important;
 }
 
 .is_more_after span:last-child {
@@ -14,5 +14,5 @@
 }
 
 .is_more_after span:nth-last-child(2)::after {
-	content: ' ...';
+	content: '...';
 }

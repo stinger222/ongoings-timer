@@ -1,10 +1,14 @@
+import { completeLastCheckItem, updateCard } from "../../redux/reducers/cardsReducer";
 import { easings, useSpring, animated } from "react-spring";
 import { ITrelloCardData } from "../../models/cardsModels";
+import { useAppDispatch } from "../../hooks/redux";
+
 import ProgressBar from "../ProgressBar/ProgressBar";
-import Timer from "../Timer/Timer";
-import styles from "./TrackItem.module.css";
-import CheckIcon from '../../images/check.svg';
 import TrelloIcon from '../../images/trello.svg';
+import CheckIcon from '../../images/check.svg';
+import Timer from "../Timer/Timer";
+
+import styles from "./TrackItem.module.css";
 
 interface IProps {
 	cardData: ITrelloCardData,
@@ -22,6 +26,8 @@ export default function TrackItem({ cardData, index }: IProps) {
 		cardId
 	} = cardData
 
+	const dispatch = useAppDispatch()
+
 	const [title, rawTargetDate] = cardTitle.split(' - ')
 	const [playerUrl, imageUrl] = cardDesc.split('\n')
 
@@ -34,14 +40,29 @@ export default function TrackItem({ cardData, index }: IProps) {
 			easing: easings.easeOutBack
 		}
 	})
+	
+	const handleDebugCardUpdate = () => {
+		dispatch(updateCard({
+			'cardDayId': cardData.cardDayId,
+			'cardId': cardData.cardId,
+			'checkItemsChecked': cardData.checkItemsChecked + 1
+		}))
+	}
+
+	const handleComplete = () => {
+		dispatch(completeLastCheckItem(cardData))
+	}
 
 	return (
 		<animated.div style={spring} className={styles.card}>
 			<div className={styles.icon_wrapper}>
-				<button className={styles.icon} title="complete next episode">
+				<button className={styles.icon} onClick={handleComplete} title="complete next episode">
 					<img src={CheckIcon} />
 				</button>
-				<a className={styles.icon} title="card on trllo">
+				<button className={styles.icon} onClick={handleDebugCardUpdate} title="handle Debug Card Update (without any requests)">
+					<img src={CheckIcon} />
+				</button>
+				<a className={styles.icon} href={cardUrl} title="card on trllo">
 					<img src={TrelloIcon} />
 				</a>
 			</div>

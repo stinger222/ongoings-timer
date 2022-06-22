@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const todayId = new Date().getDay()
+// const todayId = 6
 
 const initialState = {
 	selectedDay: todayId,

@@ -51,6 +51,7 @@ That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)
 .icon {
 	line-height: 0 !important;
 	font-size: 0 !important;
+	display: contents;
 	cursor: pointer;
 }
 

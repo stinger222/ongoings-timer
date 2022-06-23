@@ -46,6 +46,7 @@ That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)
 	gap: 0.8em;
 
 	height: 1.4em;
+	width: max-content;
 }
 
 .icon {

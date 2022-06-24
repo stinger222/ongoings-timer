@@ -9,8 +9,8 @@ interface IProps {
 
 export default function Timer({ rawTargetDate }: IProps) {
 	const [difference, setDifference] = useState<number>(0)
-	const timerParams = useParseDate(difference)
-
+	const timerValue = useParseDate(difference)
+	
 	const targetDayId = Week.getIdByName(rawTargetDate)
 	const [targetHour, targetMinute] = [+rawTargetDate.substring(3, 5), +rawTargetDate.substring(6, 8)]
 
@@ -46,7 +46,7 @@ useEffect(() => {
 
 	return (
 		<h1 className={styles.timer}>
-			{timerParams[0]}:{timerParams[1]}:{timerParams[2]}:{timerParams[3]}<br/>
+			{timerValue}<br/>
 		</h1>
 	)
 }

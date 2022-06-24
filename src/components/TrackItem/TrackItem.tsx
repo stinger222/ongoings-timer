@@ -71,7 +71,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 			<div className={styles.info}>
 				<a className={styles.title} href={playerUrl} title="go to player">{title}</a>
 				<ProgressBar checkItems={checkItems} checkItemsChecked={checkItemsChecked}/>
-				<Timer targetDate={rawTargetDate}/>
+				<Timer rawTargetDate={rawTargetDate}/>
 			</div>
 		</animated.div>
 	)

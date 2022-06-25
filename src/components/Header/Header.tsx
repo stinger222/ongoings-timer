@@ -1,13 +1,10 @@
 import { useAppSelector } from '../../hooks/redux'
-import { Link, useLocation} from 'react-router-dom'
 import HeaderButton from '../HeaderButton'
 import settingsIcon from '../../images/settings.svg'
-import clockIcon from '../../images/clock.svg'
 import styles from './Header.module.css'
 
 export default function Header() {
 	const { selectedDay } = useAppSelector(state => state.headerReducer)
-	const location = useLocation()
 	
 	return (
 		<header className={styles.header}>
@@ -34,23 +31,12 @@ export default function Header() {
 					<HeaderButton id={0}>
 						Вс
 					</HeaderButton>
-					
-					{
-						location.pathname === "/" &&
-							<Link to='/settings'>
-								<img src={settingsIcon} className={styles.settings_icon}  title="settings" />
-							</Link>
-					}
 
-					{
-						location.pathname === "/settings" &&
-							<Link to='/'>
-								<img src={clockIcon} className={styles.settings_icon} title="tack page" />
-							</Link>
-					}
+					{/* <img src={require('../../images/settings.svg').default} className={styles.settings_icon}  title="settings" /> */}
+
 				</nav>
 			</div>
-			<span>Selected Day ID: {selectedDay}</span>
+			{/* <span>Selected Day ID: {selectedDay}</span> */}
 		</header>
 	)
 }

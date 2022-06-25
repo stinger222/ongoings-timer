@@ -4,8 +4,8 @@ import { ITrelloCardData } from "../../models/cardsModels";
 import { useAppDispatch } from "../../hooks/redux";
 
 import ProgressBar from "../ProgressBar/ProgressBar";
-import TrelloIcon from '../../images/trello.svg';
-import CheckIcon from '../../images/check.svg';
+import { ReactComponent as TrelloIcon } from '../../images/trello.svg';
+import { ReactComponent as CheckIcon } from '../../images/check.svg';
 import Timer from "../Timer/Timer";
 
 import styles from "./TrackItem.module.css";
@@ -57,13 +57,13 @@ export default function TrackItem({ cardData, index }: IProps) {
 		<animated.div style={spring} className={styles.card}>
 			<div className={styles.icon_wrapper}>
 				<button className={styles.icon} onClick={handleComplete} title="complete next episode">
-					<img src={CheckIcon} />
+					<CheckIcon/>
 				</button>
-				<button className={styles.icon} onClick={handleDebugCardUpdate} title="handle Debug Card Update (without any requests)">
-					<img src={CheckIcon} />
-				</button>
+				{/* <button className={styles.icon} onClick={handleDebugCardUpdate} title="handle Debug Card Update (without any requests)">
+					<CheckIcon/>
+				</button> */}
 				<a className={styles.icon} href={cardUrl} title="card on trllo">
-					<img src={TrelloIcon} />
+				<TrelloIcon/>
 				</a>
 			</div>
 

@@ -8,34 +8,29 @@ interface IProps {
 }
 
 export default function Timer({ rawTargetDate }: IProps) {
+	const IS_DEV = process.env.NODE_ENV === "development"
+
 	const [difference, setDifference] = useState<number>(0)
 	const timerValue = useParseDate(difference)
 	
 	const targetDayId = Week.getIdByName(rawTargetDate)
 	const [targetHour, targetMinute] = [+rawTargetDate.substring(3, 5), +rawTargetDate.substring(6, 8)]
 
-	const getDayOffset = (today: number, target: number) => {
-		
-		let x =  (target + today) % 7
-		console.log(x);
-		
-		return x
-	}
-
 	// calculate diffenence betwen now and taget unix time
 	useEffect(() => {
 		
 		const currentDate = new Date()
-		const targetDate = new Date(
-			currentDate.getFullYear(),
-			currentDate.getMonth(),
-			currentDate.getDate() + getDayOffset(currentDate.getDay(), targetDayId),
-			targetHour,
-			targetMinute,
-			0
-		)
-		// const targetDate = new Date()
-		// targetDate.set
+		const targetDate = new Date()
+
+		targetDate.setDate(currentDate.getDate() + (targetDayId + 7 - currentDate.getDay()) % 7);
+		targetDate.setHours(targetHour)
+		targetDate.setMinutes(targetMinute)
+		targetDate.setSeconds(0)
+		
+		if (IS_DEV) {
+			console.log(targetDate);
+		}
+		
 		
 		const targetUnixDate = Math.round(targetDate.getTime() / 1000)
 		const currentUnixDate = Math.round(Date.now() / 1000)

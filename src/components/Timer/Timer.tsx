@@ -15,20 +15,27 @@ export default function Timer({ rawTargetDate }: IProps) {
 	const [targetHour, targetMinute] = [+rawTargetDate.substring(3, 5), +rawTargetDate.substring(6, 8)]
 
 	const getDayOffset = (today: number, target: number) => {
-		return (target - 1 + today) % 7
+		
+		let x =  (target + today) % 7
+		console.log(x);
+		
+		return x
 	}
 
 	// calculate diffenence betwen now and taget unix time
 	useEffect(() => {
+		
 		const currentDate = new Date()
 		const targetDate = new Date(
 			currentDate.getFullYear(),
 			currentDate.getMonth(),
-			currentDate.getDate() + getDayOffset(currentDate.getDate(), targetDayId),
+			currentDate.getDate() + getDayOffset(currentDate.getDay(), targetDayId),
 			targetHour,
 			targetMinute,
 			0
 		)
+		// const targetDate = new Date()
+		// targetDate.set
 		
 		const targetUnixDate = Math.round(targetDate.getTime() / 1000)
 		const currentUnixDate = Math.round(Date.now() / 1000)
@@ -36,13 +43,13 @@ export default function Timer({ rawTargetDate }: IProps) {
 		setDifference(targetUnixDate - currentUnixDate)
 	}, [])
 
-useEffect(() => {
-	const interval = setInterval(() => {
-		setDifference((prevDiff: number) => prevDiff - 1)
-	}, 1000)
-	
-	return () => clearInterval(interval)
-}, [])
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setDifference((prevDiff: number) => prevDiff - 1)
+		}, 1000)
+		
+		return () => clearInterval(interval)
+	}, [])
 
 	return (
 		<h1 className={styles.timer}>

@@ -3,9 +3,9 @@ import { easings, useSpring, animated } from "react-spring";
 import { ITrelloCardData } from "../../models/cardsModels";
 import { useAppDispatch } from "../../hooks/redux";
 
-import ProgressBar from "../ProgressBar/ProgressBar";
 import { ReactComponent as TrelloIcon } from '../../images/trello.svg';
 import { ReactComponent as CheckIcon } from '../../images/check.svg';
+import ProgressBar from "../ProgressBar/ProgressBar";
 import Timer from "../Timer/Timer";
 
 import styles from "./TrackItem.module.css";
@@ -20,15 +20,16 @@ export default function TrackItem({ cardData, index }: IProps) {
 		checkItems,
 		checkItemsChecked,
 		checklistId,
-		cardTitle,
+		cardTitle: rawCardTitle,
 		cardDesc,
 		cardUrl,
 		cardId
 	} = cardData
 
 	const dispatch = useAppDispatch()
+	const IS_DEV = process.env.NODE_ENV  === "development"
 
-	const [title, rawTargetDate] = cardTitle.split(' - ')
+	const [title, rawTargetDate] = rawCardTitle.split(' - ')
 	const [playerUrl, imageUrl] = cardDesc.split('\n')
 
 	const spring = useSpring({
@@ -59,9 +60,14 @@ export default function TrackItem({ cardData, index }: IProps) {
 				<button className={styles.icon} onClick={handleComplete} title="complete next episode">
 					<CheckIcon/>
 				</button>
-				{/* <button className={styles.icon} onClick={handleDebugCardUpdate} title="handle Debug Card Update (without any requests)">
-					<CheckIcon/>
-				</button> */}
+
+				{
+					IS_DEV &&
+					<button className={styles.icon} onClick={handleDebugCardUpdate} title="handle Debug Card Update (without any requests)">
+						<CheckIcon/>
+					</button>
+				}
+
 				<a className={styles.icon} href={cardUrl} title="card on trllo">
 				<TrelloIcon/>
 				</a>
@@ -69,7 +75,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 
 			<img className={styles.image} src={imageUrl}/>
 			<div className={styles.info}>
-				<a className={styles.title} href={playerUrl} title="go to player">{title}</a>
+				<a className={styles.title} href={playerUrl} title="go to player">{IS_DEV ? rawCardTitle : title}</a>
 				<ProgressBar checkItems={checkItems} checkItemsChecked={checkItemsChecked}/>
 				<Timer rawTargetDate={rawTargetDate}/>
 			</div>

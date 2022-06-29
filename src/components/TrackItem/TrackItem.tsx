@@ -55,6 +55,12 @@ export default function TrackItem({ cardData, index }: IProps) {
 		dispatch(completeLastCheckItem(cardData))
 	}
 	
+	const handleImageError = (e: any) => {
+		console.error('Can\'t load thumbnail. Replacing with default image...');
+		
+		e.target.src = require('../../images/thumbnail-stub.png')
+	}
+
 	return (
 		<animated.div style={spring} className={styles.card}>
 			<div className={styles.icon_wrapper}>
@@ -74,9 +80,13 @@ export default function TrackItem({ cardData, index }: IProps) {
 				</a>
 			</div>
 
-			{imageUrl && <img className={styles.image} src={imageUrl}/>}
-			{!imageUrl && <ThumbnailStub className={styles.image}/>}
+			<img
+				className={styles.image}
+				src={imageUrl ?? "x"}
+				onError={handleImageError}
+			/>
 			
+
 			<div className={styles.info}>
 				<a className={styles.title} href={playerUrl} title="go to player">{IS_DEV ? rawCardTitle : title}</a>
 				<ProgressBar checkItems={checkItems} checkItemsChecked={checkItemsChecked}/>

@@ -5,6 +5,7 @@ import { useAppDispatch } from "../../hooks/redux";
 
 import { ReactComponent as TrelloIcon } from '../../images/trello.svg';
 import { ReactComponent as CheckIcon } from '../../images/check.svg';
+import { ReactComponent as ThumbnailStub } from '../../images/thumbnail-stub.svg';
 import ProgressBar from "../ProgressBar/ProgressBar";
 import Timer from "../Timer/Timer";
 
@@ -53,7 +54,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 	const handleComplete = () => {
 		dispatch(completeLastCheckItem(cardData))
 	}
-
+	
 	return (
 		<animated.div style={spring} className={styles.card}>
 			<div className={styles.icon_wrapper}>
@@ -73,7 +74,9 @@ export default function TrackItem({ cardData, index }: IProps) {
 				</a>
 			</div>
 
-			<img className={styles.image} src={imageUrl}/>
+			{imageUrl && <img className={styles.image} src={imageUrl}/>}
+			{!imageUrl && <ThumbnailStub className={styles.image}/>}
+			
 			<div className={styles.info}>
 				<a className={styles.title} href={playerUrl} title="go to player">{IS_DEV ? rawCardTitle : title}</a>
 				<ProgressBar checkItems={checkItems} checkItemsChecked={checkItemsChecked}/>

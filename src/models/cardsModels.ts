@@ -15,10 +15,10 @@ export const DEV_destributedData = [
 			checkItems: 99,
 			checkItemsChecked: 80,
 			checklistId: "sldfsdfkfjs#d(*98342",
-			cardTitle: "TEST CARD - Вс 00:09",
-			cardDesc: `https://amedia.online/1086-perestanu-byt-geroem.html\nhttps://amedia.online/uploads/posts/2022-03/thumbs/1648116177_1647531170_2.jpg`,
+			cardTitle: "No thumbnail - Вс 09:09",
+			cardDesc: `https://amedia.online/1086-perestanu-byt-geroem.html`,
 			cardUrl: "Trello card url here",
-			cardId: "sdsdflkfjsdf29ы0dsdfsflkj234",
+			cardId: "sdsdflkfjsdf29sdfsы0dsdfsflkj234",
 			cardDayId: 0
 		}
 	], [
@@ -29,7 +29,7 @@ export const DEV_destributedData = [
 			cardTitle: "TEST CARD - Пн 12:09",
 			cardDesc: `https://amedia.online/1086-perestanu-byt-geroem.html\nhttps://amedia.online/uploads/posts/2022-03/thumbs/1648116177_1647531170_2.jpg`,
 			cardUrl: "Trello card url here",
-			cardId: "sdlkfjвsdf290dsавflkj234",
+			cardId: "sdlkfjвsdf290dsавsdfflkj234",
 			cardDayId: 1
 		}
 	], [
@@ -40,7 +40,7 @@ export const DEV_destributedData = [
 			cardTitle: "TEST CARD - Вт 12:09",
 			cardDesc: `https://amedia.online/1086-perestanu-byt-geroem.html\nhttps://amedia.online/uploads/posts/2022-03/thumbs/1648116177_1647531170_2.jpg`,
 			cardUrl: "Trello card url here",
-			cardId: "sdlkывааfjsdf29а0dssdfflkj234",
+			cardId: "sdlkывааfsdfjsdf29а0dssdfflkj234",
 			cardDayId: 2
 		}
 	], [
@@ -51,9 +51,39 @@ export const DEV_destributedData = [
 			cardTitle: "TEST CARD - Ср 12:09",
 			cardDesc: `https://amedia.online/1086-perestanu-byt-geroem.html\nhttps://amedia.online/uploads/posts/2022-03/thumbs/1648116177_1647531170_2.jpg`,
 			cardUrl: "Trello card url here",
-			cardId: "sdlkfjвsdf29а0dsdfsflkj234",
+			cardId: "sdlkfjвsdf29а0dssdfsdflkj234",
 			cardDayId: 3
-		}
+		},
+		{
+			checkItems: 99,
+			checkItemsChecked: 80,
+			checklistId: "sldfsdfkfjs#d(*98342",
+			cardTitle: "TEST CARD - Ср 12:09",
+			cardDesc: `https://amedia.online/1086-perestanu-byt-geroem.html\nhttps://amedia.online/uploads/posts/2022-03/thumbs/1648116177_1647531170_2.jpg`,
+			cardUrl: "Trello card url here",
+			cardId: "sdlkfjвsdf29а0dsvsddfsflkj234",
+			cardDayId: 3
+		},
+		{
+			checkItems: 99,
+			checkItemsChecked: 80,
+			checklistId: "sldfsdfkfjs#d(*98342",
+			cardTitle: "TEST CARD - Ср 12:09",
+			cardDesc: `https://amedia.online/1086-perestanu-byt-geroem.html\nhttps://amedia.online/uploads/posts/2022-03/thumbs/1648116177_1647531170_2.jpg`,
+			cardUrl: "Trello card url here",
+			cardId: "sdlkfjвssdf29а0sdfdsdfsflkj234",
+			cardDayId: 3
+		},
+		{
+			checkItems: 99,
+			checkItemsChecked: 80,
+			checklistId: "sldfsdfkfjs#d(*98342",
+			cardTitle: "TEST CARD - Ср 12:09",
+			cardDesc: `https://amedia.online/1086-perestanu-byt-geroem.html\nhttps://amedia.online/uploads/posts/2022-03/thumbs/1648116177_1647531170_2.jpg`,
+			cardUrl: "Trello card url here",
+			cardId: "sdlkfjвsdf29а0dsdfsfflkj234",
+			cardDayId: 3
+		},
 		
 	], [{
 		checkItems: 99,
@@ -62,7 +92,7 @@ export const DEV_destributedData = [
 		cardTitle: "TEST CARD - Чт 12:09",
 		cardDesc: `https://amedia.online/1086-perestanu-byt-geroem.html\nhttps://amedia.online/uploads/posts/2022-03/thumbs/1648116177_1647531170_2.jpg`,
 		cardUrl: "Trello card url here",
-		cardId: "sdlksdffjыsdfва290dsflkj234",
+		cardId: "sdlksdffjыsdsfва290dsflkj234",
 		cardDayId: 4
 	}], [{
 		checkItems: 99,

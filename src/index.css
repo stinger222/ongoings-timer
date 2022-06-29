@@ -42,6 +42,19 @@ button {
 	max-width: 750px;
 }
 
+/* Scrollbar */
+::-webkit-scrollbar {
+	width: 15px;
+	background-color: #ffffff;
+}
+
+::-webkit-scrollbar-thumb {
+	background: #b4b4b4;
+	border-radius: 50px;
+	border: 3.5px solid #ffffff;
+}
+
+/* Media Queries */
 @media only screen and (max-width: 850px) {
 	.container {
 		padding: 0 5.8vw !important; 

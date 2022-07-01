@@ -41,7 +41,7 @@ export const completeLastCheckItem = createAsyncThunk(
 			)).json()
 			const targetCheckItem = checkItems.find((i: any) => i.state === 'incomplete')?.id
 
-			if (!targetCheckItem) throw new Error('All checkitems is completed or there is no checklist in this card.')
+			if (!targetCheckItem) throw new Error('All checkitems is completed or there is no checklist in this card.\n')
 
 			// completing targetCheckItem
 			const success = (await(await fetch(

@@ -49,9 +49,9 @@ export default function TrackItem({ cardData, index }: IProps) {
 	
 	const handleDebugCardUpdate = () => {
 		dispatch(updateCard({
-			'cardDayId': cardData.cardDayId,
-			'cardId': cardData.cardId,
-			'checkItemsChecked': cardData.checkItemsChecked + 1
+			cardDayId: cardData.cardDayId,
+			cardId: cardData.cardId,
+			checkItemsChecked: cardData.checkItemsChecked + 1
 		}))
 	}
 
@@ -61,7 +61,6 @@ export default function TrackItem({ cardData, index }: IProps) {
 	
 	const handleImageError = (e: any) => {
 		console.error('Can\'t load thumbnail. Replacing with default image...');
-		
 		e.target.src = require('../../images/thumbnail-stub.png')
 	}
 

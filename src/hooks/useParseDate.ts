@@ -19,10 +19,10 @@ export const useParseDate = (difference: number): string => {
     const seconds = difference
 
     return [isNegative ? "-" + hours : days + ":" + hours, minutes, seconds]
-    .join(':')
-    .replace(/^0:/, "00:")
-    .replace(/^-0:/,"-00:")
-    .replace(":0:", ":00:")
-    .replace(":0:", ":00:")
-    .replace(/:0$/, ":00")
+        .join(':')
+        .replace(/^0:/, "00:")
+        .replace(/^-0:/,"-00:")
+        .replace(":0:", ":00:")
+        .replace(":0:", ":00:")
+        .replace(/:0$/, ":00")
 }

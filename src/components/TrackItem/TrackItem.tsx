@@ -26,11 +26,15 @@ export default function TrackItem({ cardData, index }: IProps) {
 		cardUrl,
 		cardId
 	} = cardData
-
-	const dispatch = useAppDispatch()
+	
 	const IS_DEV = process.env.NODE_ENV  === "development"
 
-	const [title, rawTargetDate] = rawCardTitle.split(' - ')
+	const dispatch = useAppDispatch()
+
+	const delimiterIndex = rawCardTitle.lastIndexOf(' - ')
+	const title = rawCardTitle.substring(0, delimiterIndex)
+	const rawTargetDate = rawCardTitle.substring(delimiterIndex + 3, rawCardTitle.length)
+
 	const [playerUrl, imageUrl] = cardDesc.split('\n')
 
 	const spring = useSpring({

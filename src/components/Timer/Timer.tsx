@@ -18,7 +18,6 @@ export default function Timer({ rawTargetDate }: IProps) {
 
 	// calculate diffenence betwen now and taget unix time
 	useEffect(() => {
-		
 		const currentDate = new Date()
 		const targetDate = new Date()
 

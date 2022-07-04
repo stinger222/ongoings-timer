@@ -1,9 +1,9 @@
-import React from 'react';
 import ReactDOM from 'react-dom/client';
 import App from './App';
 import { Provider } from 'react-redux';
 import { setupStore } from './redux/store';
 import './index.css';
+import { HashRouter as Router } from 'react-router-dom';
 
 const store:any = setupStore()
 
@@ -12,6 +12,8 @@ const root = ReactDOM.createRoot(
 );
 root.render(
 		<Provider store={store}>
-    	<App />
+      <Router>
+    	  <App />
+      </Router>
 		</Provider>
 );

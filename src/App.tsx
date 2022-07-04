@@ -1,25 +1,23 @@
-import { useEffect } from "react";
-import { BrowserRouter as Router, Navigate, Route, Routes, useNavigate } from "react-router-dom";
-import Header from "./components/Header/Header";
-import TrackPage from "./components/pages/TrackPage/TrackPage";
-import WelcomePage from "./components/pages/WelcomePage/WelcomePage";
+import { Navigate, useNavigate, Route, Routes } from "react-router-dom";
 import { useAppDispatch } from "./hooks/redux";
-import { signIn } from "./redux/reducers/authReducer";
+import { useEffect } from "react";
+import WelcomePage from "./components/pages/WelcomePage/WelcomePage";
+import TrackPage from "./components/pages/TrackPage/TrackPage";
+import Header from "./components/Header/Header";
 
 
 function App() {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
 
-
 	const authenticationSuccess = () => {
 		console.log('SUCCESS');
-		navigate('/track')
+		navigate('../track', {replace: true})
 	}
 
 	const authenticationFailure = () => {
 		console.log('FAILURE')
-		navigate('/welcome')
+		navigate('../welcome', {replace: true})
 	}
 	
 	// Signed Up?...
@@ -39,9 +37,6 @@ function App() {
 
 		console.log("LOGGED??????: ", (window as any).Trello.authorized());
 
-		if ((window as any).Trello.authorized()) {
-			dispatch(signIn())
-		}
 	}, [])
 
 	return <>
@@ -49,7 +44,7 @@ function App() {
 		<Routes>
 			<Route path="/welcome" element={<WelcomePage/>}/>
 			<Route path="/track" element={<TrackPage/>}/>
-			{/* <Route path="*" element={<Navigate to='/welcome' replace/>}/> */}
+			<Route path="*" element={<Navigate to='/welcome' replace/>}/>
 		</Routes>
 	</>
 }

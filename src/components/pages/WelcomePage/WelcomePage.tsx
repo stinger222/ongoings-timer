@@ -1,8 +1,10 @@
+import Trello from "../../../models/Trello"
+
 export default function WelcomePage() {
 
   const handleLogIn = () => {
     
-    (window as any).Trello.authorize({
+    Trello.authorize({
 			type: 'redirect',
 			name: 'Ongoings Timer',
 			scope: {

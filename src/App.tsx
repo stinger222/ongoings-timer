@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import WelcomePage from "./components/pages/WelcomePage/WelcomePage";
 import TrackPage from "./components/pages/TrackPage/TrackPage";
 import Header from "./components/Header/Header";
+import Trello from "./models/Trello";
 
 
 function App() {
@@ -26,13 +27,13 @@ function App() {
 	
 	// Trying to login using stored token and key...
 	useEffect(() => {
-		(window as any).Trello.authorize({
+		Trello.authorize({
 			interactive: false,
 			success: authenticationSuccess,
 			error: authenticationFailure
 		})
 
-    if((window as any).Trello.authorized()) {
+    if(Trello.authorized()) {
       dispatch(authorize())
     }
 	}, [])

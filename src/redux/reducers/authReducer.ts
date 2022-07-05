@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import Trello from "../../models/Trello";
 
 interface IAuthState {
   isAuthorized: boolean,
@@ -17,8 +18,8 @@ const authReducer = createSlice({
 	initialState,
 	reducers: {
 		authorize(state: IAuthState) {
-      state.trello_token =  (window as any).Trello.token()
-      state.trello_key = (window as any).Trello.key()
+      state.trello_token =  Trello.token()
+      state.trello_key = Trello.key()
 
       if (state.trello_key && state.trello_token) {
         state.isAuthorized = true
@@ -29,7 +30,7 @@ const authReducer = createSlice({
       state.trello_token = null
       state.isAuthorized = false;
 
-      (window as any).Trello.deauthorize()
+      Trello.deauthorize()
     },
     update(state: IAuthState) {
       state.isAuthorized = !state.isAuthorized

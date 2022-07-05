@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/ongoing-timers/static/css/main.3b83245e.css",
+    "main.js": "/ongoing-timers/static/js/main.1ed8e5f5.js",
+    "static/media/204_1.png": "/ongoing-timers/static/media/204_1.11d48666f566657b21b2.png",
+    "index.html": "/ongoing-timers/index.html",
+    "static/media/trello.svg": "/ongoing-timers/static/media/trello.cef615b789ab68746379dbd16ebed8d3.svg",
+    "static/media/check.svg": "/ongoing-timers/static/media/check.6faa808927051e5551e28aeecc1ec30b.svg",
+    "main.3b83245e.css.map": "/ongoing-timers/static/css/main.3b83245e.css.map",
+    "main.1ed8e5f5.js.map": "/ongoing-timers/static/js/main.1ed8e5f5.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.3b83245e.css",
+    "static/js/main.1ed8e5f5.js"
+  ]
+}

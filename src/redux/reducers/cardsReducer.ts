@@ -1,11 +1,10 @@
 
 import { DEV_destributedData, ITrelloCardData } from './../../models/cardsModels';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { RootState } from '../store';
 import { Week } from '../../models/Week';
 
 const IS_DEV = process.env.NODE_ENV === "development"
-const api_key = process.env.REACT_APP_API_KEY
-const token = process.env.REACT_APP_API_TOKEN
 
 interface ICardsState {
 	distributedData: Array<Array<ITrelloCardData>> | [],
@@ -20,9 +19,12 @@ const initialState: ICardsState = {
 
 export const fetchCardsData = createAsyncThunk(
 	"cardsReducer/fetchCardsData",
-	async (_, { dispatch, rejectWithValue }) => {
+	async (_, { dispatch, rejectWithValue, getState}) => {
+    const state = getState() as RootState
+    const {trello_key, trello_token} = state.authReducer
+
 		try {
-			const response = await fetch(`https://api.trello.com/1/lists/6183f62d391703028ab27218/cards/?key=${api_key}&token=${token}`)
+			const response = await fetch(`https://api.trello.com/1/lists/6183f62d391703028ab27218/cards/?key=${trello_key}&token=${trello_token}`)
 			const data = await response.json()
 			dispatch(distributeCards(data))
 		} catch (err) {
@@ -33,11 +35,14 @@ export const fetchCardsData = createAsyncThunk(
 
 export const completeLastCheckItem = createAsyncThunk(
 	"cardsReducer/completeLastCheckItem",
-	async (cardData: ITrelloCardData, { dispatch, rejectWithValue }) => {
+	async (cardData: ITrelloCardData, { dispatch, rejectWithValue, getState }) => {
+    const state = getState() as RootState
+    const {trello_key, trello_token} = state.authReducer
+
 		try {
 			// getting checkItems, searching for firs incomplete checkItem and getting it's id
 			const checkItems = await (await fetch(
-				`https://api.trello.com/1/checklists/${cardData.checklistId}/checkItems?key=${api_key}&token=${token}`
+				`https://api.trello.com/1/checklists/${cardData.checklistId}/checkItems?key=${trello_key}&token=${trello_token}`
 			)).json()
 			const targetCheckItem = checkItems.find((i: any) => i.state === 'incomplete')?.id
 
@@ -45,7 +50,7 @@ export const completeLastCheckItem = createAsyncThunk(
 
 			// completing targetCheckItem
 			const success = (await(await fetch(
-				`https://api.trello.com/1/cards/${cardData.cardId}/checkItem/${targetCheckItem}?state=complete&key=${api_key}&token=${token}`,
+				`https://api.trello.com/1/cards/${cardData.cardId}/checkItem/${targetCheckItem}?state=complete&key=${trello_key}&token=${trello_token}`,
 				{	method: "PUT" }
 			)).json()).state === 'complete'
 
@@ -110,7 +115,6 @@ const cardsReducer = createSlice({
 		builder.addCase(completeLastCheckItem.rejected, (state, action: any) => {
 			console.error(action.payload)
 		})
-		
 	}
 })
 

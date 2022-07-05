@@ -11,22 +11,23 @@ import styles from "./TrackPage.module.css";
 
 export default function TrackPage() {
 	const dispatch = useAppDispatch()
+
 	const selectedDay = useAppSelector(state => state.headerReducer.selectedDay)
 	const selectedDayCardsData = useAppSelector(state => state.cardsReducer.distributedData[selectedDay])
 	const isPending = useAppSelector(state => state.cardsReducer.isPending)
+  const isAuthorized = useAppSelector(state => state.authReducer.isAuthorized)
 	
 	const IS_DEV = process.env.NODE_ENV === "development"
 
-	//temp
 	const fetchCards = () => {
 		dispatch(fetchCardsData())
 	}
 	
 	useEffect(() => {
-		if (!IS_DEV) {
+		if (!IS_DEV && isAuthorized) {
 			fetchCards()
-		} 
-	}, [])
+		}
+	}, [isAuthorized])
 
 	return (
 		<section className={`${styles.track_list} container`}>

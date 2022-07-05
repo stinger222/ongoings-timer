@@ -1,6 +1,8 @@
-import { Navigate, useNavigate, Route, Routes } from "react-router-dom";
+import { useNavigate, Route, Routes, Navigate } from "react-router-dom";
 import { useAppDispatch } from "./hooks/redux";
+import { authorize } from "./redux/reducers/authReducer";
 import { useEffect } from "react";
+
 import WelcomePage from "./components/pages/WelcomePage/WelcomePage";
 import TrackPage from "./components/pages/TrackPage/TrackPage";
 import Header from "./components/Header/Header";
@@ -11,32 +13,28 @@ function App() {
 	const navigate = useNavigate()
 
 	const authenticationSuccess = () => {
-		console.log('SUCCESS');
-		navigate('../track', {replace: true})
+		console.log('Soft Login: SUCCESS');
+    dispatch(authorize())
+
+		navigate('/track')
 	}
 
 	const authenticationFailure = () => {
-		console.log('FAILURE')
-		navigate('../welcome', {replace: true})
+		console.error('Soft Login: FAILURE\n')
+		navigate('/welcome')
 	}
 	
-	// Signed Up?...
+	// Trying to login using stored token and key...
 	useEffect(() => {
 		(window as any).Trello.authorize({
-			name: 'Ongoings Timer',
-			scope: {
-				read: true,
-				write: true,
-				account: false
-			},
 			interactive: false,
-			expiration: '30days',
 			success: authenticationSuccess,
 			error: authenticationFailure
 		})
 
-		console.log("LOGGED??????: ", (window as any).Trello.authorized());
-
+    if((window as any).Trello.authorized()) {
+      dispatch(authorize())
+    }
 	}, [])
 
 	return <>
@@ -44,7 +42,6 @@ function App() {
 		<Routes>
 			<Route path="/welcome" element={<WelcomePage/>}/>
 			<Route path="/track" element={<TrackPage/>}/>
-			<Route path="*" element={<Navigate to='/welcome' replace/>}/>
 		</Routes>
 	</>
 }

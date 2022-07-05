@@ -1,16 +1,18 @@
 export default function WelcomePage() {
 
   const handleLogIn = () => {
+    
     (window as any).Trello.authorize({
 			type: 'redirect',
 			name: 'Ongoings Timer',
 			scope: {
 				read: true,
-				write: true,
-				account: false
+				write: true
 			},
 			interactive: true,
-			expiration: '30days'
+			expiration: '30days',
+      success: () => console.log("Explicit Login: SUCCESS"),
+      error: () => console.log("Explicit Login: FAILURE")
 		})
   }
 

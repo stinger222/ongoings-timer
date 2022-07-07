@@ -1,4 +1,4 @@
-import { useNavigate, Route, Routes, Navigate } from "react-router-dom";
+import { useNavigate, Route, Routes } from "react-router-dom";
 import { useAppDispatch } from "./hooks/redux";
 import { authorize } from "./redux/reducers/authReducer";
 import { useEffect } from "react";
@@ -12,18 +12,19 @@ import Trello from "./models/Trello";
 function App() {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
-
+  
 	const authenticationSuccess = () => {
-		console.log('Soft Login: SUCCESS');
-    dispatch(authorize())
+		console.log('Soft Login: SUCCESS')
 
-		navigate('/track')
-	}
+    dispatch(authorize())
+    navigate('/track')
+   }
 
 	const authenticationFailure = () => {
 		console.error('Soft Login: FAILURE\n')
-		navigate('/welcome')
-	}
+    
+    navigate('/welcome')
+   }
 	
 	// Trying to login using stored token and key...
 	useEffect(() => {
@@ -33,7 +34,7 @@ function App() {
 			error: authenticationFailure
 		})
 
-    if(Trello.authorized()) {
+    if( Trello.authorized() ) {
       dispatch(authorize())
     }
 	}, [])

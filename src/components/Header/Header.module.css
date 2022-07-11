@@ -65,5 +65,16 @@
 		height: 4.7vw;
 		width: 4.7vw;
 	}
+}
 
+@media only screen and (max-width: 700px) {
+	.header {
+		font-size: 5vw;
+	}
+}
+
+@media only screen and (max-width: 500px) {
+	.header {
+		font-size: 6.5vw;
+	}
 }

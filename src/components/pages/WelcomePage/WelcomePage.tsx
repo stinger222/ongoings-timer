@@ -19,7 +19,7 @@ const handleLogIn = () => {
 
 export default function WelcomePage() {
 
-  return <>
+  return <div className={styles.wrapper}>
     <h1 className={styles.title}>Ongoings Timer</h1>
     <div className={styles.content}>
 
@@ -47,10 +47,11 @@ export default function WelcomePage() {
         </div>
       </div>
     </div>
-    
+		
     <footer className={styles.footer}>
       <a href="https://github.com/stinger222/ongoings-timer"> More info on GitHub </a>
       <GitLogo className={styles.git_logo}/>
     </footer>
-  </>
+    
+  </div>
 }

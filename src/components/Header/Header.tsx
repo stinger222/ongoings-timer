@@ -1,6 +1,6 @@
 import { useAppSelector } from '../../hooks/redux'
 import HeaderButton from '../HeaderButton'
-import settingsIcon from '../../images/settings.svg'
+import settingsIcon from '../../assets/settings.svg'
 import styles from './Header.module.css'
 
 export default function Header() {
@@ -32,7 +32,7 @@ export default function Header() {
 						Вс
 					</HeaderButton>
 
-					{/* <img src={require('../../images/settings.svg').default} className={styles.settings_icon}  title="settings" /> */}
+					{/* <img src={require('../../assets/settings.svg').default} className={styles.settings_icon}  title="settings" /> */}
 
 				</nav>
 			</div>

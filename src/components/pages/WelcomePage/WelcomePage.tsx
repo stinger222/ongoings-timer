@@ -1,6 +1,6 @@
 import Trello from "../../../models/Trello";
 import styles from "./WelcomePage.module.css";
-import { ReactComponent as GitLogo } from "../../../images/github.svg";
+import { ReactComponent as GitLogo } from "../../../assets/github.svg";
 
 const handleLogIn = () => {
   Trello.authorize({

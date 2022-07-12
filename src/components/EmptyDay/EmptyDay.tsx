@@ -19,7 +19,7 @@ export default function EmptyDay() {
 	return (
 		<animated.div style={spring}>
 			<h1 className={styles.message}>Nothing Here Yet</h1>
-				<img className={styles.img_204} src={require('../../images/204_1.png')}/>
+				<img className={styles.img_204} src={require('../../assets/204_1.png')}/>
 		</animated.div>
 	)
 }

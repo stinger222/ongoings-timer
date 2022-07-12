@@ -3,9 +3,9 @@ import { easings, useSpring, animated } from "react-spring";
 import { ITrelloCardData } from "../../models/cardsModels";
 import { useAppDispatch } from "../../hooks/redux";
 
-import { ReactComponent as TrelloIcon } from '../../images/trello.svg';
-import { ReactComponent as CheckIcon } from '../../images/check.svg';
-import { ReactComponent as ThumbnailStub } from '../../images/thumbnail-stub.svg';
+import { ReactComponent as TrelloIcon } from '../../assets/trello.svg';
+import { ReactComponent as CheckIcon } from '../../assets/check.svg';
+import { ReactComponent as ThumbnailStub } from '../../assets/thumbnail-stub.svg';
 import ProgressBar from "../ProgressBar/ProgressBar";
 import Timer from "../Timer/Timer";
 
@@ -61,7 +61,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 	
 	const handleImageError = (e: any) => {
 		console.error('Can\'t load thumbnail. Replacing with default image...');
-		e.target.src = require('../../images/thumbnail-stub.png')
+		e.target.src = require('../../assets/thumbnail-stub.png')
 	}
 
 	return (

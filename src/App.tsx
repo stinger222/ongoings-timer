@@ -40,10 +40,13 @@ function App() {
 	}, [])
 
 	return <>
-		<Header />
 		<Routes>
 			<Route path="/welcome" element={<WelcomePage/>}/>
-			<Route path="/track" element={<TrackPage/>}/>
+			<Route path="/track" element={<>
+		    <Header />
+        <TrackPage/>
+      </>}
+      />
 		</Routes>
 	</>
 }

@@ -66,6 +66,23 @@
   filter: brightness(.8)
 }
 
+.footer {
+  font-weight: 100;
+  font-size: 18px;
+  text-align: center;
+
+  position: absolute;
+  bottom: 0.7em;
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+.git_logo {
+  height: 1.2em;
+  width: 1.2em;
+  transform: translate(0, 10%);
+}
+
 /* Media Queries */
 
 @media only screen and (max-width: 1350px) {
@@ -112,6 +129,10 @@
     font-size: 20px;
     order: -1;
   }
+
+  .footer {
+    font-size: 16px;
+  }
 }
 
 @media only screen and (max-width: 450px) {
@@ -129,5 +150,9 @@
     font-size: 2.2vw;
     width: 82vw;
     height: 29vw;
+  }
+
+  .footer {
+    font-size: 3.5vw;
   }
 }

@@ -1,5 +1,6 @@
 import Trello from "../../../models/Trello";
 import styles from "./WelcomePage.module.css";
+import { ReactComponent as GitLogo } from "../../../images/github.svg";
 
 const handleLogIn = () => {
   Trello.authorize({
@@ -46,5 +47,10 @@ export default function WelcomePage() {
         </div>
       </div>
     </div>
+    
+    <footer className={styles.footer}>
+      <a href="https://github.com"> More info on GitHub </a>
+      <GitLogo className={styles.git_logo}/>
+    </footer>
   </>
 }

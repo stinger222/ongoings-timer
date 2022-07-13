@@ -90,6 +90,7 @@
 
 /* Media Queries */
 
+/* >2000px */
 @media only screen and (min-width: 2000px) {
 	.wrapper {
 		font-size: 0.8vw;
@@ -166,4 +167,24 @@
   .footer {
     font-size: 3.5vw;
   }
+}
+
+/* Height Querues */
+
+@media only screen and (max-height: 750px) and  (max-width: 2000px) {
+	.title {
+		margin: 15vh 0 20vh 0;
+	}
+}
+
+@media only screen and (max-height: 1400px) and  (min-width: 4000px) {
+	.title {
+		margin: 15vh 0 20vh 0;
+	}
+}
+
+@media only screen and (max-height: 1700px) and  (min-width: 4900px) {
+	.title {
+		margin: 15vh 0 20vh 0;
+	}
 }

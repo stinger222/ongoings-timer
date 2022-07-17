@@ -1,14 +1,17 @@
-import { useAppSelector } from '../../hooks/redux'
 import HeaderButton from '../HeaderButton'
-import settingsIcon from '../../assets/settings.svg'
+import Dropdown from '../Dropdown/Dropdown';
+
+import { useAppDispatch, useAppSelector } from '../../hooks/redux';
+import { setDropdownState } from '../../redux/reducers/headerReducer';
+import { ReactComponent as SettingsIcon } from "../../assets/settings-stroke.svg";
 import styles from './Header.module.css'
 
 export default function Header() {
-	const { selectedDay } = useAppSelector(state => state.headerReducer)
-	
+  const dispatch = useAppDispatch()
+  const isDropdownOpen = useAppSelector(state => state.headerReducer.isDropdownOpen)
+
 	return (
 		<header className={styles.header}>
-			<div className="container">
 				<nav className={styles.navbar}>
 					<HeaderButton id={1}>
 						Пн
@@ -31,12 +34,15 @@ export default function Header() {
 					<HeaderButton id={0}>
 						Вс
 					</HeaderButton>
-
-					{/* <img src={require('../../assets/settings.svg').default} className={styles.settings_icon}  title="settings" /> */}
-
 				</nav>
-			</div>
-			{/* <span>Selected Day ID: {selectedDay}</span> */}
+        <SettingsIcon
+          className={styles.settings_icon}
+          onClick={() => dispatch(setDropdownState(!isDropdownOpen))}
+        />
+
+        {isDropdownOpen && 
+          <Dropdown className={styles.dropdown}/>
+        }
 		</header>
 	)
 }

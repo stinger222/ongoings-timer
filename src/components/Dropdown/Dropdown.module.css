@@ -1,0 +1,122 @@
+.dropdown {
+  z-index: 2;
+  box-sizing: border-box;
+
+  font-size: 0.33em;
+  text-align: center;
+
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  overflow: hidden;
+
+  width: 34em;
+
+  background: white;
+  color: #000;
+
+  border: 2px solid black;
+  border-radius: 1.5em;
+  transition: height .5s ease;
+}
+
+.dropdown > div {
+  padding: 1em 2em;
+}
+
+.dropdown > * {
+  width: 100%;
+}
+
+.header {
+  height: fit-content;
+  position: relative;
+  
+  font-size: 1.9em;
+  font-weight: 400;
+
+  border-bottom: 2px solid gray;
+  
+  padding-bottom: 0.5em;
+  margin-bottom: 0.7em;
+}
+
+.header_back {
+  position: absolute;
+  left: 0;
+  top: 0;
+
+  height: 1.4em;
+  width: 1.4em;
+  
+  transition: filter .2s ease;
+  background: rgb(236, 236, 236);
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+.header_back:hover {
+  filter: brightness(.9)
+}
+
+.dropdown_item {
+  position: relative;
+  height: 4.4em;
+  border-radius: 100px;
+  
+  vertical-align: middle;
+  color: #fff;
+  background: #000;
+  
+  cursor: pointer;
+  user-select: none;
+}
+
+.dropdown_item:hover {
+  opacity: 0.8;
+}
+
+.dropdown_item + .dropdown_item {
+  margin-top: 0.7em;
+}
+
+.dropdown_item_icon {
+  position: absolute;
+  height: 2.2em;
+  width: 2.2em;
+  left: 2em;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.dropdown_item_icon path {
+  fill: #fff;
+}
+
+.dropdown_item_text {
+  line-height: 2.6em;
+  font-weight: 700;
+  font-size: 1.7em;
+}
+
+/* CSSTransition animation classes */
+
+.mainMenuEnterActive {
+  position: absolute;
+  transform: translateX(-130%);
+}
+
+.mainMenuEnterDone {
+  transform: translateX(0);
+  transition: all .5s ease;
+}
+
+.mainMenuExitActive {
+  transform: translateX(130%);
+  transition: all .5s ease;
+}
+
+.mainMenuExitDone {
+  transform: translateX(-130%);
+}
+

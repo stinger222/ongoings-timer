@@ -1,5 +1,10 @@
 .header {
 	font-size: 2.5em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 1.7em 0 3em 0;
+  position: relative;
 }
 
 .navbar {
@@ -7,7 +12,27 @@
 	align-items: center;
 	justify-content: center;
 	gap: 0.85em;
-	margin: 1.4em 0 2em 0;
+}
+
+.settings_icon {
+  margin-left: auto;
+  position: absolute;
+  right: 50px;
+  height: 1em;
+  width: 1em;
+  cursor: pointer;
+  user-select: none;
+}
+
+.settings_icon path {
+  stroke: black;
+  stroke-width: 3px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 4em;
+  right: 0.7em;
 }
 
 .navbar button {
@@ -22,6 +47,7 @@
 	line-height: 1em;
 
 	transition: color .25s linear;
+  cursor: pointer;
 }
 
 .navbar button:not(.is_selected):hover {
@@ -48,23 +74,24 @@
 	color: #bababa;
 }
 
-.settings_icon {
-	position: fixed;
-	height: 40px;
-	width: 40px;
-	top: 0.6em;
-	right: 1.5em;
-}
-
 @media only screen and (max-width: 850px) {
 	.header {
 		font-size: 3.9vw;
-	}
+    margin-bottom: 3em;
+  }
 
-	.settings_icon {
-		height: 4.7vw;
-		width: 4.7vw;
-	}
+  .settings_icon {
+    bottom: -0.9em;
+    right: 50%;
+    transform-origin: 50% 70%;
+    transform: translate(50%, 70%);
+  }
+
+  .dropdown {
+    left: 50%;
+    transform: translateX(-50%);
+    top: 9em;
+  }
 }
 
 @media only screen and (max-width: 700px) {

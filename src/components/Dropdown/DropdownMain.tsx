@@ -9,7 +9,7 @@ export default function DropdownMain() {
 
   const dispatch = useAppDispatch()
   
-  return <>
+  return <div>
     <h1 className={styles.header}>
       Options
       </h1>
@@ -34,5 +34,5 @@ export default function DropdownMain() {
         Trello Settings
       </span>
     </div>
-  </>
+  </div>
 }

@@ -1,20 +1,40 @@
-import { fetchSelectedBoardLists, selectBoard} from "../../redux/reducers/authReducer";
+import { fetchSelectedBoardLists, selectBoard, selectList} from "../../redux/reducers/authReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { ReactComponent as BackIcon } from "../../assets/back.svg";
 import { setActiveMenu } from "../../redux/reducers/headerReducer";
+import { ITrelloList } from "../../models/trelloModels";
 import styles from './Dropdown.module.css';
 
 export default function DropdownMain({ className }: any) {
   const dispatch = useAppDispatch()
-	const { trelloBoards, selectedBoardName, selectedBoardLists }: any = useAppSelector(state => state.authReducer) 
+	const { trelloBoards, selectedBoard, selectedList, selectedBoardLists }: any = useAppSelector(state => state.authReducer) 
 
 	const handleBoardSelect = (e: any) => {
-		dispatch(selectBoard(e.target.value))
-		
-		const selectedBoardId: string = trelloBoards.find((board: any) => {
+
+		const selectedBoard = trelloBoards.find((board: any) => {
 			return board.name === e.target.value
-		}).id
-		dispatch(fetchSelectedBoardLists(selectedBoardId))
+		})
+
+		const _selectedBoard = {
+			id: selectedBoard.id,
+			name: selectedBoard.name
+		}
+		
+		dispatch(selectBoard(_selectedBoard))
+		dispatch(fetchSelectedBoardLists(_selectedBoard.id))
+	}
+
+	const handleListSelect = (e: any) => {
+		const selectedList = selectedBoardLists.find((list: any) => {
+			return list.name === e.target.value
+		})
+
+		const _selectedList: ITrelloList = {
+			id: selectedList.id,
+			name: selectedList.name
+		}
+
+		dispatch(selectList(_selectedList))
 	}
 
   return <div className={className}>
@@ -36,7 +56,7 @@ export default function DropdownMain({ className }: any) {
 
 				{ 
 					(trelloBoards && trelloBoards.length > 0) &&
-						<select onChange={handleBoardSelect} value={selectedBoardName}>
+						<select onChange={handleBoardSelect} value={selectedBoard?.name}>
 							{
 								(trelloBoards as []).map((board: any) => {
 									return (
@@ -59,11 +79,11 @@ export default function DropdownMain({ className }: any) {
 
 				{ 
 					(selectedBoardLists && selectedBoardLists.length > 0) &&
-						<select>
+						<select onChange={handleListSelect} value={selectedList?.name}>
 							{
 								(selectedBoardLists as []).map((list: any) => {
 									return (
-										<option key={list.name}>
+										<option key={list.name} value={list.name}>
 											{list.name}
 										</option>
 									)

@@ -1,3 +1,4 @@
+import { ITrelloList, storageKeys } from './../../models/trelloModels';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getStoredValue, getStoredJSON } from "../../utils/hepler";
 import Trello from "../../models/Trello";
@@ -7,17 +8,19 @@ interface IAuthState {
   trelloToken: string | null,
   trelloKey: string | null,
 	trelloBoards: [] | null,
-	selectedBoardName: string | null,
-	selectedBoardLists: [] | null
+	selectedBoard: string | null,
+	selectedBoardLists: ITrelloList[] | null
+	selectedList: ITrelloList | null
 }
- 
+
 const initialState: IAuthState = {
   isAuthorized: false,
   trelloToken: null,
   trelloKey: null,
 	trelloBoards: null,
-	selectedBoardName: getStoredValue('selectedBoardName'),
-	selectedBoardLists: getStoredJSON('selectedBoardLists')
+	selectedBoard: getStoredJSON('selectedBoard'),
+	selectedBoardLists: getStoredJSON('selectedBoardLists'),
+	selectedList: getStoredJSON('selectedList')
 }
 
 export const fetchTrelloBoards = createAsyncThunk(
@@ -27,7 +30,6 @@ export const fetchTrelloBoards = createAsyncThunk(
 			Trello.get("/members/me/boards").then((boards: any) => {
 				dispatch(setBoards(boards))
 			})
-
 		} catch (err) {
 			return rejectWithValue(err)
 		}
@@ -62,10 +64,14 @@ const authReducer = createSlice({
       }
     },
 		deauthorize(state: IAuthState) {
-      state.trelloKey = null
-      state.trelloToken = null
-      state.isAuthorized = false;
-
+			state.isAuthorized = false,
+			state.trelloToken = null,
+			state.trelloKey = null,
+			state.trelloBoards = null,
+			state.selectedBoard = null,
+			state.selectedBoardLists = null,
+			state.selectedList = null
+			
       Trello.deauthorize()
     },
 		setBoards(state: IAuthState, action: any) {
@@ -73,21 +79,23 @@ const authReducer = createSlice({
 		},
 		setSelectedBoardLists(state: IAuthState, action: any) {
 			state.selectedBoardLists = action.payload
-			localStorage.setItem('selectedBoardLists', JSON.stringify(action.payload))
+			localStorage.setItem(storageKeys.selectedBoardLists, JSON.stringify(action.payload))
 		},
 		selectBoard(state: IAuthState, action: any) {
-			state.selectedBoardName = action.payload
-			localStorage.setItem('selectedBoardName', action.payload)
+			state.selectedBoard = action.payload
+			localStorage.setItem(storageKeys.selectedBoard, JSON.stringify(action.payload))
+		},
+		selectList(state: IAuthState, action: any) {
+			state.selectedList = action.payload
+			localStorage.setItem(storageKeys.selectedList, JSON.stringify(action.payload))
 		}
 	}
 })
 
 export const {
-	authorize,
-	deauthorize,
-	setBoards,
-	selectBoard,
-	setSelectedBoardLists
+	authorize, deauthorize,
+	setBoards, selectBoard,
+	selectList, setSelectedBoardLists
 } = authReducer.actions
 
 export default authReducer.reducer

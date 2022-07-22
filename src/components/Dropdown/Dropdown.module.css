@@ -1,3 +1,4 @@
+/* Shared styles among all dropdown menus: */
 .dropdown {
   z-index: 2;
   box-sizing: border-box;
@@ -20,12 +21,12 @@
   transition: height .5s ease;
 }
 
-.dropdown > div {
-  padding: 1em 2em;
-}
-
 .dropdown > * {
   width: 100%;
+}
+
+.dropdown_content {
+  padding: 1em 2em 1.2em 2em;
 }
 
 .header {
@@ -46,8 +47,8 @@
   left: 0;
   top: 0;
 
-  height: 1.4em;
-  width: 1.4em;
+  height: 1.3em;
+  width: 1.3em;
   
   transition: filter .2s ease;
   background: rgb(236, 236, 236);
@@ -59,6 +60,11 @@
   filter: brightness(.9)
 }
 
+.body {
+	font-size: 2em;
+}
+
+/* Dropdown Main Menu styles: */
 .dropdown_item {
   position: relative;
   height: 4.4em;
@@ -99,11 +105,54 @@
   font-size: 1.7em;
 }
 
-/* CSSTransition animation classes */
+.not_found {
+	font-size: 0.8em;
+	font-weight: 100
+}
 
+/* Dropdown Settings Menu styles: */
+
+.settings_item {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.settings_item + .settings_item {
+	margin-top: 0.3em;
+}
+
+.setting_name {
+	font-weight: 600;
+}
+
+.settings_item select {
+	width: 60%;
+	border-radius: 100px;
+	font-size: 0.8em;
+
+	text-overflow: ellipsis;
+	/* padding-left: 0.5em;
+	padding-right: 1.5em; */
+	padding: 0.2em 1.5em 0.2em 0.5em;
+
+	appearance: none;
+	-webkit-appearance: none;
+	-moz-appearance: none;
+	background-image: url('../../assets/down.svg');
+	background-position: right 0.5em top -3px;
+	background-size: 15px;
+	background-repeat: no-repeat;
+}
+
+
+
+/* CSSTransition animation classes: */
+
+/* Main menu */
 .mainMenuEnterActive {
   position: absolute;
-  transform: translateX(-130%);
+  transform: translateX(130%);
 }
 
 .mainMenuEnterDone {
@@ -118,5 +167,25 @@
 
 .mainMenuExitDone {
   transform: translateX(-130%);
+}
+
+/* Secndary menus */
+.secondaryMenuEnterActive {
+  position: absolute;
+  transform: translateX(-130%);
+}
+
+.secondaryMenuEnterDone {
+  transform: translateX(0);
+  transition: all .5s ease;
+}
+
+.secondaryMenuExitActive {
+  transform: translateX(-130%);
+  transition: all .5s ease;
+}
+
+.secondaryMenuExitDone {
+  transform: translateX(130%);
 }
 

@@ -1,7 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { CSSTransition } from 'react-transition-group';
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { setActiveMenu, setDropdownState } from "../../redux/reducers/headerReducer";
+import { fetchTrelloBoards } from "../../redux/reducers/authReducer";
+import { setActiveMenu } from "../../redux/reducers/headerReducer";
 
 import styles from "./Dropdown.module.css";
 
@@ -12,6 +13,7 @@ import DropdownSettings from "./DropdownSettings";
 export default function Dropdown({className}: any) {
   const dispatch = useAppDispatch()
   const activeMenu = useAppSelector(state => state.headerReducer.dropdownActiveMenu)
+	const trelloBoards = useAppSelector(state => state.authReducer.trelloBoards)
   
   const [menuHeight, setMenuHeight] = useState(null)  
   const menuRef = useRef(null)
@@ -27,6 +29,13 @@ export default function Dropdown({className}: any) {
       dispatch(setActiveMenu('main'))
     }
   }, [menuRef])
+
+	useEffect(() => {
+		if (!trelloBoards) {
+			console.log('Fetching boards...');
+			dispatch(fetchTrelloBoards())
+		}
+	}, [])
 
   return (
     <div
@@ -45,9 +54,7 @@ export default function Dropdown({className}: any) {
           exitActive: styles.mainMenuExitActive,
           exitDone: styles.mainMenuExitDone
         }}
-      > 
-        <DropdownMain /> 
-      </CSSTransition>
+      ><DropdownMain className={styles.dropdown_content} /></CSSTransition>
       
       <CSSTransition
         in={activeMenu === 'trello_settings'}
@@ -55,14 +62,12 @@ export default function Dropdown({className}: any) {
         timeout={200}
         onEnter={calculateHeight}
         classNames={{
-          enterActive: styles.mainMenuEnterActive,
-          enterDone: styles.mainMenuEnterDone,
-          exitActive: styles.mainMenuExitActive,
-          exitDone: styles.mainMenuExitDone
+          enterActive: styles.secondaryMenuEnterActive,
+          enterDone: styles.secondaryMenuEnterDone,
+          exitActive: styles.secondaryMenuExitActive,
+          exitDone: styles.secondaryMenuExitDone
         }}
-      >
-       <DropdownSettings />
-      </CSSTransition>
+      ><DropdownSettings className={styles.dropdown_content} /></CSSTransition>
 
       <CSSTransition
         in={activeMenu === 'add_card'}
@@ -70,14 +75,12 @@ export default function Dropdown({className}: any) {
         timeout={200}
         onEnter={calculateHeight}
         classNames={{
-          enterActive: styles.mainMenuEnterActive,
-          enterDone: styles.mainMenuEnterDone,
-          exitActive: styles.mainMenuExitActive,
-          exitDone: styles.mainMenuExitDone
+          enterActive: styles.secondaryMenuEnterActive,
+          enterDone: styles.secondaryMenuEnterDone,
+          exitActive: styles.secondaryMenuExitActive,
+          exitDone: styles.secondaryMenuExitDone
         }}
-      >
-       <DropdownAddCard/>
-      </CSSTransition>
+      ><DropdownAddCard className={styles.dropdown_content} /></CSSTransition>
     </div>
   )
 }

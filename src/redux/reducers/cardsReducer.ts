@@ -21,10 +21,10 @@ export const fetchCardsData = createAsyncThunk(
 	"cardsReducer/fetchCardsData",
 	async (_, { dispatch, rejectWithValue, getState}) => {
     const state = getState() as RootState
-    const {trello_key, trello_token} = state.authReducer
+    const {trelloKey, trelloToken} = state.authReducer
 
 		try {
-			const response = await fetch(`https://api.trello.com/1/lists/6183f62d391703028ab27218/cards/?key=${trello_key}&token=${trello_token}`)
+			const response = await fetch(`https://api.trello.com/1/lists/6183f62d391703028ab27218/cards/?key=${trelloKey}&token=${trelloToken}`)
 			const data = await response.json()
 			dispatch(distributeCards(data))
 		} catch (err) {
@@ -37,12 +37,12 @@ export const completeLastCheckItem = createAsyncThunk(
 	"cardsReducer/completeLastCheckItem",
 	async (cardData: ITrelloCardData, { dispatch, rejectWithValue, getState }) => {
     const state = getState() as RootState
-    const {trello_key, trello_token} = state.authReducer
+    const {trelloKey, trelloToken} = state.authReducer
 
 		try {
 			// getting checkItems, searching for firs incomplete checkItem and getting it's id
 			const checkItems = await (await fetch(
-				`https://api.trello.com/1/checklists/${cardData.checklistId}/checkItems?key=${trello_key}&token=${trello_token}`
+				`https://api.trello.com/1/checklists/${cardData.checklistId}/checkItems?key=${trelloKey}&token=${trelloToken}`
 			)).json()
 			const targetCheckItem = checkItems.find((i: any) => i.state === 'incomplete')?.id
 
@@ -50,7 +50,7 @@ export const completeLastCheckItem = createAsyncThunk(
 
 			// completing targetCheckItem
 			const success = (await(await fetch(
-				`https://api.trello.com/1/cards/${cardData.cardId}/checkItem/${targetCheckItem}?state=complete&key=${trello_key}&token=${trello_token}`,
+				`https://api.trello.com/1/cards/${cardData.cardId}/checkItem/${targetCheckItem}?state=complete&key=${trelloKey}&token=${trelloToken}`,
 				{	method: "PUT" }
 			)).json()).state === 'complete'
 

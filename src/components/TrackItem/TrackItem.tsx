@@ -1,6 +1,6 @@
 import { completeLastCheckItem, updateCard } from "../../redux/reducers/cardsReducer";
 import { easings, useSpring, animated } from "react-spring";
-import { ITrelloCardData } from "../../models/cardsModels";
+import { ITrelloCardData } from "../../models/trelloModels";
 import { useAppDispatch } from "../../hooks/redux";
 
 import { ReactComponent as TrelloIcon } from '../../assets/trello.svg';

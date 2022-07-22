@@ -9,6 +9,17 @@ export interface ITrelloCardData {
 	cardId: string,
 }
 
+export interface ITrelloList {
+	id: string,
+	name: string
+}
+
+export const storageKeys = {
+	selectedBoardLists: "selectedBoardLists",
+	selectedBoard: "selectedBoard",
+	selectedList: "selectedList"
+}
+
 export const DEV_destributedData = [
 	[
 		{

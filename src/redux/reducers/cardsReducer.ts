@@ -1,5 +1,5 @@
 
-import { DEV_destributedData, ITrelloCardData } from './../../models/cardsModels';
+import { DEV_destributedData, ITrelloCardData } from './../../models/trelloModels';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from '../store';
 import { Week } from '../../models/Week';

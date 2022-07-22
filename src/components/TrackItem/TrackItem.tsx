@@ -38,11 +38,11 @@ export default function TrackItem({ cardData, index }: IProps) {
 	const [playerUrl, imageUrl] = cardDesc.split('\n')
 
 	const spring = useSpring({
-		from: { x: -80, opacity: 0 },
+		from: { x: -230, opacity: 0 },
 		to: { x: 0, opacity: 1 },
 		delay: 90 * index + 40,
 		config: {
-			duration: 300,
+			duration: 400,
 			easing: easings.easeOutBack
 		}
 	})

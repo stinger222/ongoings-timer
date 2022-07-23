@@ -64,14 +64,18 @@ const authReducer = createSlice({
       }
     },
 		deauthorize(state: IAuthState) {
-			state.isAuthorized = false,
-			state.trelloToken = null,
-			state.trelloKey = null,
-			state.trelloBoards = null,
-			state.selectedBoard = null,
-			state.selectedBoardLists = null,
+			state.isAuthorized = false
+			state.trelloToken = null
+			state.trelloKey = null
+			state.trelloBoards = null
+			state.selectedBoard = null
+			state.selectedBoardLists = null
 			state.selectedList = null
 			
+			Object.keys(storageKeys).forEach(key => {
+				localStorage.removeItem(key)
+			})
+
       Trello.deauthorize()
     },
 		setBoards(state: IAuthState, action: any) {

@@ -58,6 +58,11 @@ export default function DropdownMain({ className }: any) {
 					(trelloBoards && trelloBoards.length > 0) &&
 						<select onChange={handleBoardSelect} value={selectedBoard?.name}>
 							{
+								!selectedBoard &&
+									<option selected={true}>not selected...</option>
+							}
+							
+							{
 								(trelloBoards as []).map((board: any) => {
 									return (
 										<option value={board.name} key={board.name}>
@@ -80,6 +85,11 @@ export default function DropdownMain({ className }: any) {
 				{ 
 					(selectedBoardLists && selectedBoardLists.length > 0) &&
 						<select onChange={handleListSelect} value={selectedList?.name}>
+							{
+								!selectedList &&
+									<option selected={true}>not selected...</option>
+							}
+
 							{
 								(selectedBoardLists as []).map((list: any) => {
 									return (

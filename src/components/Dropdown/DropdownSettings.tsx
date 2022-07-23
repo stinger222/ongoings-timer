@@ -10,7 +10,6 @@ export default function DropdownMain({ className }: any) {
 	const { trelloBoards, selectedBoard, selectedList, selectedBoardLists }: any = useAppSelector(state => state.authReducer) 
 
 	const handleBoardSelect = (e: any) => {
-
 		const selectedBoard = trelloBoards.find((board: any) => {
 			return board.name === e.target.value
 		})
@@ -22,6 +21,7 @@ export default function DropdownMain({ className }: any) {
 		
 		dispatch(selectBoard(_selectedBoard))
 		dispatch(fetchSelectedBoardLists(_selectedBoard.id))
+    dispatch(selectList(null))
 	}
 
 	const handleListSelect = (e: any) => {

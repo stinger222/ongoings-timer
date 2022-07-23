@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { fetchCardsData } from "../../../redux/reducers/cardsReducer";
+import { clearDistributedCards, distributeCards, fetchCardsData } from "../../../redux/reducers/cardsReducer";
 import { useEffect } from "react";
 
 import TrackItem from "../../TrackItem/TrackItem";
@@ -10,10 +10,9 @@ import styles from "./TrackPage.module.css";
 import ErrorMessage from "../../ErrorMessage/ErrorMessage";
 
 
-export default function TrackPage() {
+export default function TrackPage() {  
 	const dispatch = useAppDispatch()
-
-	const selectedDay = useAppSelector(state => state.headerReducer.selectedDay)
+  const selectedDay = useAppSelector(state => state.headerReducer.selectedDay)
 	const selectedDayCardsData = useAppSelector(state => state.cardsReducer.distributedData[selectedDay])
 	const isPending = useAppSelector(state => state.cardsReducer.isPending)
   const { isAuthorized, selectedBoard, selectedList } = useAppSelector(state => state.authReducer)
@@ -22,10 +21,10 @@ export default function TrackPage() {
   const entryPointSelected = selectedBoard && selectedList
 
 	const fetchCards = () => {
+    dispatch(clearDistributedCards())
 		dispatch(fetchCardsData())
 	}
 
-  
 	useEffect(() => {
     if (!IS_DEV && isAuthorized && entryPointSelected) {
       fetchCards()
@@ -45,20 +44,17 @@ export default function TrackPage() {
 				onClick={fetchCards}> Fetch Cards (debug) 
 				</button>
 			}
-			{
-				// Render cards
+			{ // Render cards
 				selectedDayCardsData?.length !== 0 && selectedDayCardsData.map((data, index) => (
 					<TrackItem cardData={data} index={index} key={data.cardId}/>)
 				)
 			}
 
-			{
-				// Render loader
+			{ // Render loader
 				isPending && <Loader/>
 			}
 
-			{
-				// Render stub if there is no cards 
+			{ // Render stub if there is no cards 
 				selectedDayCardsData?.length === 0 && !isPending && <EmptyDay/> 
 			}
 		</section>

@@ -97,6 +97,9 @@ const cardsReducer = createSlice({
 				})
 			})
 		},
+    clearDistributedCards(state: ICardsState) {
+      state.distributedData = [[],[],[],[],[],[],[]]
+    },
 		updateCard(state: ICardsState, action: any) {
 			const dayId = action.payload.cardDayId
 			const card: any = state.distributedData[dayId].find(card => card.cardId === action.payload.cardId)
@@ -127,6 +130,6 @@ const cardsReducer = createSlice({
 	}
 })
 
-export const { distributeCards, updateCard } = cardsReducer.actions
+export const { distributeCards, clearDistributedCards, updateCard } = cardsReducer.actions
 
 export default cardsReducer.reducer

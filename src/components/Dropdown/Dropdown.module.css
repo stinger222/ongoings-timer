@@ -1,6 +1,6 @@
 /* Shared styles among all dropdown menus: */
 .dropdown {
-  z-index: 2;
+  z-index: 5;
   box-sizing: border-box;
 
   font-size: 0.33em;

@@ -7,6 +7,7 @@ import EmptyDay from "../../EmptyDay/EmptyDay";
 import Loader from "../../Loader/Loader";
 
 import styles from "./TrackPage.module.css";
+import ErrorMessage from "../../ErrorMessage/ErrorMessage";
 
 
 export default function TrackPage() {
@@ -15,19 +16,26 @@ export default function TrackPage() {
 	const selectedDay = useAppSelector(state => state.headerReducer.selectedDay)
 	const selectedDayCardsData = useAppSelector(state => state.cardsReducer.distributedData[selectedDay])
 	const isPending = useAppSelector(state => state.cardsReducer.isPending)
-  const isAuthorized = useAppSelector(state => state.authReducer.isAuthorized)
+  const { isAuthorized, selectedBoard, selectedList } = useAppSelector(state => state.authReducer)
 	
 	const IS_DEV = process.env.NODE_ENV === "development"
+  const entryPointSelected = selectedBoard && selectedList
 
 	const fetchCards = () => {
 		dispatch(fetchCardsData())
 	}
-	
+
+  
 	useEffect(() => {
-		if (!IS_DEV && isAuthorized) {
-			fetchCards()
+    if (!IS_DEV && isAuthorized && entryPointSelected) {
+      fetchCards()
 		}
-	}, [isAuthorized])
+	}, [isAuthorized, selectedList])
+  
+  
+  if (!entryPointSelected) {
+    return <ErrorMessage message="You forgot to select board and/or list in the settings ⚙️ :)"/>
+  }
 
 	return (
 		<section className={`${styles.track_list} container`}>

@@ -3,6 +3,7 @@ import { DEV_destributedData, ITrelloCardData } from './../../models/trelloModel
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from '../store';
 import { Week } from '../../models/Week';
+import { checkCardSuitability } from '../../utils/hepler';
 
 const IS_DEV = process.env.NODE_ENV === "development"
 
@@ -18,13 +19,13 @@ const initialState: ICardsState = {
 }
 
 export const fetchCardsData = createAsyncThunk(
-	"cardsReducer/fetchCardsData",
+  "cardsReducer/fetchCardsData",
 	async (_, { dispatch, rejectWithValue, getState}) => {
     const state = getState() as RootState
-    const {trelloKey, trelloToken} = state.authReducer
+    const {trelloKey, trelloToken, selectedList} = state.authReducer
 
 		try {
-			const response = await fetch(`https://api.trello.com/1/lists/6183f62d391703028ab27218/cards/?key=${trelloKey}&token=${trelloToken}`)
+			const response = await fetch(`https://api.trello.com/1/lists/${selectedList?.id}/cards/?key=${trelloKey}&token=${trelloToken}`)
 			const data = await response.json()
 			dispatch(distributeCards(data))
 		} catch (err) {
@@ -73,7 +74,15 @@ const cardsReducer = createSlice({
 	initialState,
 	reducers: {
 		distributeCards(state: ICardsState, action: any)  {
-			action.payload.forEach((card: any) => {
+      const validCards = action.payload.filter((card: any) => {
+        return checkCardSuitability(card.name)
+      })
+
+      if (validCards.length === 0) {
+        throw new Error("Cards in selected list doesn't match required pattern.")
+      }
+      
+			validCards.forEach((card: any) => {
 				const cardDayId = Week.getIdByName(card.name)
 
 				state.distributedData[cardDayId].push({
@@ -95,8 +104,8 @@ const cardsReducer = createSlice({
 			Object.entries(action.payload).forEach((a: any) => {
 				card[a[0]] = a[1]
 			})
-		}
-	}, extraReducers: (builder) => {
+		}}, 
+    extraReducers: (builder) => {
 		builder.addCase(fetchCardsData.pending, (state) => {
 			state.isPending = true
 		})

@@ -10,3 +10,7 @@ export const getStoredJSON = (key: string) => {
 	}
 	return null
 }
+
+export const checkCardSuitability = (cardName: string): boolean => {
+  return /.*\s[-]\s[А-Я][а-я]\s[0-9]{2}[:][0-9]{2}$/.test(cardName)
+}

@@ -51,12 +51,27 @@
   width: 1.3em;
   
   transition: filter .2s ease;
-  background: rgb(236, 236, 236);
+  background: #ececec;
   border-radius: 50%;
   cursor: pointer;
 }
 
-.header_back:hover {
+.header_sign_out {
+  position: absolute;
+  right: 0;
+  
+  border: 2px solid #ececec;
+  border-radius: 50%;
+  
+  height: 1.7em;
+  width: 1.7em;
+  
+  padding: .1em;
+  margin-top: -0.15em;
+  cursor: pointer;
+}
+
+.header_back:hover, .header_sign_out:hover {
   filter: brightness(.9)
 }
 

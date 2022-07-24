@@ -1,17 +1,32 @@
 import { ReactComponent as SettingsIcon } from "../../assets/settings.svg";
 import { ReactComponent as PlusIcon } from "../../assets/plus.svg";
+import { ReactComponent as SignOutIcon } from "../../assets/sign-out.svg";
 
 import { useAppDispatch } from "../../hooks/redux";
 import { setActiveMenu } from "../../redux/reducers/headerReducer";
+import { useNavigate } from "react-router-dom";
 
 import styles from './Dropdown.module.css';
+import { deauthorize } from "../../redux/reducers/authReducer";
 
 export default function DropdownMain({ className }: any) {
-
   const dispatch = useAppDispatch()
+  const navigate = useNavigate()
+
+  const handleLogOut = () => {
+    dispatch(deauthorize())
+    navigate('/welcome')
+  } 
   
   return <div className={`${className}`}>
-    <h1 className={styles.header}> Options </h1>
+    <h1 className={styles.header}>
+      Options 
+      <SignOutIcon
+        className={styles.header_sign_out}
+        onClick={handleLogOut}
+        title="sign out"
+      />
+    </h1>
 		
 		<div className={styles.dropdown_item} onClick={() => dispatch(setActiveMenu('add_card'))}>
 			<PlusIcon className={styles.dropdown_item_icon}/>

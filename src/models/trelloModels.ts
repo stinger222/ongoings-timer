@@ -20,7 +20,6 @@ export interface ITrelloBoard{
 }
 
 export const storageKeys = {
-	selectedBoardLists: "selectedBoardLists",
 	selectedBoard: "selectedBoard",
 	selectedList: "selectedList"
 }

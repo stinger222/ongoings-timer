@@ -7,7 +7,9 @@ import styles from './Dropdown.module.css';
 
 export default function DropdownMain({ className }: any) {
   const dispatch = useAppDispatch()
-	const { trelloBoards, selectedBoard, selectedList, selectedBoardLists }: any = useAppSelector(state => state.authReducer) 
+	const {
+    trelloBoards, selectedBoard, selectedList, selectedBoardLists
+  }: any = useAppSelector(state => state.authReducer) 
 
 	const handleBoardSelect = (e: any) => {
 		const selectedBoard = trelloBoards.find((board: any) => {

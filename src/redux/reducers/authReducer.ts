@@ -1,4 +1,4 @@
-import { ITrelloList, storageKeys } from './../../models/trelloModels';
+import { ITrelloBoard, ITrelloList, storageKeys } from './../../models/trelloModels';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getStoredValue, getStoredJSON } from "../../utils/hepler";
 import Trello from "../../models/Trello";
@@ -8,7 +8,7 @@ interface IAuthState {
   trelloToken: string | null,
   trelloKey: string | null,
 	trelloBoards: [] | null,
-	selectedBoard: string | null,
+	selectedBoard: ITrelloBoard | null,
 	selectedBoardLists: ITrelloList[] | null
 	selectedList: ITrelloList | null
 }
@@ -19,7 +19,7 @@ const initialState: IAuthState = {
   trelloKey: null,
 	trelloBoards: null,
 	selectedBoard: getStoredJSON('selectedBoard'),
-	selectedBoardLists: getStoredJSON('selectedBoardLists'),
+	selectedBoardLists: null,
 	selectedList: getStoredJSON('selectedList')
 }
 
@@ -28,6 +28,15 @@ export const fetchTrelloBoards = createAsyncThunk(
 	async (_, { dispatch, rejectWithValue}) => {
 		try {
 			Trello.get("/members/me/boards").then((boards: any) => {
+        boards = boards.map((board: any) => {
+          const _board = {
+            id: board.id,
+            name: board.name
+          }
+
+          return _board
+        })
+
 				dispatch(setBoards(boards))
 			})
 		} catch (err) {
@@ -41,7 +50,6 @@ export const fetchSelectedBoardLists = createAsyncThunk(
 	async (boardId: string, { dispatch, rejectWithValue }) => {
 		try {
 			Trello.get(`/boards/${boardId}/lists`).then((lists: any) => {
-				console.log("LISTS", lists);
 				dispatch(setSelectedBoardLists(lists))
 			})
 
@@ -83,7 +91,6 @@ const authReducer = createSlice({
 		},
 		setSelectedBoardLists(state: IAuthState, action: any) {
 			state.selectedBoardLists = action.payload
-			localStorage.setItem(storageKeys.selectedBoardLists, JSON.stringify(action.payload))
 		},
 		selectBoard(state: IAuthState, action: any) {
 			state.selectedBoard = action.payload

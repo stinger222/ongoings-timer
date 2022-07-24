@@ -4,6 +4,7 @@
 	left: 50%;
 	transform: translate(-50%, 0);
 	height: min(75vh, 100vw);
+  z-index: 2;
 }
 
 .message {

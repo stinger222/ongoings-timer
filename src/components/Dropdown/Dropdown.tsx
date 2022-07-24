@@ -1,19 +1,20 @@
 import { useEffect, useRef, useState } from "react";
-import { CSSTransition } from 'react-transition-group';
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { fetchTrelloBoards } from "../../redux/reducers/authReducer";
-import { setActiveMenu } from "../../redux/reducers/headerReducer";
 
-import styles from "./Dropdown.module.css";
+import { setActiveMenu } from "../../redux/reducers/headerReducer";
+import { fetchSelectedBoardLists, fetchTrelloBoards } from "../../redux/reducers/authReducer";
 
 import DropdownAddCard from "./DropdownAddCard";
 import DropdownMain from "./DropdownMain";
 import DropdownSettings from "./DropdownSettings";
 
+import styles from "./Dropdown.module.css";
+import { CSSTransition } from 'react-transition-group';
+
 export default function Dropdown({className}: any) {
   const dispatch = useAppDispatch()
   const activeMenu = useAppSelector(state => state.headerReducer.dropdownActiveMenu)
-	const trelloBoards = useAppSelector(state => state.authReducer.trelloBoards)
+	const { trelloBoards, selectedBoard } = useAppSelector(state => state.authReducer)
   
   const [menuHeight, setMenuHeight] = useState(null)  
   const menuRef = useRef(null)
@@ -35,6 +36,10 @@ export default function Dropdown({className}: any) {
 			console.log('Fetching boards...');
 			dispatch(fetchTrelloBoards())
 		}
+    
+    if (selectedBoard) { 
+      dispatch(fetchSelectedBoardLists(selectedBoard.id))
+    }
 	}, [])
 
   return (

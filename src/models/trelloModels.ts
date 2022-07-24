@@ -9,7 +9,12 @@ export interface ITrelloCardData {
 	cardId: string,
 }
 
-export interface ITrelloList {
+export interface ITrelloList{
+	id: string,
+	name: string
+}
+
+export interface ITrelloBoard{
 	id: string,
 	name: string
 }
@@ -22,16 +27,6 @@ export const storageKeys = {
 
 export const DEV_destributedData = [
 	[
-		{
-			checkItems: 99,
-			checkItemsChecked: 80,
-			checklistId: "sldfsdfkfjs#d(*98342",
-			cardTitle: "No thumbnail - Вс 09:09",
-			cardDesc: `https://amedia.online/1086-perestanu-byt-geroem.html`,
-			cardUrl: "Trello card url here",
-			cardId: "sdsdflkfjsdf29sdfsы0dsdfsflkj234",
-			cardDayId: 0
-		}
 	], [
 		{
 			checkItems: 99,

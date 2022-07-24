@@ -26,6 +26,7 @@ That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)
 	flex-direction: column;
 	justify-content: space-between;
 	padding: 1.5em 0 1.5em 0;
+	width: 60%;
 }
 
 .title {
@@ -33,7 +34,7 @@ That's why to cast for example 1.5 to em I have to use calc(1em * 1.5) ¯\_(ツ)
 	font-size: 2.1em;
 	font-weight: 100;
 	text-shadow: 0.1px 0.1px;
-	width: 85%;
+	width: 100%;
 }
 
 .icon_wrapper {

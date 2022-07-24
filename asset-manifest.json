@@ -1,23 +1,24 @@
 {
   "files": {
-    "main.css": "/ongoings-timer/static/css/main.e49e8427.css",
-    "main.js": "/ongoings-timer/static/js/main.5fd62b48.js",
+    "main.css": "/ongoings-timer/static/css/main.e42a7794.css",
+    "main.js": "/ongoings-timer/static/js/main.1db94370.js",
     "static/media/204_1.png": "/ongoings-timer/static/media/204_1.11d48666f566657b21b2.png",
-    "static/media/github.svg": "/ongoings-timer/static/media/github.0857a33ac6112c00ca0861236ebded04.svg",
+    "static/media/github.svg": "/ongoings-timer/static/media/github.eaf6f3320fa6df024b41daed1df0575c.svg",
+    "static/media/settings-stroke.svg": "/ongoings-timer/static/media/settings-stroke.4df01d22d935f9745e9baa7a2d711f9a.svg",
     "static/media/settings.svg": "/ongoings-timer/static/media/settings.a827ccc896aa7f19c0abb261f43d9010.svg",
-    "static/media/settings-stroke.svg": "/ongoings-timer/static/media/settings-stroke.c0048a3bd12da7fe9c2f74a66b28d04b.svg",
     "index.html": "/ongoings-timer/index.html",
     "static/media/trello.svg": "/ongoings-timer/static/media/trello.cef615b789ab68746379dbd16ebed8d3.svg",
-    "static/media/plus.svg": "/ongoings-timer/static/media/plus.ff1cff67406e7647aad1923973e89599.svg",
+    "static/media/plus.svg": "/ongoings-timer/static/media/plus.132bcecd18aed1d950b503ff0d7c962a.svg",
     "static/media/exclamation.svg": "/ongoings-timer/static/media/exclamation.623bfa78ebc0105f0d848eca039d9d97.svg",
     "static/media/back.svg": "/ongoings-timer/static/media/back.20848704d0f2e10edcbd6e3b9857cbd2.svg",
+    "static/media/sign-out.svg": "/ongoings-timer/static/media/sign-out.13eeb2792f19bfe97967fb44c069df8c.svg",
     "static/media/check.svg": "/ongoings-timer/static/media/check.6faa808927051e5551e28aeecc1ec30b.svg",
     "static/media/down.svg": "/ongoings-timer/static/media/down.d742c0e506d863a6e767.svg",
-    "main.e49e8427.css.map": "/ongoings-timer/static/css/main.e49e8427.css.map",
-    "main.5fd62b48.js.map": "/ongoings-timer/static/js/main.5fd62b48.js.map"
+    "main.e42a7794.css.map": "/ongoings-timer/static/css/main.e42a7794.css.map",
+    "main.1db94370.js.map": "/ongoings-timer/static/js/main.1db94370.js.map"
   },
   "entrypoints": [
-    "static/css/main.e49e8427.css",
-    "static/js/main.5fd62b48.js"
+    "static/css/main.e42a7794.css",
+    "static/js/main.1db94370.js"
   ]
 }

@@ -23,12 +23,13 @@ export default function WelcomePage() {
     <h1 className={styles.title}>Ongoings Timer</h1>
     <div className={styles.content}>
 
+
       <div className={`${styles.info_card} ${styles.info_card_left}`}>
-        <h2 className={styles.info_card__title}>How To Use?</h2>
+        <h2 className={styles.info_card__title}>What Is It?</h2>
         <div className={styles.info_card__desc}>
-          Just select the board and list <br />
-          that app will use to grab info from <br />
-          and where new cards will appear
+          Trello-based app for tracking <br />
+          your anime (or not so) ongoings with <br />
+          timer until next episode
         </div>
       </div>
 
@@ -39,13 +40,14 @@ export default function WelcomePage() {
       </div>
 
       <div className={`${styles.info_card} ${styles.info_card_right}`}>
-        <h2 className={styles.info_card__title}>What Is It?</h2>
+        <h2 className={styles.info_card__title}>How To Use?</h2>
         <div className={styles.info_card__desc}>
-          Trello-based app for tracking <br />
-          your anime (or not so) ongoings with <br />
-          timer until next episode
+          Just select the board and list <br />
+          that app will use to grab info from <br />
+          and where new cards will appear
         </div>
       </div>
+
     </div>
 		
     <footer className={styles.footer}>

@@ -1,3 +1,36 @@
 .track_list {
   box-sizing: content-box;
+	position: relative;
+}
+
+.github_link {
+	position: fixed;
+	bottom: 0.2em;
+	right: 1em;
+	
+	height: 2em;
+
+	font-size: 1.5em;
+	font-weight: 100;
+}
+
+.github_link__icon {
+	margin-right: 0.7em;
+	transform: translateY(.25em);
+	height: 1.3em;
+	width: 1.3em;
+}
+
+.github_link__text {
+	font-size: 1em;
+}
+
+@media only screen and (max-width: 1300px) {
+	.github_link {
+		position: absolute;
+		bottom: -6em;
+		width: 100%;
+		text-align: center;
+		height: 3em;
+	}
 }

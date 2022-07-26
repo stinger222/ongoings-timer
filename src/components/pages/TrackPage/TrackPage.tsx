@@ -1,7 +1,8 @@
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
-import { clearDistributedCards, distributeCards, fetchCardsData } from "../../../redux/reducers/cardsReducer";
+import { clearDistributedCards, fetchCardsData } from "../../../redux/reducers/cardsReducer";
 import { useEffect } from "react";
 
+import { ReactComponent as GitHubIcon } from "../../../assets/github.svg";
 import TrackItem from "../../TrackItem/TrackItem";
 import EmptyDay from "../../EmptyDay/EmptyDay";
 import Loader from "../../Loader/Loader";
@@ -57,6 +58,11 @@ export default function TrackPage() {
 			{ // Render stub if there is no cards 
 				selectedDayCardsData?.length === 0 && !isPending && <EmptyDay/> 
 			}
+
+			<a className={styles.github_link} href="https://github.com/stinger222/ongoings-timer">
+				<GitHubIcon className={styles.github_link__icon}/>
+				<span className={styles.github_link__text}>GitHub Page</span>
+			</a>
 		</section>
 	)
 }

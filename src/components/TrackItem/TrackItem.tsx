@@ -78,7 +78,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 					</button>
 				}
 
-				<a className={styles.icon} href={cardUrl} title="Card on trllo">
+				<a className={styles.icon} href={cardUrl} title="Card on trllo" target='_blank'>
 				<TrelloIcon/>
 				</a>
 			</div>
@@ -91,7 +91,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 			
 
 			<div className={styles.info}>
-				<a className={styles.title} href={playerUrl} title="Go to player">{IS_DEV ? rawCardTitle : title}</a>
+				<a className={styles.title} href={playerUrl} title="Go to player" target="_blank">{IS_DEV ? rawCardTitle : title}</a>
 				<ProgressBar checkItems={checkItems} checkItemsChecked={checkItemsChecked}/>
 				<Timer rawTargetDate={rawTargetDate}/>
 			</div>

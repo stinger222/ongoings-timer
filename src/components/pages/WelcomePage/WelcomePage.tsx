@@ -51,7 +51,7 @@ export default function WelcomePage() {
     </div>
 		
     <footer className={styles.footer}>
-      <a href="https://github.com/stinger222/ongoings-timer"> More info on GitHub </a>
+      <a href="https://github.com/stinger222/ongoings-timer" target="_blank"> More info on GitHub </a>
       <GitLogo className={styles.git_logo}/>
     </footer>
     

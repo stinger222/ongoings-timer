@@ -67,18 +67,18 @@ export default function TrackItem({ cardData, index }: IProps) {
 	return (
 		<animated.div style={spring} className={styles.card}>
 			<div className={styles.icon_wrapper}>
-				<button className={styles.icon} onClick={handleComplete} title="complete next episode">
+				<button className={styles.icon} onClick={handleComplete} title="Complete next episode">
 					<CheckIcon/>
 				</button>
 
 				{
 					IS_DEV &&
-					<button className={styles.icon} onClick={handleDebugCardUpdate} title="handle Debug Card Update (without any requests)">
+					<button className={styles.icon} onClick={handleDebugCardUpdate} title="Handle Debug Card Update (without any requests)">
 						<CheckIcon/>
 					</button>
 				}
 
-				<a className={styles.icon} href={cardUrl} title="card on trllo">
+				<a className={styles.icon} href={cardUrl} title="Card on trllo">
 				<TrelloIcon/>
 				</a>
 			</div>
@@ -91,7 +91,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 			
 
 			<div className={styles.info}>
-				<a className={styles.title} href={playerUrl} title="go to player">{IS_DEV ? rawCardTitle : title}</a>
+				<a className={styles.title} href={playerUrl} title="Go to player">{IS_DEV ? rawCardTitle : title}</a>
 				<ProgressBar checkItems={checkItems} checkItemsChecked={checkItemsChecked}/>
 				<Timer rawTargetDate={rawTargetDate}/>
 			</div>

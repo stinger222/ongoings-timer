@@ -24,7 +24,7 @@ export default function DropdownMain({ className }: any) {
       <SignOutIcon
         className={styles.header_sign_out}
         onClick={handleLogOut}
-        title="sign out"
+        title="Sign out"
       />
     </h1>
 		

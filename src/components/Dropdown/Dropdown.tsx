@@ -85,7 +85,7 @@ export default function Dropdown({className}: any) {
           exitActive: styles.secondaryMenuExitActive,
           exitDone: styles.secondaryMenuExitDone
         }}
-      ><DropdownAddCard className={styles.dropdown_content} /></CSSTransition>
+      ><DropdownAddCard className={`${styles.dropdown_content} ${styles.add_card_menu}`} /></CSSTransition>
     </div>
   )
 }

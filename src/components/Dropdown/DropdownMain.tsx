@@ -28,16 +28,16 @@ export default function DropdownMain({ className }: any) {
       />
     </h1>
 		
-		<div className={styles.dropdown_item} onClick={() => dispatch(setActiveMenu('add_card'))}>
-			<PlusIcon className={styles.dropdown_item_icon}/>
-				<span className={styles.dropdown_item_text}>
+		<div className={styles.dropdown_button} onClick={() => dispatch(setActiveMenu('add_card'))}>
+			<PlusIcon className={styles.dropdown_button_icon}/>
+				<span className={styles.dropdown_button_text}>
 				New Card
 			</span>
 		</div>
 		
-		<div className={styles.dropdown_item} onClick={() => dispatch(setActiveMenu('trello_settings'))}>
-			<SettingsIcon className={styles.dropdown_item_icon}/>
-			<span className={styles.dropdown_item_text}>
+		<div className={styles.dropdown_button} onClick={() => dispatch(setActiveMenu('trello_settings'))}>
+			<SettingsIcon className={styles.dropdown_button_icon}/>
+			<span className={styles.dropdown_button_text}>
 				Trello Settings
 			</span>
 		</div>

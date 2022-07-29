@@ -15,12 +15,40 @@ export default function DropdownMain({ className }: any) {
       Add New Card  
     </h1>
 
-		<div className={styles.body}> 
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, odio id aperiam deserunt tenetur exercitationem, aliquid sequi repudiandae unde, qui consequatur nulla! Cum in facere omnis culpa voluptate dolore quisquam!
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, odio id aperiam deserunt tenetur exercitationem, aliquid sequi repudiandae unde, qui consequatur nulla! Cum in facere omnis culpa voluptate dolore quisquam!
-			Lorem ipsum dolor sit amet consectetur adipisicing elit. Itaque, odio id aperiam deserunt tenetur exercitationem, aliquid sequi repudiandae unde, qui consequatur nulla! Cum in facere omnis culpa voluptate dolore quisquam!
-			Lorem ipsum dolor sit amet consectetur, adipisicing elit. Dolore dicta qui, illo obcaecati, et consectetur, sapiente reiciendis magnam esse deserunt accusantium laborum repellendus blanditiis facilis quibusdam. Reprehenderit ex suscipit iste!
-			sddd
-		</div>
+		<form className={styles.body}> 
+      <div className={styles.dropdown_row}>
+        <input className={styles.dropdown_input} placeholder="Card Title"></input>
+      </div>
+
+      <div className={styles.dropdown_row}>
+        <select>
+          <option>Mon</option>
+          <option>Tue</option>
+          <option>Wen</option>
+          <option>Thu</option>
+          <option>Fri</option>
+          <option>Sat</option>
+          <option>Sun</option>
+        </select>
+        <input className={styles.dropdown_input} type="time"></input>
+      </div>
+
+      <div className={styles.dropdown_row}>
+        <input className={styles.dropdown_input} placeholder="Length"></input>
+        <input className={styles.dropdown_input} placeholder="Watched"></input>
+      </div>
+
+      <div className={styles.dropdown_row}>
+        <input className={styles.dropdown_input} placeholder="Player url"></input>
+      </div>
+
+      <div className={styles.dropdown_row}>
+        <input className={styles.dropdown_input} placeholder="Thumbnail url"></input>
+      </div>
+
+      <div className={styles.dropdown_button}>
+        Create
+      </div>
+		</form>
   </div>
 }

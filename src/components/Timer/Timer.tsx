@@ -26,11 +26,6 @@ export default function Timer({ rawTargetDate }: IProps) {
 		targetDate.setMinutes(targetMinute)
 		targetDate.setSeconds(0)
 		
-		if (IS_DEV) {
-			console.log(targetDate);
-		}
-		
-		
 		const targetUnixDate = Math.round(targetDate.getTime() / 1000)
 		const currentUnixDate = Math.round(Date.now() / 1000)
 		

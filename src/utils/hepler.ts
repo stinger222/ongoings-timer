@@ -18,7 +18,7 @@ export const checkCardSuitability = (cardName: string): boolean => {
 }
 
 const createCheckItems = (checklistId: string, length: number) => {
-  const creationPromise = new Promise((resolve: any, reject: any) => {    
+  const creationPromise = new Promise((resolve: any) => {    
     for (let i = 1; i <= length; i++) {
       setTimeout(() => {
         Trello.post(`/checklists/${checklistId}/checkItems?name=${i}`)
@@ -31,7 +31,7 @@ const createCheckItems = (checklistId: string, length: number) => {
 }
 
 const completeCheckItems = async (checklistId: string, cardId: string, toCheck: number) => {
-	const promise = new Promise((resolve: any, reject: any) => {
+	const promise = new Promise((resolve: any) => {
 
 		Trello.get(`/checklists/${checklistId}/checkItems`).then((checkItems: any) => {
 			for (let i = 0; i < toCheck; i++) {
@@ -52,7 +52,7 @@ const completeCheckItems = async (checklistId: string, cardId: string, toCheck: 
 export const createChecklist = (
   cardId: string, checklistName: string = 'Серии', length: number, toCheck: number
 ) => {
-	const promise = new Promise((resolve: any, reject: any) => {
+	const promise = new Promise((resolve: any) => {
 		Trello.post(`/checklists?idCard=${cardId}&name=${checklistName}`).then((createdChecklist: any) => {
 			console.log('Checklist created successfully!\n\n')
 			console.log('Creating checkItems....')

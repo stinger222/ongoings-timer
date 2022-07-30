@@ -59,10 +59,11 @@ export default function TrackPage() {
 				selectedDayCardsData?.length === 0 && !isPending && <EmptyDay/> 
 			}
 
-			<a className={styles.github_link} href="https://github.com/stinger222/ongoings-timer" target="_blank">
-				<GitHubIcon className={styles.github_link__icon}/>
-				<span className={styles.github_link__text}>GitHub Page</span>
+			<a className={styles.gh_link} href="https://github.com/stinger222/ongoings-timer" target="_blank">
+				<GitHubIcon className={styles.gh_icon}/>
+				<span className={styles.gh_text}>GitHub Page</span>
 			</a>
+
 		</section>
 	)
 }

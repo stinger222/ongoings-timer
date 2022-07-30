@@ -3,34 +3,33 @@
 	position: relative;
 }
 
-.github_link {
+.gh_link {
 	position: fixed;
-	bottom: 0.2em;
-	right: 1em;
-	
-	height: 2em;
-
-	font-size: 1.5em;
-	font-weight: 100;
+	right: 0.5em;
+	bottom: 0.8em;
+	font-size: 1.2em;
 }
 
-.github_link__icon {
-	margin-right: 0.7em;
-	transform: translateY(.25em);
-	height: 1.3em;
-	width: 1.3em;
+.gh_icon {
+	height: 1.2em;
+	width: 1.2em;
+	margin-right: 0.5em;
+	transform: translateY(0.18em);
 }
 
-.github_link__text {
-	font-size: 1em;
-}
+@media only screen and (max-width: 1400px) {
+	.gh_text {
+		display: none;
+	}
 
-@media only screen and (max-width: 1300px) {
-	.github_link {
-		position: absolute;
-		bottom: -6em;
-		width: 100%;
-		text-align: center;
-		height: 3em;
+	.gh_link {
+		right: 0;
+		bottom: 0.5em;
+		font-size: 2em;
+	}
+}
+@media only screen and (max-width: 925px) {
+	.gh_link {
+		display: none;
 	}
 }

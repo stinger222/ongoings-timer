@@ -5,7 +5,7 @@ export const getStoredValue = (key: string) => {
 }
 
 export const getStoredJSON = (key: string) => {
-	const storedValue = localStorage.getItem(key)
+	const storedValue = localStorage.getItem(key)?.trim()
 	
 	if (storedValue && storedValue != '') {
 		return JSON.parse(storedValue)
@@ -17,15 +17,15 @@ export const checkCardSuitability = (cardName: string): boolean => {
   return /.*\s[-]\s[А-Я][а-я]\s[0-9]{2}[:][0-9]{2}$/.test(cardName)
 }
 
-const createCheckItems = (checklistId: string, length: number) => {
+const createCheckItems = (checklistId: string, checkItemsCount: number) => {
   const creationPromise = new Promise((resolve: any) => {    
-    for (let i = 1; i <= length; i++) {
+    for (let i = 1; i <= checkItemsCount; i++) {
       setTimeout(() => {
         Trello.post(`/checklists/${checklistId}/checkItems?name=${i}`)
       }, 400 * i)
     }
 
-    setTimeout(() => resolve(), 400 * (length+2))
+    setTimeout(() => resolve(), 400 * (checkItemsCount+2))
   })
   return creationPromise
 }

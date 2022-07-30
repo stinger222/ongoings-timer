@@ -1,6 +1,6 @@
 import { ITrelloBoard, ITrelloList, storageKeys } from './../../models/trelloModels';
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getStoredValue, getStoredJSON } from "../../utils/hepler";
+import { getStoredJSON } from "../../utils/hepler";
 import Trello from "../../models/Trello";
 
 interface IAuthState {

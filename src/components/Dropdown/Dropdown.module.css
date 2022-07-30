@@ -152,7 +152,6 @@
   align-items: center;
 
   margin-bottom: 0.5em;
-  /* background: red; */
 }
 
 .dropdown_row > * {
@@ -178,7 +177,7 @@
 
   padding: 0 0.5em;
   margin-inline: auto;
-  margin-block: 1em 0.2em;
+  margin-block: 0.7em 0.2em;
 }
 
 /* CSSTransition animation classes: */

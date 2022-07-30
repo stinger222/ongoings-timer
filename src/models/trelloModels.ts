@@ -19,6 +19,15 @@ export interface ITrelloBoard{
 	name: string
 }
 
+export interface INewCardData {
+  name: string,
+  desc: string,
+  idList: string,
+  pos?: 'top' | 'bottom',
+  length: number,
+  watched: number
+}
+
 export const storageKeys = {
 	selectedBoard: "selectedBoard",
 	selectedList: "selectedList"

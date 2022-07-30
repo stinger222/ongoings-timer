@@ -50,8 +50,8 @@ select {
 	-webkit-appearance: none;
 	-moz-appearance: none;
 	background-image: url('./assets/down.svg');
-	background-position: right 0.5em top -3px;
-	background-size: 15px;
+	background-position: right 0.5em top -0.3em;
+	background-size: 1em;
 	background-repeat: no-repeat;
 }
 

@@ -1,9 +1,11 @@
 
-import { DEV_destributedData, ITrelloCardData } from './../../models/trelloModels';
+import Trello from '../../models/Trello';
+import { Week } from '../../models/Week';
+import { checkCardSuitability, createChecklist } from '../../utils/hepler';
+import { DEV_destributedData, INewCardData, ITrelloCardData } from './../../models/trelloModels';
+
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { RootState } from '../store';
-import { Week } from '../../models/Week';
-import { checkCardSuitability } from '../../utils/hepler';
 
 const IS_DEV = process.env.NODE_ENV === "development"
 
@@ -62,6 +64,23 @@ export const completeLastCheckItem = createAsyncThunk(
 					checkItemsChecked: cardData.checkItemsChecked + 1
 				}))
 			} else throw new Error('Can\'t complete checkitem.')
+
+		} catch (err) {
+			return rejectWithValue(err)
+		}
+	}
+)
+
+export const cretaeCard = createAsyncThunk(
+  "cardsReducer/cretaeCard",
+	async (newCard: INewCardData, { dispatch, rejectWithValue}) => {
+   	try {
+      const onCreationSuccess = (createdCard: any) => {
+        console.log('Card created successfully!')
+        createChecklist(createdCard.id, "Серии", newCard.length, newCard.watched)
+      }
+
+      Trello.post('/cards/', newCard, onCreationSuccess)
 
 		} catch (err) {
 			return rejectWithValue(err)

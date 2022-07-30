@@ -9,11 +9,7 @@ const getNewCardData = ({
   title, day, time, length, watched, player_url, thumbnail_url
 }: any): INewCardData => {
   const name = `${title} - ${day} ${time}`
-  console.log('name:\n', name)
-  
   const desc = player_url + "\n" + thumbnail_url
-  console.log('desc:\n', desc)
-  
   const selectedList = localStorage.getItem(storageKeys.selectedList)
 
   if (!selectedList) {
@@ -21,7 +17,6 @@ const getNewCardData = ({
   }
 
   const idList = JSON.parse(selectedList).id
-  console.log('idList', idList);
   
   return {
     name, desc, idList, pos: "bottom", length, watched
@@ -44,7 +39,6 @@ export default function DropdownAddCard({ className }: any) {
     }
     
     e.target.title.value = ''
-    e.target.day.value = ''
     e.target.time.value = ''
     e.target.length.value = ''
     e.target.watched.value = ''

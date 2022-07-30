@@ -31,28 +31,42 @@ const createCheckItems = (checklistId: string, length: number) => {
 }
 
 const completeCheckItems = async (checklistId: string, cardId: string, toCheck: number) => {
-  Trello.get(`/checklists/${checklistId}/checkItems`).then((checkItems: any) => {
-    for (let i = 0; i < toCheck; i++) {
-      Trello.put(`cards/${cardId}/checkItem/${checkItems[i].id}?state=complete`)
-    }
-    console.log('CheckItems completed! (I believe...)');
-  })
+	const promise = new Promise((resolve: any, reject: any) => {
+
+		Trello.get(`/checklists/${checklistId}/checkItems`).then((checkItems: any) => {
+			for (let i = 0; i < toCheck; i++) {
+				Trello.put(`cards/${cardId}/checkItem/${checkItems[i].id}?state=complete`).catch((err: any) => {
+					console.error(err)
+				})
+			}
+			setTimeout(() => {
+				console.log('CheckItems completed! (I believe...)\n\n')
+				resolve()
+			}, 500)
+		})
+	})
+
+	return promise
 }
 
 export const createChecklist = (
   cardId: string, checklistName: string = 'Серии', length: number, toCheck: number
 ) => {
+	const promise = new Promise((resolve: any, reject: any) => {
+		Trello.post(`/checklists?idCard=${cardId}&name=${checklistName}`).then((createdChecklist: any) => {
+			console.log('Checklist created successfully!\n\n')
+			console.log('Creating checkItems....')
+			
+			createCheckItems(createdChecklist.id, length).then(() => {
+				console.log('All checkItems created!\n\n')
+				console.log('Completing first '+ toCheck +" checkItems...");
+				
+				completeCheckItems(createdChecklist.id, cardId, toCheck).then(() => {
+					resolve()
+				})
+			})
+		})
+	})
 
-  const onChecklistCreation = (createdChecklist: any) => {
-    console.log('Checklist created successfully!\n')
-    console.log('Creating checkItems....')
-    
-    createCheckItems(createdChecklist.id, length).then(() => {
-      console.log('All checkItems created!\n')
-      console.log('Completing first '+ toCheck +" checkItems...");
-      
-      completeCheckItems(createdChecklist.id, cardId, toCheck)
-    })
-  }
-  Trello.post(`/checklists?idCard=${cardId}&name=${checklistName}`, onChecklistCreation)
+	return promise
 }

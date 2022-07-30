@@ -73,11 +73,14 @@ export const completeLastCheckItem = createAsyncThunk(
 
 export const cretaeCard = createAsyncThunk(
   "cardsReducer/cretaeCard",
-	async (newCard: INewCardData, { dispatch, rejectWithValue}) => {
+	async (newCard: INewCardData, { dispatch, rejectWithValue }) => {
    	try {
       const onCreationSuccess = (createdCard: any) => {
-        console.log('Card created successfully!')
-        createChecklist(createdCard.id, "Серии", newCard.length, newCard.watched)
+        console.log('\nCard created successfully!')
+        createChecklist(createdCard.id, "Серии", newCard.length, newCard.watched).then(() => {
+					dispatch(clearDistributedCards())
+					dispatch(fetchCardsData())
+				})
       }
 
       Trello.post('/cards/', newCard, onCreationSuccess)

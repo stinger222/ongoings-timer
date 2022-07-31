@@ -95,7 +95,7 @@ export const removeCard = createAsyncThunk(
   "cardsReducer/removeCard",
 	async ({cardId, cardDayId}: any, { dispatch, rejectWithValue }) => {
    	try {
-			Trello.delete(`/cards/${cardId+'ds'}`).then(() => {
+			Trello.delete(`/cards/${cardId}`).then(() => {
 				console.log('Card deleted successfully!');
 				dispatch(removeCardFromState({cardId, cardDayId}))
 			}).catch((e: any) => {

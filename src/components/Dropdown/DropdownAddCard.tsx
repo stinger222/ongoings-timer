@@ -39,7 +39,7 @@ export default function DropdownAddCard({ className }: any) {
     }
     
     e.target.title.value = ''
-    e.target.time.value = ''
+    e.target.time.value = '00:00'
     e.target.length.value = ''
     e.target.watched.value = ''
     e.target.player_url.value = ''
@@ -75,7 +75,7 @@ export default function DropdownAddCard({ className }: any) {
           <option>Сб</option>
           <option>Вс</option>
         </select>
-        <input className={styles.dropdown_input} id="time" type="time"></input>
+        <input className={styles.dropdown_input} id="time" type="time" defaultValue="00:00"></input>
       </div>
 
       <div className={styles.dropdown_row}>

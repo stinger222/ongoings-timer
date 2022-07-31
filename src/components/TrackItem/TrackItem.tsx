@@ -1,11 +1,12 @@
-import { completeLastCheckItem, updateCard } from "../../redux/reducers/cardsReducer";
+import { completeLastCheckItem, removeCard, updateCard } from "../../redux/reducers/cardsReducer";
 import { easings, useSpring, animated } from "react-spring";
 import { ITrelloCardData } from "../../models/trelloModels";
 import { useAppDispatch } from "../../hooks/redux";
 
 import { ReactComponent as TrelloIcon } from '../../assets/trello.svg';
 import { ReactComponent as CheckIcon } from '../../assets/check.svg';
-import { ReactComponent as ThumbnailStub } from '../../assets/thumbnail-stub.svg';
+import { ReactComponent as CrossIcon } from '../../assets/cross.svg';
+
 import ProgressBar from "../ProgressBar/ProgressBar";
 import Timer from "../Timer/Timer";
 
@@ -22,6 +23,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 		checkItemsChecked,
 		checklistId,
 		cardTitle: rawCardTitle,
+		cardDayId,
 		cardDesc,
 		cardUrl,
 		cardId
@@ -49,9 +51,9 @@ export default function TrackItem({ cardData, index }: IProps) {
 	
 	const handleDebugCardUpdate = () => {
 		dispatch(updateCard({
-			cardDayId: cardData.cardDayId,
-			cardId: cardData.cardId,
-			checkItemsChecked: cardData.checkItemsChecked + 1
+			cardDayId: cardDayId,
+			cardId: cardId,
+			checkItemsChecked: checkItemsChecked + 1
 		}))
 	}
 
@@ -62,6 +64,12 @@ export default function TrackItem({ cardData, index }: IProps) {
 	const handleImageError = (e: any) => {
 		console.error('Can\'t load thumbnail. Replacing with default image...');
 		e.target.src = require('../../assets/thumbnail-stub.png')
+	}
+
+	const handleDelete = () => {
+		if (!window.confirm('You sure you want to delete this card?')) return
+
+		dispatch(removeCard({ cardId, cardDayId }))
 	}
 
 	return (
@@ -79,8 +87,12 @@ export default function TrackItem({ cardData, index }: IProps) {
 				}
 
 				<a className={styles.icon} href={cardUrl} title="Card on trllo" target='_blank'>
-				<TrelloIcon/>
+					<TrelloIcon/>
 				</a>
+				
+				<button className={styles.icon} onClick={handleDelete}title="Delete card">
+					<CrossIcon/>
+				</button>
 			</div>
 
 			<img
@@ -88,8 +100,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 				src={imageUrl ?? "x"}
 				onError={handleImageError}
 			/>
-			
-
+	
 			<div className={styles.info}>
 				<a className={styles.title} href={playerUrl} title="Go to player" target="_blank">{IS_DEV ? rawCardTitle : title}</a>
 				<ProgressBar checkItems={checkItems} checkItemsChecked={checkItemsChecked}/>

@@ -91,6 +91,25 @@ export const cretaeCard = createAsyncThunk(
 	}
 )
 
+export const removeCard = createAsyncThunk(
+  "cardsReducer/removeCard",
+	async ({cardId, cardDayId}: any, { dispatch, rejectWithValue }) => {
+   	try {
+			Trello.delete(`/cards/${cardId+'ds'}`).then(() => {
+				console.log('Card deleted successfully!');
+				dispatch(removeCardFromState({cardId, cardDayId}))
+			}).catch((e: any) => {
+				console.error('Can\'t delete card. Trello resonded with status code: ' + e.status)
+				console.error('Response message: ', e.responseText)
+				throw e;
+			})
+			
+		} catch (err) {
+			return rejectWithValue(err)
+		}
+	}
+)
+
 const cardsReducer = createSlice({
 	name: "cardsReducer",
 	initialState,
@@ -129,6 +148,11 @@ const cardsReducer = createSlice({
 			Object.entries(action.payload).forEach((a: any) => {
 				card[a[0]] = a[1]
 			})
+		},
+		removeCardFromState(state: ICardsState, action: any) {
+			state.distributedData[action.payload.cardDayId] = state.distributedData[action.payload.cardDayId].filter((card: ITrelloCardData) => {
+				return card.cardId !== action.payload.cardId
+			})
 		}}, 
     extraReducers: (builder) => {
 		builder.addCase(fetchCardsData.pending, (state) => {
@@ -152,6 +176,6 @@ const cardsReducer = createSlice({
 	}
 })
 
-export const { distributeCards, clearDistributedCards, updateCard } = cardsReducer.actions
+export const { distributeCards, clearDistributedCards, updateCard, removeCardFromState } = cardsReducer.actions
 
 export default cardsReducer.reducer

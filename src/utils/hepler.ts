@@ -70,3 +70,10 @@ export const createChecklist = (
 
 	return promise
 }
+
+// Capitalize first letter of each word if word is not jsut one letter
+export const processTitle = (title: string): string => {
+	return title.toLowerCase().trim()
+		.replace(/(^[а-яА-Яa-zA-Z]|\s[а-яА-Яa-zA-Z])/g, m => m.toUpperCase())
+		.replace(/\s[а-яА-Яa-zA-Z]\s/g, m => m.toLowerCase())
+}

@@ -4,6 +4,7 @@ import { ReactComponent as BackIcon } from "../../assets/back.svg";
 import styles from './Dropdown.module.css';
 import { INewCardData, storageKeys } from "../../models/trelloModels";
 import { cretaeCard } from "../../redux/reducers/cardsReducer";
+import { processTitle } from "../../utils/hepler";
 
 const getNewCardData = ({
   title, day, time, length, watched, player_url, thumbnail_url
@@ -29,7 +30,7 @@ export default function DropdownAddCard({ className }: any) {
   const handleCardCreation = (e: any) => {
     e.preventDefault()
     const formData = {
-      title: e.target.title.value,
+      title: processTitle(e.target.title.value),
       day: e.target.day.value,
       time: e.target.time.value,
       length: +e.target.length.value,

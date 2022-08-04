@@ -1,6 +1,6 @@
 {
   "files": {
-    "main.css": "/ongoings-timer/static/css/main.d16ac4e8.css",
+    "main.css": "/ongoings-timer/static/css/main.d98fc3ae.css",
     "main.js": "/ongoings-timer/static/js/main.75c09d48.js",
     "static/media/204_1.png": "/ongoings-timer/static/media/204_1.11d48666f566657b21b2.png",
     "static/media/github.svg": "/ongoings-timer/static/media/github.eaf6f3320fa6df024b41daed1df0575c.svg",
@@ -15,11 +15,11 @@
     "static/media/check.svg": "/ongoings-timer/static/media/check.6faa808927051e5551e28aeecc1ec30b.svg",
     "static/media/back.svg": "/ongoings-timer/static/media/back.d82e9095d35f8868d07c393d1fd2bf52.svg",
     "static/media/down.svg": "/ongoings-timer/static/media/down.f01ef32469f9193ce161.svg",
-    "main.d16ac4e8.css.map": "/ongoings-timer/static/css/main.d16ac4e8.css.map",
+    "main.d98fc3ae.css.map": "/ongoings-timer/static/css/main.d98fc3ae.css.map",
     "main.75c09d48.js.map": "/ongoings-timer/static/js/main.75c09d48.js.map"
   },
   "entrypoints": [
-    "static/css/main.d16ac4e8.css",
+    "static/css/main.d98fc3ae.css",
     "static/js/main.75c09d48.js"
   ]
 }

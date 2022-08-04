@@ -170,6 +170,17 @@
   font-size: 1em;
 }
 
+.error_message {
+	width: 0;
+	height: 0;
+	display: none;
+}
+
+.error_message + * {
+	border-color: #eb4242ed;
+	border-width: 2px;
+}
+
 .add_card_menu .dropdown_button {
   height: 1.8em;
   line-height: 1.8em;

@@ -84,7 +84,6 @@ export const cretaeCard = createAsyncThunk(
       }
 
       Trello.post('/cards/', newCard, onCreationSuccess)
-
 		} catch (err) {
 			return rejectWithValue(err)
 		}

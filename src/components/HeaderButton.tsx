@@ -3,12 +3,12 @@ import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { selectDay } from "../redux/reducers/headerReducer";
 import styles from './Header/Header.module.css';
 
-interface IHeaderButtonProps {
+interface IProps {
 	id: number,
-	children?: React.ReactNode,
+	children?: string,
 }
 
-export default function HeaderButton({id, children}: IHeaderButtonProps) {
+export default function HeaderButton({id, children}: IProps) {
 	const dispatch = useAppDispatch()
 	const { selectedDay, today} = useAppSelector(state => state.headerReducer)
 	const isDayEmpty = useAppSelector(state => state.cardsReducer.distributedData[id].length === 0) 

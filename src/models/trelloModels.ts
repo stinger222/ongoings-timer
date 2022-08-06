@@ -73,7 +73,7 @@ export const DEV_destributedData = [
 			checkItemsChecked: 80,
 			checklistId: "sldfsdfkfjs#d(*98342",
 			cardTitle: "TEST CARD - Ср 12:09",
-			cardDesc: `https://amedia.online/1086-perestanu-byt-geroem.html\nhttps://amedia.online/uploads/posts/2022-03/thumbs/1648116177_1647531170_2.jpg`,
+			cardDesc: `https://amedia.online/1086-perestanu-byt-geroem.html\nposts/2022-03/thumbs/1648116177_1647531170_2.jpg`,
 			cardUrl: "Trello card url here",
 			cardId: "sdlkfjвsdf29а0dsvsddfsflkj234",
 			cardDayId: 3

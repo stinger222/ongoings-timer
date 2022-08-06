@@ -11,7 +11,7 @@ export default function DropdownMain({ className }: any) {
     trelloBoards, selectedBoard, selectedList, selectedBoardLists
   }: any = useAppSelector(state => state.authReducer) 
 
-	const handleBoardSelect = (e: any) => {
+	const handleBoardSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const selectedBoard = trelloBoards.find((board: any) => {
 			return board.name === e.target.value
 		})
@@ -26,7 +26,7 @@ export default function DropdownMain({ className }: any) {
     dispatch(selectList(null))
 	}
 
-	const handleListSelect = (e: any) => {
+	const handleListSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
 		const selectedList = selectedBoardLists.find((list: any) => {
 			return list.name === e.target.value
 		})
@@ -52,7 +52,7 @@ export default function DropdownMain({ className }: any) {
 			<div className={styles.settings_item}>
 				<span className={styles.setting_name}>Board:</span>
 				{
-					(!trelloBoards || trelloBoards.length == 0) && 
+					(!trelloBoards || trelloBoards.length === 0) && 
 						<i className={styles.not_found}>No boards found...</i>
 				}
 
@@ -80,7 +80,7 @@ export default function DropdownMain({ className }: any) {
 			<div className={styles.settings_item}>
 				<span className={styles.setting_name}>List:</span>
 				{
-					(!selectedBoardLists || selectedBoardLists.length == 0) && 
+					(!selectedBoardLists || selectedBoardLists.length === 0) && 
 						<i className={styles.not_found}>No lists found...</i>
 				}
 

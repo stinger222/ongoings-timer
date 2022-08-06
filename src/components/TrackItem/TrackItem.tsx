@@ -61,9 +61,9 @@ export default function TrackItem({ cardData, index }: IProps) {
 		dispatch(completeLastCheckItem(cardData))
 	}
 	
-	const handleImageError = (e: any) => {
+	const handleImageError = (e: React.SyntheticEvent<HTMLImageElement, Event>) => {
 		console.error('Can\'t load thumbnail. Replacing with default image...');
-		e.target.src = require('../../assets/thumbnail-stub.png')
+		e.currentTarget.src = require('../../assets/thumbnail-stub.png')
 	}
 
 	const handleDelete = () => {
@@ -98,6 +98,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 			<img
 				className={styles.image}
 				src={imageUrl ?? "x"}
+				alt=""
 				onError={handleImageError}
 			/>
 	

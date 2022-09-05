@@ -75,12 +75,12 @@ export const cretaeCard = createAsyncThunk(
   "cardsReducer/cretaeCard",
 	async (newCard: INewCardData, { dispatch, rejectWithValue }) => {
    	try {
-      const onCreationSuccess = (createdCard: any) => {
+      const onCreationSuccess = async (createdCard: any) => {
         console.log('\nCard created successfully!')
-        createChecklist(createdCard.id, "Серии", newCard.length, newCard.watched).then(() => {
-					dispatch(clearDistributedCards())
-					dispatch(fetchCardsData())
-				})
+
+        await createChecklist(createdCard.id, "Серии", newCard.length, newCard.watched)
+				dispatch(clearDistributedCards())
+				dispatch(fetchCardsData())
       }
 
       Trello.post('/cards/', newCard, onCreationSuccess)
@@ -95,7 +95,8 @@ export const removeCard = createAsyncThunk(
 	async ({cardId, cardDayId}: any, { dispatch, rejectWithValue }) => {
    	try {
 			Trello.delete(`/cards/${cardId}`).then(() => {
-				console.log('Card deleted successfully!');
+				console.log('Card deleted successfully!')
+				
 				dispatch(removeCardFromState({cardId, cardDayId}))
 			}).catch((e: any) => {
 				console.error('Can\'t delete card. Trello resonded with status code: ' + e.status)

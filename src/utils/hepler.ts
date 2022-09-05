@@ -18,54 +18,72 @@ export const checkCardSuitability = (cardName: string): boolean => {
 }
 
 const createCheckItems = (checklistId: string, checkItemsCount: number) => {
-  const creationPromise = new Promise((resolve: any) => {    
-    for (let i = 1; i <= checkItemsCount; i++) {
-      setTimeout(() => {
-        Trello.post(`/checklists/${checklistId}/checkItems?name=${i}`)
-      }, 400 * i)
+	const createdCheckItems: any = []
+  const promise = new Promise((resolve: any) => {    
+    for (let i = 0; i < checkItemsCount; i++) {
+      setTimeout(async () => {
+        const createdCheckItem = await Trello.post(`/checklists/${checklistId}/checkItems?name=${i+1}`)
+				createdCheckItems.push(createdCheckItem)
+      }, 500 * i)
     }
 
-    setTimeout(() => resolve(), 400 * (checkItemsCount+2))
+    setTimeout(() => resolve(createdCheckItems), 500 * checkItemsCount + 1000)
   })
-  return creationPromise
+  return promise
 }
 
-const completeCheckItems = async (checklistId: string, cardId: string, toCheck: number) => {
-	const promise = new Promise((resolve: any) => {
+const completeCheckItems = (checklistId: string, cardId: string, toCheck: number) => {
+	const promise = new Promise(async (resolve: any) => {
+		const checkItems = await Trello.get(`/checklists/${checklistId}/checkItems`)
 
-		Trello.get(`/checklists/${checklistId}/checkItems`).then((checkItems: any) => {
-			for (let i = 0; i < toCheck; i++) {
-				Trello.put(`cards/${cardId}/checkItem/${checkItems[i].id}?state=complete`).catch((err: any) => {
-					console.error(err)
-				})
-			}
-			setTimeout(() => {
-				console.log('CheckItems completed! (I believe...)\n\n')
-				resolve()
-			}, 500)
-		})
+		for (let i = 0; i < toCheck; i++) {
+			Trello.put(`cards/${cardId}/checkItem/${checkItems[i].id}?state=complete`).catch((err: any) => {
+				console.error(err)
+			})
+		}
+		
+		setTimeout(() => {
+			console.log('CheckItems completed! I believe...\n\n')
+			resolve()
+		}, 500)
 	})
 
 	return promise
 }
 
-export const createChecklist = (
+const renameCheckItems = (cardId: string, checkItems: any) => {
+	const checklistId = checkItems?.[0].idChecklist
+	console.log("checkItems, ", checkItems);
+	
+	for (let i = 0; i < checkItems.length; i++) {
+		setTimeout(() => {
+			Trello.put(`cards/${cardId}/checklist/${checklistId}/checkItem/${checkItems[i].id}`, {
+				name: i+1
+			})
+		}, 200 * i)
+	}
+}
+
+export const createChecklist = async (
   cardId: string, checklistName: string = 'Серии', length: number, toCheck: number
 ) => {
-	const promise = new Promise((resolve: any) => {
-		Trello.post(`/checklists?idCard=${cardId}&name=${checklistName}`).then((createdChecklist: any) => {
-			console.log('Checklist created successfully!\n\n')
-			console.log('Creating checkItems....')
-			
-			createCheckItems(createdChecklist.id, length).then(() => {
-				console.log('All checkItems created!\n\n')
-				console.log('Completing first '+ toCheck +" checkItems...");
-				
-				completeCheckItems(createdChecklist.id, cardId, toCheck).then(() => {
-					resolve()
-				})
-			})
-		})
+	const promise = new Promise(async (resolve: any) => {
+		const createdChecklist = await Trello.post(`/checklists?idCard=${cardId}&name=${checklistName}`)
+
+		console.log('Checklist created successfully!\n\n')
+		console.log('Creating checkItems....')
+		
+		// вот тут залупа!!
+		const createdCheckItems = await createCheckItems(createdChecklist.id, length)
+
+		console.log('All checkItems created!\n\n')
+		console.log('Completing first '+ toCheck +" checkItems...");
+		
+		await renameCheckItems(cardId, createdCheckItems)
+		
+		await completeCheckItems(createdChecklist.id, cardId, toCheck)
+		resolve()
+
 	})
 
 	return promise

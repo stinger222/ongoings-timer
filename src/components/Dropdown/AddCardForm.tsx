@@ -100,5 +100,5 @@ export default function AddCardForm({ handleSubmit }: any) {
 				</button>
 			</Form>
 		</Formik>
-	);
+	)
 }

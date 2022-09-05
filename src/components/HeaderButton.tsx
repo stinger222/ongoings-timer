@@ -1,4 +1,3 @@
-import React from "react";
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
 import { selectDay } from "../redux/reducers/headerReducer";
 import styles from './Header/Header.module.css';

@@ -53,8 +53,7 @@ const completeCheckItems = (checklistId: string, cardId: string, toCheck: number
 
 const renameCheckItems = (cardId: string, checkItems: any) => {
 	const checklistId = checkItems?.[0].idChecklist
-	console.log("checkItems, ", checkItems);
-	
+
 	for (let i = 0; i < checkItems.length; i++) {
 		setTimeout(() => {
 			Trello.put(`cards/${cardId}/checklist/${checklistId}/checkItem/${checkItems[i].id}`, {

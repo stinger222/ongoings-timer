@@ -1,6 +1,6 @@
 import { ReactComponent as SettingsIcon } from "../../assets/settings.svg";
-import { ReactComponent as PlusIcon } from "../../assets/plus.svg";
 import { ReactComponent as SignOutIcon } from "../../assets/sign-out.svg";
+import { ReactComponent as PlusIcon } from "../../assets/plus.svg";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 import { setActiveMenu } from "../../redux/reducers/headerReducer";

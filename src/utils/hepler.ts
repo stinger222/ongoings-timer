@@ -22,7 +22,7 @@ const createCheckItems = (checklistId: string, checkItemsCount: number) => {
   const promise = new Promise((resolve: any) => {    
     for (let i = 0; i < checkItemsCount; i++) {
       setTimeout(async () => {
-        const createdCheckItem = await Trello.post(`/checklists/${checklistId}/checkItems?name=${i+1}`)
+        const createdCheckItem = await Trello.post(`/checklists/${checklistId}/checkItems?name=x`)
 				createdCheckItems.push(createdCheckItem)
       }, 500 * i)
     }
@@ -59,7 +59,7 @@ const renameCheckItems = (cardId: string, checkItems: any) => {
 			Trello.put(`cards/${cardId}/checklist/${checklistId}/checkItem/${checkItems[i].id}`, {
 				name: i+1
 			})
-		}, 200 * i)
+		}, 300 * i)
 	}
 }
 
@@ -72,7 +72,6 @@ export const createChecklist = async (
 		console.log('Checklist created successfully!\n\n')
 		console.log('Creating checkItems....')
 		
-		// вот тут залупа!!
 		const createdCheckItems = await createCheckItems(createdChecklist.id, length)
 
 		console.log('All checkItems created!\n\n')
@@ -82,7 +81,6 @@ export const createChecklist = async (
 		
 		await completeCheckItems(createdChecklist.id, cardId, toCheck)
 		resolve()
-
 	})
 
 	return promise

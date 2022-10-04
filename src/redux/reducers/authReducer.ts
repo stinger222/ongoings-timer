@@ -85,6 +85,7 @@ const authReducer = createSlice({
 			})
 
       Trello.deauthorize()
+			globalThis.document.location.reload()
     },
 		setBoards(state: IAuthState, action: any) {
 			state.trelloBoards = action.payload

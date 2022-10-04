@@ -5,6 +5,7 @@ import { checkCardSuitability, createChecklist } from '../../utils/hepler';
 import { DEV_destributedData, INewCardData, ITrelloCardData } from './../../models/trelloModels';
 
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { deauthorize } from './authReducer';
 import { RootState } from '../store';
 
 const IS_DEV = process.env.NODE_ENV === "development"
@@ -30,7 +31,10 @@ export const fetchCardsData = createAsyncThunk(
 			const response = await fetch(`https://api.trello.com/1/lists/${selectedList?.id}/cards/?key=${trelloKey}&token=${trelloToken}`)
 			const data = await response.json()
 			dispatch(distributeCards(data))
-		} catch (err) {
+		} catch (err: any) {
+			if (err?.message.includes("expired token")) {
+				dispatch(deauthorize())
+			}
 			return rejectWithValue(err)
 		}
 	}
@@ -162,9 +166,9 @@ const cardsReducer = createSlice({
 			state.isPending = false
 		})
 		builder.addCase(fetchCardsData.rejected, (state, action: any) => {
-			console.error("ERROR OCCURRED!!"); // stub
-			console.error(action.payload)
 			state.isPending = false
+			console.error("Can't load data from trello!!");
+			console.error(action?.payload?.message)
 		})
 
 		builder.addCase(completeLastCheckItem.fulfilled, (state, action: any) => {

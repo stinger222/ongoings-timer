@@ -18,16 +18,14 @@ export const checkCardSuitability = (cardName: string): boolean => {
 }
 
 const createCheckItems = (checklistId: string, checkItemsCount: number) => {
-	const createdCheckItems: any = []
   const promise = new Promise((resolve: any) => {    
     for (let i = 0; i < checkItemsCount; i++) {
-      setTimeout(async () => {
-        const createdCheckItem = await Trello.post(`/checklists/${checklistId}/checkItems?name=x`)
-				createdCheckItems.push(createdCheckItem)
-      }, 500 * i)
+      setTimeout(() => {
+      	Trello.post(`/checklists/${checklistId}/checkItems?name=${i+1}&pos=${(i+1)*16384}`)
+      }, 80 * i)
     }
 
-    setTimeout(() => resolve(createdCheckItems), 500 * checkItemsCount + 1000)
+    setTimeout(() => resolve(), 80 * checkItemsCount + 600)
   })
   return promise
 }
@@ -35,17 +33,17 @@ const createCheckItems = (checklistId: string, checkItemsCount: number) => {
 const completeCheckItems = (checklistId: string, cardId: string, toCheck: number) => {
 	const promise = new Promise(async (resolve: any) => {
 		const checkItems = await Trello.get(`/checklists/${checklistId}/checkItems`)
+		checkItems.sort((a: any, b: any) => a.pos - b.pos)
 
 		for (let i = 0; i < toCheck; i++) {
-			Trello.put(`cards/${cardId}/checkItem/${checkItems[i].id}?state=complete`).catch((err: any) => {
-				console.error(err)
-			})
+			setTimeout(() => {
+				Trello.put(`cards/${cardId}/checkItem/${checkItems[i].id}?state=complete`).catch((err: any) => {
+					console.error('Can\'t complete checkitem!! ', err)
+				})
+			}, 80 * i + 1000)
 		}
 		
-		setTimeout(() => {
-			console.log('CheckItems completed! I believe...\n\n')
-			resolve()
-		}, 500)
+		setTimeout(() => resolve(), 80 * toCheck)
 	})
 
 	return promise
@@ -68,18 +66,15 @@ export const createChecklist = async (
 ) => {
 	const promise = new Promise(async (resolve: any) => {
 		const createdChecklist = await Trello.post(`/checklists?idCard=${cardId}&name=${checklistName}`)
-
 		console.log('Checklist created successfully!\n\n')
+		
 		console.log('Creating checkItems....')
-		
-		const createdCheckItems = await createCheckItems(createdChecklist.id, length)
-
+		await createCheckItems(createdChecklist.id, length)
 		console.log('All checkItems created!\n\n')
+
 		console.log('Completing first '+ toCheck +" checkItems...");
-		
-		await renameCheckItems(cardId, createdCheckItems)
-		
 		await completeCheckItems(createdChecklist.id, cardId, toCheck)
+		console.log('CheckItems completed!');
 		resolve()
 	})
 

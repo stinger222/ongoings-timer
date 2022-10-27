@@ -38,7 +38,7 @@ export default function ProgressBar({ checkItemsChecked, checkItems }: IProgress
 	const range = getRange(checkItemsChecked, checkItems)
 	
 	return (
-		<div className={`${styles.progress_bar} ${range.isMoreAfter ? styles.is_more_after: ""}`}>
+		<div className={`${styles.progress_bar} ${range.isMoreAfter ? styles.is_more_after : ""}`}>
 			{
 				range.result.map((i) => <span 
 						key={i}

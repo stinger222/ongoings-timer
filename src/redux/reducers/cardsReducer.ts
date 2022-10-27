@@ -51,6 +51,8 @@ export const completeLastCheckItem = createAsyncThunk(
 			const checkItems = await (await fetch(
 				`https://api.trello.com/1/checklists/${cardData.checklistId}/checkItems?key=${trelloKey}&token=${trelloToken}`
 			)).json()
+			checkItems.sort((a: any, b: any) => a.pos - b.pos)
+			
 			const targetCheckItem = checkItems.find((i: any) => i.state === 'incomplete')?.id
 
 			if (!targetCheckItem) throw new Error('All checkitems is completed or there is no checklist in this card.\n')

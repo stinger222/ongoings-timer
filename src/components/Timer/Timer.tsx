@@ -17,7 +17,7 @@ export default function Timer({ rawTargetDate }: IProps) {
 	const [targetHour, targetMinute] = [+rawTargetDate.substring(3, 5), +rawTargetDate.substring(6, 8)]
 
 	// calculate diffenence betwen now and taget unix time
-	useEffect(() => {
+	const updateTimer = () => {
 		const currentDate = new Date()
 		const targetDate = new Date()
 
@@ -30,7 +30,8 @@ export default function Timer({ rawTargetDate }: IProps) {
 		const currentUnixDate = Math.round(Date.now() / 1000)
 		
 		setDifference(targetUnixDate - currentUnixDate)
-	}, [])
+	}
+	useEffect(updateTimer, [])
 
 	useEffect(() => {
 		const interval = setInterval(() => {
@@ -39,6 +40,18 @@ export default function Timer({ rawTargetDate }: IProps) {
 		
 		return () => clearInterval(interval)
 	}, [])
+
+	useEffect(() => {
+		const handleWindowFocus = () => {
+			console.log('Window is acive. Timers updated.');
+			updateTimer()
+		}
+
+		window.addEventListener('focus', handleWindowFocus)
+		
+		return () => window.removeEventListener('focus', handleWindowFocus)
+	}, [])
+
 
 	return (
 		<h1 className={styles.timer}>

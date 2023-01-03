@@ -5,7 +5,7 @@ import { setupStore } from './redux/store';
 import './index.css';
 import { HashRouter as Router } from 'react-router-dom';
 
-const store:any = setupStore()
+const store = setupStore()
 
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement

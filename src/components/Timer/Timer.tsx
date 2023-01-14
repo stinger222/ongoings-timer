@@ -43,7 +43,6 @@ export default function Timer({ rawTargetDate }: IProps) {
 
 	useEffect(() => {
 		const handleWindowFocus = () => {
-			console.log('Window is acive. Timers updated.');
 			updateTimer()
 		}
 

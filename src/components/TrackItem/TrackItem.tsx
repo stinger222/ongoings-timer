@@ -37,7 +37,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 	const title = rawCardTitle.substring(0, delimiterIndex)
 	const rawTargetDate = rawCardTitle.substring(delimiterIndex + 3, rawCardTitle.length)
 
-	const [playerUrl, imageUrl] = cardDesc.split('\n')
+	const [playerUrl, imageUrl] = [...cardDesc.matchAll(/\(https\:\/\/.{0,}\)/g)].map(match => match[0].slice(1,-5))
 
 	const spring = useSpring({
 		from: { x: -230, opacity: 0 },

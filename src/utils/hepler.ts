@@ -49,18 +49,6 @@ const completeCheckItems = (checklistId: string, cardId: string, toCheck: number
 	return promise
 }
 
-const renameCheckItems = (cardId: string, checkItems: any) => {
-	const checklistId = checkItems?.[0].idChecklist
-
-	for (let i = 0; i < checkItems.length; i++) {
-		setTimeout(() => {
-			Trello.put(`cards/${cardId}/checklist/${checklistId}/checkItem/${checkItems[i].id}`, {
-				name: i+1
-			})
-		}, 300 * i)
-	}
-}
-
 export const createChecklist = async (
   cardId: string, checklistName: string = 'Серии', length: number, toCheck: number
 ) => {

@@ -1,5 +1,5 @@
-import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { clearDistributedCards, fetchCardsData } from "../../../redux/reducers/cardsReducer";
+import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { useEffect } from "react";
 
 import { ReactComponent as GitHubIcon } from "../../../assets/github.svg";

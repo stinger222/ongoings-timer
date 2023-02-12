@@ -69,7 +69,7 @@ export const createChecklist = async (
 	return promise
 }
 
-// Capitalize first letter of each word if word is not jsut one letter
+// Capitalize first letter of each word if it's not jsut one letter
 export const processTitle = (title: string): string => {
 	return title.toLowerCase().trim()
 		.replace(/(^[а-яА-Яa-zA-Z]|\s[а-яА-Яa-zA-Z])/g, s => s.toUpperCase())
@@ -77,4 +77,11 @@ export const processTitle = (title: string): string => {
 		.replaceAll(/\s[x]|[ix]|[viii]|[vii]|[vi]|[v]|[iv]|[iii]|[ii]|[i]/gi,
 			s => s.toUpperCase()
 		)
+}
+
+export const formatNumber = (number: number): string => {
+	return Math.abs(number).toLocaleString('en-US', {
+    minimumIntegerDigits: 2,
+    useGrouping: false
+  })
 }

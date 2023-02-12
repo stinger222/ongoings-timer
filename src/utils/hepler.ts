@@ -72,6 +72,9 @@ export const createChecklist = async (
 // Capitalize first letter of each word if word is not jsut one letter
 export const processTitle = (title: string): string => {
 	return title.toLowerCase().trim()
-		.replace(/(^[а-яА-Яa-zA-Z]|\s[а-яА-Яa-zA-Z])/g, m => m.toUpperCase())
-		.replace(/\s[а-яА-Яa-zA-Z]\s/g, m => m.toLowerCase())
+		.replace(/(^[а-яА-Яa-zA-Z]|\s[а-яА-Яa-zA-Z])/g, s => s.toUpperCase())
+		.replace(/\s[а-яА-Яa-zA-Z]\s/g, s => s.toLowerCase())
+		.replaceAll(/\s[x]|[ix]|[viii]|[vii]|[vi]|[v]|[iv]|[iii]|[ii]|[i]/gi,
+			s => s.toUpperCase()
+		)
 }

@@ -1,5 +1,5 @@
 import { useAppDispatch } from "../../hooks/redux";
-import { cretaeCard } from "../../redux/reducers/cardsReducer";
+import { createCard } from "../../redux/reducers/cardsReducer";
 import { setActiveMenu } from "../../redux/reducers/headerReducer";
 
 import { storageKeys } from "../../constants/constants";
@@ -34,7 +34,7 @@ export default function DropdownAddCard({ className }: { className: string }) {
 
   const handleSubmit = (formValues) => {
     const newCardData: INewCardData = getNewCardData(formValues)
-    dispatch(cretaeCard(newCardData))
+    dispatch(createCard(newCardData))
   }
 
   return <div className={`${className}`}>

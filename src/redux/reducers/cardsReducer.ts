@@ -79,8 +79,8 @@ export const completeLastCheckItem = createAsyncThunk(
 	}
 )
 
-export const cretaeCard = createAsyncThunk(
-  "cardsReducer/cretaeCard",
+export const createCard = createAsyncThunk(
+  "cardsReducer/createCard",
 	async (newCard: INewCardData, { dispatch, rejectWithValue }) => {
    	try {
       const onCreationSuccess = async (createdCard) => {

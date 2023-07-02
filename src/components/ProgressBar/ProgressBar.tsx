@@ -40,11 +40,12 @@ export default function ProgressBar({ checkItemsChecked, checkItems }: IProgress
 	return (
 		<div className={`${styles.progress_bar} ${range.isMoreAfter ? styles.is_more_after : ""}`}>
 			{
-				range.result.map((i) => <span 
-						key={i}
-						className={i <= checkItemsChecked ? styles.watched : ""}
-						>{i}
-					</span>)
+				range.result.map((i) => (
+          <span key={i}  className={i <= checkItemsChecked ? styles.watched : ""}>
+            {i}
+          </span>
+          )
+        )
 			}
 		</div>
 	)

@@ -2,25 +2,25 @@ import { useNavigate, Route, Routes } from "react-router-dom";
 import { useAppDispatch } from "./hooks/redux";
 import { authorize } from "./redux/reducers/authReducer";
 import { useEffect } from "react";
+import { Trello } from "./constants/constants";
 
 import WelcomePage from "./components/pages/WelcomePage/WelcomePage";
 import TrackPage from "./components/pages/TrackPage/TrackPage";
 import Header from "./components/Header/Header";
-import Trello from "./models/Trello";
 
 
 function App() {
 	const dispatch = useAppDispatch()
 	const navigate = useNavigate()
   
-	const authenticationSuccess = () => {
+	const onAuthSuccess = () => {
 		console.log('Soft Login: SUCCESS')
 
     dispatch(authorize())
     navigate('/track')
    }
 
-	const authenticationFailure = () => {
+	const onAuthFailure = () => {
 		console.error('Soft Login: FAILURE\n')
     
     navigate('/welcome')
@@ -30,11 +30,11 @@ function App() {
 	useEffect(() => {
 		Trello.authorize({
 			interactive: false,
-			success: authenticationSuccess,
-			error: authenticationFailure
+			success: onAuthSuccess,
+			error: onAuthFailure
 		})
 
-    if( Trello.authorized() ) {
+    if(Trello.authorized()) {
       dispatch(authorize())
     }
 	}, [])
@@ -51,4 +51,4 @@ function App() {
 	</>
 }
 
-export default App;
+export default App

@@ -1,32 +1,4 @@
-export interface ITrelloCardData {
-	checkItems: number,
-	checkItemsChecked: number,
-	checklistId: string,
-	cardTitle: string,
-	cardDayId: number,
-	cardDesc: string,
-	cardUrl: string,
-	cardId: string,
-}
-
-export interface ITrelloList{
-	id: string,
-	name: string
-}
-
-export interface ITrelloBoard{
-	id: string,
-	name: string
-}
-
-export interface INewCardData {
-  name: string,
-  desc: string,
-  idList: string,
-  pos?: 'top' | 'bottom',
-  length: number,
-  watched: number
-}
+export const Trello = (window as any).Trello
 
 export const storageKeys = {
 	selectedBoard: "selectedBoard",
@@ -137,6 +109,5 @@ export const DEV_destributedData = [
 		cardUrl: "Trello card url here",
 		cardId: "sdlkfjsdf2вавsdf90dsflkj234",
 		cardDayId: 6
-	}
-]
+	}]
 ]

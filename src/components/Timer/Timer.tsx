@@ -1,17 +1,14 @@
-import { useEffect, useState } from "react";
-import { useParseDate } from "../../hooks/useParseDate";
-import { Week } from "../../models/Week";
+import { useEffect, useState } from "react"; 
+import { formatTimeDuration, Week } from "../../utils/dateTimeUtils";
 import styles from "./Timer.module.css";
 
 interface IProps { 
-	rawTargetDate: string 
+	rawTargetDate: string// Пн 21:30 etc.
 }
 
 export default function Timer({ rawTargetDate }: IProps) {
-	const IS_DEV = process.env.NODE_ENV === "development"
-
 	const [difference, setDifference] = useState<number>(0)
-	const timerValue = useParseDate(difference)
+	const timerValue = formatTimeDuration(difference)
 	
 	const targetDayId = Week.getIdByName(rawTargetDate)
 	const [targetHour, targetMinute] = [+rawTargetDate.substring(3, 5), +rawTargetDate.substring(6, 8)]

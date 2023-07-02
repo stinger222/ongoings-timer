@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 const todayId = new Date().getDay()
 
@@ -21,13 +21,13 @@ const headerReducer = createSlice({
 	name: "headerReducer",
 	initialState,
 	reducers: {
-		selectDay(state: IHeaderState, action: any)  {
+		selectDay(state: IHeaderState, action: PayloadAction<number>)  {
 			state.selectedDay = action.payload
 		},
-    setActiveMenu(state: IHeaderState, action: any) {
+    setActiveMenu(state: IHeaderState, action: PayloadAction<ActiveMenu>) {
       state.dropdownActiveMenu = action.payload
     },
-    setDropdownState(state: IHeaderState, action: any) {
+    setDropdownState(state: IHeaderState, action: PayloadAction<boolean>) {
       state.isDropdownOpen = action.payload
     }
 	}

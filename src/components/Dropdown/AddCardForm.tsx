@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import styles from './Dropdown.module.css';
 
-export default function AddCardForm({ handleSubmit }: any) {
+export default function AddCardForm({ handleSubmit }) {
 	return (
 		<Formik
 			initialValues={{
@@ -18,10 +18,10 @@ export default function AddCardForm({ handleSubmit }: any) {
 				resetForm()
 			}}
 			validate={(values) => {
-				const errors: any = {};
+				const errors = {};
 
-				const length = +values.length.trim()
-				const watched = +values.watched.trim()
+				const length = +values.length
+        const watched = +values.watched
 
 				if (isNaN(length)) {
 					errors["length"] = true
@@ -67,6 +67,7 @@ export default function AddCardForm({ handleSubmit }: any) {
 					<Field
 						className={styles.dropdown_input}
 						name="length"
+            type="number"
 						placeholder="Length"
 					/>
 					<ErrorMessage name="watched" >
@@ -75,6 +76,7 @@ export default function AddCardForm({ handleSubmit }: any) {
 					<Field
 						className={styles.dropdown_input}
 						name="watched"
+            type="number"
 						placeholder="Watched"
 					/>
 				</div>

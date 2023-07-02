@@ -1,17 +1,19 @@
 import { useAppDispatch } from "../../hooks/redux";
 import { cretaeCard } from "../../redux/reducers/cardsReducer";
 import { setActiveMenu } from "../../redux/reducers/headerReducer";
-import { INewCardData, storageKeys } from "../../models/trelloModels";
 
-import { processTitle } from "../../utils/hepler";
+import { storageKeys } from "../../constants/constants";
+import { processTitle } from "../../utils/stringUtils";
+import { INewCardData, INewCardForm } from "../../types/Trello";
 
 import { ReactComponent as BackIcon } from "../../assets/back.svg";
+
 import styles from './Dropdown.module.css';
 import AddCardForm from "./AddCardForm";
 
 const getNewCardData = ({
   title, day, time, length, watched, player_url, thumbnail_url
-}: any): INewCardData => {
+}: INewCardForm): INewCardData => {
   const name = `${processTitle(title)} - ${day} ${time}`
   const desc = player_url + "\n" + thumbnail_url
   const selectedList = localStorage.getItem(storageKeys.selectedList)
@@ -27,10 +29,10 @@ const getNewCardData = ({
   }
 }
 
-export default function DropdownAddCard({ className }: any) {
+export default function DropdownAddCard({ className }: { className: string }) {
   const dispatch = useAppDispatch()
 
-  const handleSubmit = (formValues: any) => {
+  const handleSubmit = (formValues) => {
     const newCardData: INewCardData = getNewCardData(formValues)
     dispatch(cretaeCard(newCardData))
   }

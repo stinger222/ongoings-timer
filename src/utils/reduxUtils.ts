@@ -1,27 +1,10 @@
-import Trello from "../models/Trello"
-
-export const getStoredValue = (key: string) => {
-	return localStorage.getItem(key) || null
-}
-
-export const getStoredJSON = (key: string) => {
-	const storedValue = localStorage.getItem(key)?.trim()
-	
-	if (storedValue && storedValue != '') {
-		return JSON.parse(storedValue)
-	}
-	return null
-}
-
-export const checkCardSuitability = (cardName: string): boolean => {
-  return /.*\s[-]\s[А-Я][а-я]\s[0-9]{2}[:][0-9]{2}$/.test(cardName)
-}
+import { Trello } from "../constants/constants"
 
 const createCheckItems = (checklistId: string, checkItemsCount: number) => {
-  const promise = new Promise((resolve: any) => {    
+  const promise = new Promise<void>((resolve) => {    
     for (let i = 0; i < checkItemsCount; i++) {
       setTimeout(() => {
-      	Trello.post(`/checklists/${checklistId}/checkItems?name=${i+1}&pos=${(i+1)*16384}`)
+      	Trello.post(`/checklists/${checklistId}/checkItems?name=${i+1}&pos=${(i+1) * 16384}`)
       }, 80 * i)
     }
 
@@ -31,7 +14,7 @@ const createCheckItems = (checklistId: string, checkItemsCount: number) => {
 }
 
 const completeCheckItems = (checklistId: string, cardId: string, toCheck: number) => {
-	const promise = new Promise(async (resolve: any) => {
+	const promise = new Promise<void>(async (resolve) => {
 		const checkItems = await Trello.get(`/checklists/${checklistId}/checkItems`)
 		checkItems.sort((a: any, b: any) => a.pos - b.pos)
 
@@ -52,7 +35,7 @@ const completeCheckItems = (checklistId: string, cardId: string, toCheck: number
 export const createChecklist = async (
   cardId: string, checklistName: string = 'Серии', length: number, toCheck: number
 ) => {
-	const promise = new Promise(async (resolve: any) => {
+	const promise = new Promise<void>(async (resolve) => {
 		const createdChecklist = await Trello.post(`/checklists?idCard=${cardId}&name=${checklistName}`)
 		console.log('Checklist created successfully!\n\n')
 		
@@ -60,28 +43,11 @@ export const createChecklist = async (
 		await createCheckItems(createdChecklist.id, length)
 		console.log('All checkItems created!\n\n')
 
-		console.log('Completing first '+ toCheck +" checkItems...");
+		console.log(`Completing first ${toCheck} checkItems...`);
 		await completeCheckItems(createdChecklist.id, cardId, toCheck)
 		console.log('CheckItems completed!');
 		resolve()
 	})
 
 	return promise
-}
-
-// Capitalize first letter of each word if it's not jsut one letter
-export const processTitle = (title: string): string => {
-	return title.toLowerCase().trim()
-		.replace(/(^[а-яА-Яa-zA-Z]|\s[а-яА-Яa-zA-Z])/g, s => s.toUpperCase())
-		.replace(/\s[а-яА-Яa-zA-Z]\s/g, s => s.toLowerCase())
-		.replaceAll(/\s[x]|[ix]|[viii]|[vii]|[vi]|[v]|[iv]|[iii]|[ii]|[i]/gi,
-			s => s.toUpperCase()
-		)
-}
-
-export const formatNumber = (number: number): string => {
-	return Math.abs(number).toLocaleString('en-US', {
-    minimumIntegerDigits: 2,
-    useGrouping: false
-  })
 }

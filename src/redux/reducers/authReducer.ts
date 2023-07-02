@@ -1,13 +1,13 @@
-import { ITrelloBoard, ITrelloList, storageKeys } from './../../models/trelloModels';
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getStoredJSON } from "../../utils/hepler";
-import Trello from "../../models/Trello";
+import { getStoredJSON } from './../../utils/localStorageUtils';
+import { storageKeys, Trello } from "../../constants/constants";
+import { ITrelloBoard, ITrelloList } from "../../types/Trello";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IAuthState {
   isAuthorized: boolean,
   trelloToken: string | null,
   trelloKey: string | null,
-	trelloBoards: [] | null,
+	trelloBoards: any[] | null,
 	selectedBoard: ITrelloBoard | null,
 	selectedBoardLists: ITrelloList[] | null
 	selectedList: ITrelloList | null
@@ -87,17 +87,17 @@ const authReducer = createSlice({
       Trello.deauthorize()
 			globalThis.document.location.reload()
     },
-		setBoards(state: IAuthState, action: any) {
+		setBoards(state: IAuthState, action: PayloadAction<any[]>) {
 			state.trelloBoards = action.payload
 		},
-		setSelectedBoardLists(state: IAuthState, action: any) {
+		setSelectedBoardLists(state: IAuthState, action: PayloadAction<ITrelloList[]>) {
 			state.selectedBoardLists = action.payload
 		},
-		selectBoard(state: IAuthState, action: any) {
+		selectBoard(state: IAuthState, action: PayloadAction<ITrelloBoard>) {
 			state.selectedBoard = action.payload
 			localStorage.setItem(storageKeys.selectedBoard, JSON.stringify(action.payload))
 		},
-		selectList(state: IAuthState, action: any) {
+		selectList(state: IAuthState, action: PayloadAction<ITrelloList>) {
 			state.selectedList = action.payload
 			localStorage.setItem(storageKeys.selectedList, JSON.stringify(action.payload))
 		}

@@ -1,18 +1,19 @@
 import { fetchSelectedBoardLists, selectBoard, selectList} from "../../redux/reducers/authReducer";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { ReactComponent as BackIcon } from "../../assets/back.svg";
 import { setActiveMenu } from "../../redux/reducers/headerReducer";
-import { ITrelloList } from "../../models/trelloModels";
+
+import { ReactComponent as BackIcon } from "../../assets/back.svg";
+import { ITrelloList } from "../../types/Trello";
 import styles from './Dropdown.module.css';
 
-export default function DropdownMain({ className }: any) {
+export default function DropdownMain({ className }: { className: string }) {
   const dispatch = useAppDispatch()
 	const {
     trelloBoards, selectedBoard, selectedList, selectedBoardLists
-  }: any = useAppSelector(state => state.authReducer) 
+  } = useAppSelector(state => state.authReducer) 
 
 	const handleBoardSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const selectedBoard = trelloBoards.find((board: any) => {
+		const selectedBoard = trelloBoards.find((board) => {
 			return board.name === e.target.value
 		})
 
@@ -65,7 +66,7 @@ export default function DropdownMain({ className }: any) {
 							}
 							
 							{
-								(trelloBoards as []).map((board: any) => {
+								(trelloBoards as any[]).map((board) => {
 									return (
 										<option value={board.name} key={board.name}>
 											{board.name}
@@ -93,7 +94,7 @@ export default function DropdownMain({ className }: any) {
 							}
 
 							{
-								(selectedBoardLists as []).map((list: any) => {
+								(selectedBoardLists as ITrelloList[]).map((list) => {
 									return (
 										<option key={list.name} value={list.name}>
 											{list.name}

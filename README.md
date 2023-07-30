@@ -12,7 +12,10 @@ This is Trello-based app for tracking your anime (or not so) ongoings with timer
 Check out [the demo] yourself!
 
 # Preview
-*some screenshots here as well as gifs*
+![Preview](https://github.com/stinger222/ongoings-timer/assets/39219491/a25edcbd-165e-44b4-a506-b7bf8458f08c)
+
+
+
 
 # Tech Stack <i><sub><sup>(click to expand)</sup></sub></i>
  <details>

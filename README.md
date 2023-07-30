@@ -1,10 +1,10 @@
-# Ongoings Timer
+ # Ongoings Timer
 This is Trello-based app for tracking your anime (or not so) ongoings with timer until next episode.
 
 # Features
-  - Easily create cards for each ongoing series you want to track
-  - Click on the title to open site where you watching selected series
-  - Keep tracking how many episodes you already watched with handy progress bar
+  - Create cards for each ongoing series you want to track
+  - Go to player url by simply clicking on the title of the card
+  - Handy progress bar will help you keeping track of episodes you already watched 
   - Delete card from Trello in one click
   - Countdown timer until text episode
 

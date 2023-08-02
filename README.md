@@ -3,13 +3,11 @@ This is Trello-based app for tracking your anime (or not so) ongoings with timer
 
 ## Preview
 
-
 **Result example:**
 ![Preview](https://github.com/stinger222/ongoings-timer/assets/39219491/a25edcbd-165e-44b4-a506-b7bf8458f08c)
 
 **Card Creation process:**
 ![Card Creation](https://github.com/stinger222/ongoings-timer/assets/39219491/1f9e3a89-0700-4c9c-9e29-9dc2e6f3d2de)
-
 
 ## Demo
 Check out [the demo](https://stinger222.github.io/ongoings-timer) to explore all features of the app!
@@ -22,13 +20,17 @@ Check out [the demo](https://stinger222.github.io/ongoings-timer) to explore all
   - Countdown timer until next episode
 
 ## Tech Stack <i><sub><sup>(click to expand)</sup></sub></i>
- <details open>
+ <b>▷ Typescript</b>
+ 
+ <details>
    <summary><b>React</b></summary>
   
-   - Redux
-   - Redux Toolkit
+   - Redux & Redux Toolkit
+     > For global state management and data fetching
    - Formik
+     > To create card creation form with necessary logic such as validation and form state management
    - React Router Dom
+     > For dynamic routing and navigation in the app 
 </details>
 
  <details>
@@ -42,16 +44,12 @@ Check out [the demo](https://stinger222.github.io/ongoings-timer) to explore all
    <summary><b>CSS</b></summary>
 
    - React Spring
-     > Was used create mount animation for cards
+     > Used to create mount animation for cards
    - React transition group
      > To animate navigation in dropdown menu
    - CSS Modules
      > For general components styling
 </details>
-
-<b>▷ Typescript</b>
-
-<b>▷ Formik</b>
 
 ## Usage
   1. Log in using your Trello account
@@ -60,8 +58,8 @@ Check out [the demo](https://stinger222.github.io/ongoings-timer) to explore all
   4. Fill out the form with necessary data such as: 
     - Title
     - Time and day of the week when new episodes released
-    - Ammount of watched episodes (optional) and their overall ammount
-    - Thimbnail (optional) and player urls 
+    - Amount of watched episodes (optional) and their overall amount
+    - Thumbnail (optional) and player urls 
   5. Press "Create" and that's it!
 
 ## Installation / Dev stuff

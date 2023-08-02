@@ -22,47 +22,43 @@ Check out [the demo](https://stinger222.github.io/ongoings-timer) to explore all
   - Countdown timer until next episode
 
 ## Tech Stack <i><sub><sup>(click to expand)</sup></sub></i>
- <details>
+ <details open>
    <summary><b>React</b></summary>
-    
-   1. 1
-   2. 2
-   3. 3
+  
+   - Redux
+   - Redux Toolkit
+   - Formik
+   - React Router Dom
 </details>
 
- <details>
-   <summary><b>Typescript</b></summary>
-    
-   1. 1
-   2. 2
-   3. 3
-</details>
-
- <details>
-   <summary><b>Formik</b></summary>
-    
-   1. 1
-   2. 2
-   3. 3
-</details>
-
- <details>
+ <details open>
    <summary><b>Jest</b></summary>
-    
-   1. 1
-   2. 2
-   3. 3
+  
+   - Unit testing
+   - A to B testing
 </details>
+
+ <details open>
+   <summary><b>CSS</b></summary>
+
+   - React Spring
+   - React transition group
+   - CSS Modules
+</details>
+
+<b>Typescript</b>
+
+<b>Formik</b>
 
 ## Usage
   1. Log in using your Trello account
   2. Select the Trello board and list where your ongoing series data will be stored
-  3. Open card creation form  on the "New Card" button
-  4. Fill out the form with necessarrrry data such as: 
+  3. Open card creation form  using the "New Card" button
+  4. Fill out the form with necessary data such as: 
     - Title
     - Time and day of the week when new episodes released
     - Ammount of watched episodes (optional) and their overall ammount
-    - Player and thimbnail (optional) urls 
+    - Thimbnail (optional) and player urls 
   5. Press "Create" and that's it!
 
 ## Installation / Dev stuff

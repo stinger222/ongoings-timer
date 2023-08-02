@@ -7,7 +7,7 @@ export const processTitle = (title: string): string => {
 	return title.toLowerCase().trim()
 		.replace(/(^[а-яА-Яa-zA-Z]|\s[а-яА-Яa-zA-Z])/g, s => s.toUpperCase())
 		.replace(/\s[а-яА-Яa-zA-Z]\s/g, s => s.toLowerCase())
-		.replaceAll(/\s[x]|[ix]|[viii]|[vii]|[vi]|[v]|[iv]|[iii]|[ii]|[i]/gi,
+		.replaceAll(/(?<=\s)(?:(?:(?:I[XV]|V?I{0,3})|X(?:L|C)|L?X{0,3}|C(?:D|M)|D?C{0,3}|M{0,3}))(?=$|\n)/gi,
 			s => s.toUpperCase()
 		)
 }

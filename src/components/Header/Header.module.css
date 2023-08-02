@@ -1,9 +1,9 @@
 .header {
-	font-size: 2.5em;
+	font-size: 2.6em;
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 1.7em 0 2.5em 0;
+  margin: 1.75em 0 2.5em 0;
   position: relative;
 }
 
@@ -62,7 +62,7 @@
 	width: 0;
 	height: 0;
 	border-style: solid;
-	border-width: 0.2em.15em 0 0.15em;
+	border-width: 0.2em 0.15em 0 0.15em;
 	border-color: #ff4d00 transparent transparent transparent;
 }
 

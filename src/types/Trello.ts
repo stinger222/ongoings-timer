@@ -14,7 +14,7 @@ export interface ITrelloList{
 	name: string
 }
 
-export interface ITrelloBoard{
+export interface ITrelloBoard {
 	id: string,
 	name: string
 }

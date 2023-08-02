@@ -1,3 +1,5 @@
+import { RootState } from "../redux/store"
+
 export const Trello = (window as any).Trello
 
 export const storageKeys = {
@@ -5,9 +7,30 @@ export const storageKeys = {
 	selectedList: "selectedList"
 }
 
+export const mockRootState: RootState = {
+  authReducer: {
+    isAuthorized: false,
+    trelloToken: null,
+    trelloKey: null,
+    trelloBoards: null,
+    selectedBoard: null,
+    selectedBoardLists: null,
+    selectedList: null
+  },
+  cardsReducer: {
+    isPending: false,
+    distributedData: [[]]
+  },
+  headerReducer: {
+    selectedDay: new Date().getDay(),
+    today: new Date().getDay(),
+    isDropdownOpen: false,
+    dropdownActiveMenu: 'main'
+  }
+}
+
 export const DEV_destributedData = [
-	[
-	], [
+	[], [
 		{
 			checkItems: 99,
 			checkItemsChecked: 80,

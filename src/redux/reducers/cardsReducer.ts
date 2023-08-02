@@ -34,7 +34,7 @@ export const fetchCardsData = createAsyncThunk(
 			const data = await response.json()
 			dispatch(distributeCards(data))
 		} catch (err) {
-			if (err?.message.includes("expired token")) {
+			if (err?.message?.includes("expired token")) {
 				dispatch(deauthorize())
 			}
 			return rejectWithValue(err)
@@ -126,6 +126,7 @@ const cardsReducer = createSlice({
 	initialState,
 	reducers: {
 		distributeCards(state: ICardsState, action: PayloadAction<object[]>)  {
+      
       const validCards = action.payload.filter((card: any) => {
         return checkCardSuitability(card.name)
       })
@@ -170,27 +171,27 @@ const cardsReducer = createSlice({
 			state.distributedData[action.payload.cardDayId] = state.distributedData[action.payload.cardDayId].filter((card: ITrelloCardData) => {
 				return card.cardId !== action.payload.cardId
 			})
-		}}, 
-    extraReducers: (builder) => {
-		builder.addCase(fetchCardsData.pending, (state) => {
-			state.isPending = true
-		})
-		builder.addCase(fetchCardsData.fulfilled, (state) => {
-			state.isPending = false
-		})
-		builder.addCase(fetchCardsData.rejected, (state, action: PayloadAction<{message?: string}>) => {
-			state.isPending = false
-			console.error("Can't load data from trello!!");
-			console.error(action?.payload?.message)
-		})
+  }}, 
+  extraReducers: (builder) => {
+    builder.addCase(fetchCardsData.pending, (state) => {
+      state.isPending = true
+    })
+    builder.addCase(fetchCardsData.fulfilled, (state) => {
+      state.isPending = false
+    })
+    builder.addCase(fetchCardsData.rejected, (state, action: PayloadAction<{message?: string}>) => {
+      state.isPending = false
+      console.error("Can't load data from trello!!");
+      console.error(action?.payload?.message)
+    })
 
-		builder.addCase(completeLastCheckItem.fulfilled, () => {
-			console.log('Marked as watched successfully.')
-		})
-		builder.addCase(completeLastCheckItem.rejected, (state, action: PayloadAction<any>) => {
-			console.error(action.payload)
-		})
-	}
+    builder.addCase(completeLastCheckItem.fulfilled, () => {
+      console.log('Marked as watched successfully.')
+    })
+    builder.addCase(completeLastCheckItem.rejected, (state, action: PayloadAction<any>) => {
+      console.error(action.payload)
+    })
+  }
 })
 
 export const { distributeCards, clearDistributedCards, updateCard, removeCardFromState } = cardsReducer.actions

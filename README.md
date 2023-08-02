@@ -31,24 +31,27 @@ Check out [the demo](https://stinger222.github.io/ongoings-timer) to explore all
    - React Router Dom
 </details>
 
- <details open>
+ <details>
    <summary><b>Jest</b></summary>
   
-   - Unit testing
-   - A to B testing
+   - (❌ NOT YET) Unit testing 
+   - (❌ NOT YET) A to B testing
 </details>
 
- <details open>
+ <details>
    <summary><b>CSS</b></summary>
 
    - React Spring
+     > Was used create mount animation for cards
    - React transition group
+     > To animate navigation in dropdown menu
    - CSS Modules
+     > For general components styling
 </details>
 
-<b>Typescript</b>
+<b>▷ Typescript</b>
 
-<b>Formik</b>
+<b>▷ Formik</b>
 
 ## Usage
   1. Log in using your Trello account

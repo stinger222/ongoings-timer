@@ -54,24 +54,26 @@ export const completeLastCheckItem = createAsyncThunk(
 				`https://api.trello.com/1/checklists/${cardData.checklistId}/checkItems?key=${trelloKey}&token=${trelloToken}`
 			)).json()
 			checkItems.sort((a, b) => a.pos - b.pos)
-			
+
 			const targetCheckItemId = checkItems.find((i) => i.state === 'incomplete')?.id
 
-			if (!targetCheckItemId) throw new Error('All checkitems is completed or there is no checklist in this card.\n')
+			if (!targetCheckItemId) {
+        return rejectWithValue( new Error('All checkitems is completed or there is no checklist in this card.\n'))
+      }
 
-			// completing targetCheckItem
+			// completing targetCheckItem (aka last incompleted checkitem in the checklist)
 			const success = (await(await fetch(
 				`https://api.trello.com/1/cards/${cardData.cardId}/checkItem/${targetCheckItemId}?state=complete&key=${trelloKey}&token=${trelloToken}`,
 				{	method: "PUT" }
 			)).json()).state === 'complete'
-
+      
 			if (success) {
 				dispatch(updateCard({
 					cardDayId: cardData.cardDayId,
 					cardId: cardData.cardId,
 					checkItemsChecked: cardData.checkItemsChecked + 1
 				}))
-			} else throw new Error('Can\'t complete checkitem.')
+			} else return rejectWithValue(new Error('Can\'t complete checkitem.'))
 
 		} catch (err) {
 			return rejectWithValue(err)

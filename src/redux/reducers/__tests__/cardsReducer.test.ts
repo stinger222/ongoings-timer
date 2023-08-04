@@ -1,6 +1,5 @@
 import { mockRootState } from "../../../constants/constants";
 import { ITrelloCardData } from "../../../types/Trello";
-import { Week } from "../../../utils/dateTimeUtils";
 import { completeLastCheckItem, fetchCardsData } from "../cardsReducer"
 
 global.fetch = jest.fn()
@@ -91,6 +90,7 @@ describe("Testing async thunks", () => {
     })
   })
   
+
   describe("Testing 'completeLastCheckItem' thunk", () => {
     it('Should mark last incompleted checkitem in the checklist as completed', async () => {
       // cardData that passed in the thunk
@@ -106,7 +106,7 @@ describe("Testing async thunks", () => {
       }
       
       // repose from Trello with all checkitems in requested checklist
-      let mockCheckItems = [
+      const mockCheckItems = [
         {
           id: "some-id-that-checkitem-1-have",
           pos: 150,
@@ -163,17 +163,128 @@ describe("Testing async thunks", () => {
       
       expect(fulfilled[0].type).toBe('cardsReducer/completeLastCheckItem/fulfilled')
     })
-    it.todo('Should throw an error because there is no checklist or checkitems in checklist')  // async
-    it.todo('Should throw an error because can\'t mark last incompleted checkitem as completed')  // async
+
+    it('Should throw an error because there is no checklist or checkitems in checklist', async () => {
+      // cardData that passed in the thunk
+      const mockCardData: ITrelloCardData = {
+        checkItems: 2,
+        checkItemsChecked: 0,
+        checklistId: "some-checklist-id",
+        cardTitle: "Some Card Title",
+        cardDayId: new Date().getDay(),
+        cardDesc: "https://player.url\nhttps://thumbnail.url",
+        cardUrl: "https://trello-card.url/?id=some-card-id",
+        cardId: "some-card-id"
+      }
+    
+      // First mock fetch
+      ;(fetch as jest.Mock)
+        .mockResolvedValueOnce({
+          ok: true,
+          json: () => Promise.resolve([])
+        })
+      
+      const dispatch = jest.fn()
+      const thunk = completeLastCheckItem(mockCardData)
+  
+      await thunk(
+        dispatch,
+        () => mockRootState,
+        () => ({
+          rejectWithValue() {}
+        })
+      )
+      
+      const { calls } = dispatch.mock
+  
+      expect(calls).toHaveLength(2)
+      
+      const [pending, rejected] = calls
+  
+      expect(pending[0].type).toBe('cardsReducer/completeLastCheckItem/pending')
+
+      expect(rejected[0].type).toBe('cardsReducer/completeLastCheckItem/rejected')
+      expect(rejected[0].payload).toBeInstanceOf(Error)
+      expect(rejected[0].payload.message).toBe('All checkitems is completed or there is no checklist in this card.\n')
+    })
+    
+    it('Should throw an error because can\'t mark last incompleted checkitem as completed', async () => {
+       // cardData that passed in the thunk
+       const mockCardData: ITrelloCardData = {
+        checkItems: 2,
+        checkItemsChecked: 0,
+        checklistId: "some-checklist-id",
+        cardTitle: "Some Card Title",
+        cardDayId: new Date().getDay(),
+        cardDesc: "https://player.url\nhttps://thumbnail.url",
+        cardUrl: "https://trello-card.url/?id=some-card-id",
+        cardId: "some-card-id"
+      }
+
+      // repose from Trello with all checkitems in requested checklist
+      const mockCheckItems = [
+        {
+          id: "some-id-that-checkitem-1-have",
+          pos: 150,
+          state: "incomplete"
+        },
+        {
+          id: "some-id-that-checkitem-2-have",
+          pos: 300,
+          state: "incomplete"
+        }
+      ]
+
+      // Two mock fetches
+      ;(fetch as jest.Mock)
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve(mockCheckItems)
+      })
+      .mockResolvedValueOnce({
+        ok: true,
+        json: () => Promise.resolve({
+          id: "some-id-that-checkitem-1-have",
+          pos: 150,
+          state: "incomplete"
+        })
+      });
+      
+      const dispatch = jest.fn()
+      const thunk = completeLastCheckItem(mockCardData)
+  
+      await thunk(
+        dispatch,
+        () => mockRootState,
+        () => ({
+          rejectWithValue() {}
+        })
+      )
+      
+      const { calls } = dispatch.mock
+  
+      expect(calls).toHaveLength(2)
+      
+      const [pending, rejected] = calls
+  
+      expect(pending[0].type).toBe('cardsReducer/completeLastCheckItem/pending')
+
+      expect(rejected[0].type).toBe('cardsReducer/completeLastCheckItem/rejected')
+      expect(rejected[0].payload).toBeInstanceOf(Error)
+      expect(rejected[0].payload.message).toBe('Can\'t complete checkitem.')
+    })
   })
+
 
   describe("Testing 'createCard' thunk", () => {
     it.todo("Should dispatch 'clearDistributedCards' & 'fetchCardsData' if new card create successfully")  // async
     it.todo("Should throw an error if card creation response is rejected")  // async
   })
 
+
   describe("Testing 'removeCard' thunk", () => {
     it.todo("Should dispatch 'removeCardFromState' if card deletion respose is resolved")  // async
+    
     it.todo("Should throw an error beacuse card deletion respose is rejected")  // async
   })
 })
@@ -183,14 +294,21 @@ describe("Testing async thunks", () => {
 describe("Testing cardsReducer's reducers", () => { 
   describe("Testing 'distributeCards' reducer", () => {
     it.todo('Should destribute array of valid cards')
+
     it.todo('Should throw an error because there is no valid cards in the payload')
   })
+
+
   describe("Testing 'clearDistributedCards' reducer", () => {
     it.todo("Should clear all destributed cards")
   })
+
+
   describe("Testing 'updateCard' reducer", () => {
     it.todo("Should update card from the payload")
   })
+
+
   describe("Testing 'removeCardFromState' reducer", () => {
     it.todo("Should filted out card with passed id from destributed cards")
   })
@@ -199,7 +317,9 @@ describe("Testing cardsReducer's reducers", () => {
 describe("Testing extra reducers", () => {
   describe("Testing 'fetchCardsData' extra reducer", () => {
     it.todo('Should set pending state to true')
+
     it.todo('Should set pending state to false because thunk is fulfilled')
+
     it.todo('Should set pending state to false because thunk is rejected')
   })
 })

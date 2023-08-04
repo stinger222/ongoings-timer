@@ -1,23 +1,19 @@
 import { checkCardSuitability } from './../../utils/stringUtils';
 import { Week } from './../../utils/dateTimeUtils';
 
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, current, PayloadAction } from "@reduxjs/toolkit";
 import { createChecklist } from '../../utils/reduxUtils';
 
 import { deauthorize } from './authReducer';
 import { RootState } from '../store';
 
-import { DEV_destributedData, Trello } from './../../constants/constants';
-import { INewCardData, ITrelloCardData } from './../../types/Trello';
+import { DEV_destributedData } from './../../constants/constants';
+import { ITrelloCardData } from './../../types/Trello';
+import { ICardsReducerState, ICreateCardThunkProps, IRemoveCardThunkProps } from '../../types/redux';
 
 const __DEV__ = process.env.NODE_ENV === "development"
 
-interface ICardsState {
-	distributedData: Array<Array<ITrelloCardData>> | [],
-	isPending: boolean
-}
-
-const initialState: ICardsState = {
+const initialState: ICardsReducerState = {
 	isPending: false,
 	// Array index represents day of the week (0 - Sunday, 6 - Saturday)
 	distributedData: __DEV__ ? DEV_destributedData : [[],[],[],[],[],[],[]]
@@ -25,27 +21,28 @@ const initialState: ICardsState = {
 
 export const fetchCardsData = createAsyncThunk(
   "cardsReducer/fetchCardsData",
-	async (_, { dispatch, rejectWithValue, getState}) => {
-    const state = getState() as RootState
+  async (_, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState
     const { trelloKey, trelloToken, selectedList } = state.authReducer
 
 		try {
 			const response = await fetch(`https://api.trello.com/1/lists/${selectedList?.id}/cards/?key=${trelloKey}&token=${trelloToken}`)
 			const data = await response.json()
-			dispatch(distributeCards(data))
+
+		  thunkAPI.dispatch(distributeCards(data))
 		} catch (err) {
 			if (err?.message?.includes("expired token")) {
-				dispatch(deauthorize())
+			 thunkAPI.dispatch(deauthorize())
 			}
-			return rejectWithValue(err)
+			return thunkAPI.rejectWithValue(err)
 		}
 	}
 )
 
 export const completeLastCheckItem = createAsyncThunk(
 	"cardsReducer/completeLastCheckItem",
-	async (cardData: ITrelloCardData, { dispatch, rejectWithValue, getState }) => {
-    const state = getState() as RootState
+	async (cardData: ITrelloCardData, thunkAPI) => {
+    const state = thunkAPI.getState() as RootState
     const { trelloKey, trelloToken } = state.authReducer
 
 		try {
@@ -58,7 +55,7 @@ export const completeLastCheckItem = createAsyncThunk(
 			const targetCheckItemId = checkItems.find((i) => i.state === 'incomplete')?.id
 
 			if (!targetCheckItemId) {
-        return rejectWithValue( new Error('All checkitems is completed or there is no checklist in this card.\n'))
+        return thunkAPI.rejectWithValue( new Error('All checkitems is completed or there is no checklist in this card.\n'))
       }
 
 			// completing targetCheckItem (aka last incompleted checkitem in the checklist)
@@ -68,57 +65,55 @@ export const completeLastCheckItem = createAsyncThunk(
 			)).json()).state === 'complete'
       
 			if (success) {
-				dispatch(updateCard({
+				thunkAPI.dispatch(updateCard({
 					cardDayId: cardData.cardDayId,
 					cardId: cardData.cardId,
 					checkItemsChecked: cardData.checkItemsChecked + 1
 				}))
-			} else return rejectWithValue(new Error('Can\'t complete checkitem.'))
+			} else return thunkAPI.rejectWithValue(new Error('Can\'t complete checkitem.'))
 
 		} catch (err) {
-			return rejectWithValue(err)
+			return thunkAPI.rejectWithValue(err)
 		}
 	}
 )
 
-export const createCard = createAsyncThunk(
+
+export const createCard = createAsyncThunk<unknown, ICreateCardThunkProps>(
   "cardsReducer/createCard",
-	async (newCard: INewCardData, { dispatch, rejectWithValue }) => {
-   	try {
+  async ({ newCard, Trello}, thunkAPI) => {
+    try {
       const onCreationSuccess = async (createdCard) => {
         console.log('\nCard created successfully!')
 
         await createChecklist(createdCard.id, "Серии", newCard.length, newCard.watched)
-				dispatch(clearDistributedCards())
-				dispatch(fetchCardsData())
+				thunkAPI.dispatch(clearDistributedCards())
+				thunkAPI.dispatch(fetchCardsData())
       }
 
       Trello.post('/cards/', newCard, onCreationSuccess)
 		} catch (err) {
-			return rejectWithValue(err)
+			return thunkAPI.rejectWithValue(err)
 		}
 	}
 )
 
-export const removeCard = createAsyncThunk(
+export const removeCard = createAsyncThunk<unknown, IRemoveCardThunkProps>(
   "cardsReducer/removeCard",
-	async (
-    cardToRemove: Pick<ITrelloCardData, "cardId" | "cardDayId">,
-    { dispatch, rejectWithValue }
-  ) => {
+	async ({cardToRemove, Trello}, thunkAPI) => {
    	try {
 			Trello.delete(`/cards/${cardToRemove.cardId}`).then(() => {
 				console.log('Card deleted successfully!')
 				
-				dispatch(removeCardFromState({...cardToRemove}))
+				thunkAPI.dispatch(removeCardFromState({...cardToRemove}))
 			}).catch((err) => {
 				console.error('Can\'t delete card. Trello resonded with status code: ' + err.status)
 				console.error('Response message: ', err.responseText)
-				rejectWithValue(err)
+				thunkAPI.rejectWithValue(err)
 			})
 			
 		} catch (err) {
-			return rejectWithValue(err)
+			return thunkAPI.rejectWithValue(err)
 		}
 	}
 )
@@ -127,7 +122,7 @@ const cardsReducer = createSlice({
 	name: "cardsReducer",
 	initialState,
 	reducers: {
-		distributeCards(state: ICardsState, action: PayloadAction<object[]>)  {
+		distributeCards(state: ICardsReducerState, action: PayloadAction<object[]>)  {
       
       const validCards = action.payload.filter((card: any) => {
         return checkCardSuitability(card.name)
@@ -152,11 +147,11 @@ const cardsReducer = createSlice({
 				})
 			})
 		},
-    clearDistributedCards(state: ICardsState) {
+    clearDistributedCards(state: ICardsReducerState) {
       state.distributedData = [[],[],[],[],[],[],[]]
     },
 		updateCard(
-      state: ICardsState,
+      state: ICardsReducerState,
       action: PayloadAction<Pick<ITrelloCardData, "checkItemsChecked" | "cardId" | "cardDayId">>
     ) {
 			const dayId = action.payload.cardDayId
@@ -167,7 +162,7 @@ const cardsReducer = createSlice({
 			})
 		},
 		removeCardFromState(
-      state: ICardsState,
+      state: ICardsReducerState,
       action: PayloadAction<Pick<ITrelloCardData, "cardId" | "cardDayId">>
     ) {
 			state.distributedData[action.payload.cardDayId] = state.distributedData[action.payload.cardDayId].filter((card: ITrelloCardData) => {

@@ -11,6 +11,7 @@ import Timer from "../Timer/Timer";
 
 import styles from "./TrackItem.module.css";
 import { ITrelloCardData } from "../../types/Trello";
+import { Trello } from "../../constants/constants";
 
 interface IProps {
 	cardData: ITrelloCardData,
@@ -68,7 +69,9 @@ export default function TrackItem({ cardData, index }: IProps) {
 	const handleDelete = () => {
 		if (!window.confirm('You sure you want to delete this card?')) return
 
-		dispatch(removeCard({ cardId, cardDayId }))
+    const cardToRemove = { cardId, cardDayId }
+
+		dispatch(removeCard({ cardToRemove, Trello }))
 	}
 
 	return (

@@ -2,7 +2,7 @@ import { useAppDispatch } from "../../hooks/redux";
 import { createCard } from "../../redux/reducers/cardsReducer";
 import { setActiveMenu } from "../../redux/reducers/headerReducer";
 
-import { storageKeys } from "../../constants/constants";
+import { Trello, storageKeys } from "../../constants/constants";
 import { processTitle } from "../../utils/stringUtils";
 import { INewCardData, INewCardForm } from "../../types/Trello";
 
@@ -34,7 +34,7 @@ export default function DropdownAddCard({ className }: { className: string }) {
 
   const handleSubmit = (formValues) => {
     const newCardData: INewCardData = getNewCardData(formValues)
-    dispatch(createCard(newCardData))
+    dispatch(createCard({ newCard: newCardData, Trello }))
   }
 
   return <div className={`${className}`}>

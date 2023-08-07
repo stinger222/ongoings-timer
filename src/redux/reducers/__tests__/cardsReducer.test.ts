@@ -1,7 +1,7 @@
 import { mockDestributedData, mockRootState } from "../../../constants/constants";
 import { ITrelloCardData } from "../../../types/Trello";
 import { getTestCardData, TestDataVariant } from "../../../utils/testUtils";
-import cardsReducer, { clearDistributedCards, completeLastCheckItem, distributeCards, fetchCardsData } from "../cardsReducer"
+import cardsReducer, { clearDistributedCards, completeLastCheckItem, distributeCards, fetchCardsData, updateCard } from "../cardsReducer"
 
 global.fetch = jest.fn()
 
@@ -95,16 +95,7 @@ describe("Testing async thunks", () => {
   describe("Testing 'completeLastCheckItem' thunk", () => {
     it('Should mark last incompleted checkitem in the checklist as completed', async () => {
       // cardData that passed in the thunk
-      const mockCardData: ITrelloCardData = {
-        checkItems: 2,
-        checkItemsChecked: 0,
-        checklistId: "some-checklist-id",
-        cardTitle: "Some Card Title",
-        cardDayId: new Date().getDay(),
-        cardDesc: "https://player.url\nhttps://thumbnail.url",
-        cardUrl: "https://trello-card.url/?id=some-card-id",
-        cardId: "some-card-id"
-      }
+      const mockCardData: ITrelloCardData = getTestCardData(0, TestDataVariant.PROCESSED) as ITrelloCardData
       
       // repose from Trello with all checkitems in requested checklist
       const mockCheckItems = [
@@ -167,16 +158,7 @@ describe("Testing async thunks", () => {
 
     it('Should throw an error because there is no checklist or checkitems in checklist', async () => {
       // cardData that passed in the thunk
-      const mockCardData: ITrelloCardData = {
-        checkItems: 2,
-        checkItemsChecked: 0,
-        checklistId: "some-checklist-id",
-        cardTitle: "Some Card Title",
-        cardDayId: new Date().getDay(),
-        cardDesc: "https://player.url\nhttps://thumbnail.url",
-        cardUrl: "https://trello-card.url/?id=some-card-id",
-        cardId: "some-card-id"
-      }
+      const mockCardData: ITrelloCardData = getTestCardData(0, TestDataVariant.PROCESSED) as ITrelloCardData
     
       // First mock fetch
       ;(fetch as jest.Mock)
@@ -211,16 +193,7 @@ describe("Testing async thunks", () => {
     
     it('Should throw an error because can\'t mark last incompleted checkitem as completed', async () => {
        // cardData that passed in the thunk
-       const mockCardData: ITrelloCardData = {
-        checkItems: 2,
-        checkItemsChecked: 0,
-        checklistId: "some-checklist-id",
-        cardTitle: "Some Card Title",
-        cardDayId: new Date().getDay(),
-        cardDesc: "https://player.url\nhttps://thumbnail.url",
-        cardUrl: "https://trello-card.url/?id=some-card-id",
-        cardId: "some-card-id"
-      }
+       const mockCardData: ITrelloCardData = getTestCardData(0, TestDataVariant.PROCESSED) as ITrelloCardData
 
       // repose from Trello with all checkitems in requested checklist
       const mockCheckItems = [
@@ -345,7 +318,7 @@ describe("Testing async thunks", () => {
 
 // yeaa, I probably should've call them slices as docs suggested... :D
 describe("Testing cardsReducer's reducers", () => { 
-  describe("с", () => {
+  describe("Testing 'distributeCards' reducer", () => {
     it('Should destribute array of valid cards', () => {
       const initialState = mockRootState.cardsReducer
 
@@ -358,13 +331,16 @@ describe("Testing cardsReducer's reducers", () => {
 
       const newState = cardsReducer(initialState, distributeCards(cards))
 
+      // Sunday has 2 cards, and they're equal between each other
       expect(newState.distributedData[0]).toHaveLength(2)
       expect(newState.distributedData[0][0]).toEqual(getTestCardData(0, TestDataVariant.PROCESSED))
       expect(newState.distributedData[0][1]).toEqual(newState.distributedData[0][0])
       
+      // Tuesday has 1 card 
       expect(newState.distributedData[2]).toHaveLength(1)
       expect(newState.distributedData[2][0]).toEqual(getTestCardData(2, TestDataVariant.PROCESSED))
       
+      // And Saturday has 1 card as well
       expect(newState.distributedData[6]).toHaveLength(1)
       expect(newState.distributedData[6][0]).toEqual(getTestCardData(6, TestDataVariant.PROCESSED))
     })
@@ -396,7 +372,31 @@ describe("Testing cardsReducer's reducers", () => {
 
 
   describe("Testing 'updateCard' reducer", () => {
-    it.todo("Should update card from the payload")
+    it("Should update card from the payload", () => {
+
+      const mockProcessedCard = getTestCardData(0, TestDataVariant.PROCESSED)
+
+      const initialState = {
+        ...mockRootState.cardsReducer,
+        distributedData: [[mockProcessedCard]] // Whole week empty except Sunday
+      }
+
+      expect(initialState.distributedData[0][0]).toEqual(mockProcessedCard)
+      
+      // Increase "checkItemsChecked" by 4
+      const newState = cardsReducer(initialState, updateCard({
+        cardDayId: 0,
+        cardId: initialState.distributedData[0][0].cardId,
+        checkItemsChecked: initialState.distributedData[0][0].checkItemsChecked + 4
+      }))
+
+      expect(newState.distributedData[0][0]).toEqual({
+        ...mockProcessedCard,
+        cardDayId: 0,
+        cardId: mockProcessedCard.cardId,
+        checkItemsChecked: mockProcessedCard.checkItemsChecked + 4
+      })
+    })
   })
 
 

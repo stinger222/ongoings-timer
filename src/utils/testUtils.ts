@@ -1,3 +1,4 @@
+import { ITrelloCardData } from "../types/Trello"
 
 export enum TestDataVariant {
   RAW,
@@ -9,7 +10,7 @@ export enum TestDataVariant {
 export const getTestCardData = (
   dayId: number = 0,
   variant: TestDataVariant = TestDataVariant.RAW
-): object => {
+): any | ITrelloCardData => {
 
   const daysOfTheWeek: string[] = ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб']
   
@@ -79,7 +80,7 @@ export const getTestCardData = (
       },
       "isTemplate": false,
       "cardRole": null
-    },
+    } as any,
   
     // Result that should end up in the store
     [TestDataVariant.PROCESSED]: {
@@ -91,8 +92,7 @@ export const getTestCardData = (
       cardUrl: "https://trello.com/c/???/1234-mushoku-tensei-ii",
       cardId: "15cacf61672c5796852e850",
       cardDayId: dayId
-    },
-
+    } as ITrelloCardData,
     // Raw card response from Trello, but with invalid card name
     // (i.e without or with invalid postfix)
     [TestDataVariant.INVALID_RAW]: {
@@ -159,7 +159,7 @@ export const getTestCardData = (
       },
       "isTemplate": false,
       "cardRole": null
-    },
+    } as any,
 
   }
 

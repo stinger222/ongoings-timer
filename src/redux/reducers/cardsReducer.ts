@@ -123,7 +123,7 @@ const cardsReducer = createSlice({
 	initialState,
 	reducers: {
 		distributeCards(state: ICardsReducerState, action: PayloadAction<object[]>)  {
-      
+
       const validCards = action.payload.filter((card: any) => {
         return checkCardSuitability(card.name)
       })
@@ -150,7 +150,7 @@ const cardsReducer = createSlice({
     clearDistributedCards(state: ICardsReducerState) {
       state.distributedData = [[],[],[],[],[],[],[]]
     },
-		updateCard(
+		updateCard( // Currently used only inside "completeLastCheckitem" thunk, but can be extended if needed
       state: ICardsReducerState,
       action: PayloadAction<Pick<ITrelloCardData, "checkItemsChecked" | "cardId" | "cardDayId">>
     ) {

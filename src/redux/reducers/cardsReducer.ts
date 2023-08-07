@@ -1,13 +1,13 @@
 import { checkCardSuitability } from './../../utils/stringUtils';
 import { Week } from './../../utils/dateTimeUtils';
 
-import { AsyncThunk, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createChecklist } from '../../utils/reduxUtils';
 
 import { deauthorize } from './authReducer';
 import { RootState } from '../store';
 
-import { DEV_destributedData } from './../../constants/constants';
+import { mockDestributedData } from './../../constants/constants';
 import { ITrelloCardData } from './../../types/Trello';
 import { ICardsReducerState, ICreateCardThunkProps, IRemoveCardThunkProps } from '../../types/redux';
 
@@ -16,7 +16,7 @@ const __DEV__ = process.env.NODE_ENV === "development"
 const initialState: ICardsReducerState = {
 	isPending: false,
 	// Array index represents day of the week (0 - Sunday, 6 - Saturday)
-	distributedData: __DEV__ ? DEV_destributedData : [[],[],[],[],[],[],[]]
+	distributedData: __DEV__ ? mockDestributedData : [[],[],[],[],[],[],[]]
 }
 
 export const fetchCardsData = createAsyncThunk(

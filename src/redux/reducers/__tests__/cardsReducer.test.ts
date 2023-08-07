@@ -1,6 +1,7 @@
-import { mockRootState } from "../../../constants/constants";
+import { mockDestributedData, mockRootState } from "../../../constants/constants";
 import { ITrelloCardData } from "../../../types/Trello";
-import cardsReducer, { completeLastCheckItem, createCard, fetchCardsData } from "../cardsReducer"
+import { getTestCardData, TestDataVariant } from "../../../utils/testUtils";
+import cardsReducer, { clearDistributedCards, completeLastCheckItem, distributeCards, fetchCardsData } from "../cardsReducer"
 
 global.fetch = jest.fn()
 
@@ -15,7 +16,7 @@ describe("Testing async thunks", () => {
         ok: true,
         json: () => Promise.resolve(mockTrelloResponse)
       })
-  
+
       const dispatch = jest.fn()
       
       const thunk = fetchCardsData()
@@ -344,15 +345,53 @@ describe("Testing async thunks", () => {
 
 // yeaa, I probably should've call them slices as docs suggested... :D
 describe("Testing cardsReducer's reducers", () => { 
-  describe("Testing 'distributeCards' reducer", () => {
-    it.todo('Should destribute array of valid cards')
+  describe("с", () => {
+    it('Should destribute array of valid cards', () => {
+      const initialState = mockRootState.cardsReducer
 
-    it.todo('Should throw an error because there is no valid cards in the payload')
+      const cards = [
+        getTestCardData(0, TestDataVariant.RAW),
+        getTestCardData(0, TestDataVariant.RAW),
+        getTestCardData(2, TestDataVariant.RAW),
+        getTestCardData(6, TestDataVariant.RAW)
+      ]
+
+      const newState = cardsReducer(initialState, distributeCards(cards))
+
+      expect(newState.distributedData[0]).toHaveLength(2)
+      expect(newState.distributedData[0][0]).toEqual(getTestCardData(0, TestDataVariant.PROCESSED))
+      expect(newState.distributedData[0][1]).toEqual(newState.distributedData[0][0])
+      
+      expect(newState.distributedData[2]).toHaveLength(1)
+      expect(newState.distributedData[2][0]).toEqual(getTestCardData(2, TestDataVariant.PROCESSED))
+      
+      expect(newState.distributedData[6]).toHaveLength(1)
+      expect(newState.distributedData[6][0]).toEqual(getTestCardData(6, TestDataVariant.PROCESSED))
+    })
+
+    it('Should throw an error because there is no valid cards in the payload', () => {
+      const initialState = mockRootState.cardsReducer
+
+      const cards = [
+        getTestCardData(0, TestDataVariant.INVALID_RAW),
+        getTestCardData(6, TestDataVariant.INVALID_RAW),
+      ]
+
+      expect(() => {
+        cardsReducer(initialState, distributeCards(cards))
+      }).toThrowError("Cards in selected list doesn't match required pattern.")
+    })
   })
 
 
   describe("Testing 'clearDistributedCards' reducer", () => {
-    it.todo("Should clear all destributed cards")
+    it("Should clear all destributed cards", () => {
+      const initialState = {...mockRootState.cardsReducer, distributedData: [...mockDestributedData]}
+      expect(initialState.distributedData).toStrictEqual(mockDestributedData)
+
+      const newState = cardsReducer(initialState, clearDistributedCards())
+      expect(newState.distributedData).toStrictEqual([[],[],[],[],[],[],[]])
+    })
   })
 
 

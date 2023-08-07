@@ -34,7 +34,7 @@ export default function DropdownAddCard({ className }: { className: string }) {
 
   const handleSubmit = (formValues) => {
     const newCardData: INewCardData = getNewCardData(formValues)
-    dispatch(createCard({ newCard: newCardData, trello: Trello }))
+    dispatch(createCard({ newCard: newCardData, Trello }))
   }
 
   return <div className={`${className}`}>

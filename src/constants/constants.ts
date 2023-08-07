@@ -19,7 +19,7 @@ export const mockRootState: RootState = {
   },
   cardsReducer: {
     isPending: false,
-    distributedData: [[]]
+    distributedData: [[], [], [], [], [], [], []]
   },
   headerReducer: {
     selectedDay: new Date().getDay(),
@@ -29,7 +29,8 @@ export const mockRootState: RootState = {
   }
 }
 
-export const DEV_destributedData = [
+
+export const mockDestributedData = [
 	[], [
 		{
 			checkItems: 99,

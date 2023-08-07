@@ -1,6 +1,6 @@
 import { mockRootState } from "../../../constants/constants";
 import { ITrelloCardData } from "../../../types/Trello";
-import { completeLastCheckItem, fetchCardsData } from "../cardsReducer"
+import cardsReducer, { completeLastCheckItem, createCard, fetchCardsData } from "../cardsReducer"
 
 global.fetch = jest.fn()
 
@@ -277,14 +277,66 @@ describe("Testing async thunks", () => {
 
 
   describe("Testing 'createCard' thunk", () => {
-    it.todo("Should dispatch 'clearDistributedCards' & 'fetchCardsData' if new card create successfully")  // async
+    // it("Should dispatch 'clearDistributedCards' & 'fetchCardsData' if new card create successfully", async () => {
+      
+    // //   console.log(performance.now(), 1)
+    // //   const wait = async () => new Promise(resolve => {
+    // //     setTimeout(resolve, 3000)
+    // //   })
+    // //   await wait()
+    // //   console.log(performance.now(), 2)
+      
+    // //   const mockNewCardData: INewCardData = {
+    // //     name: "Some Card Name - Вт 13:30",
+    // //     desc: "https://player.url\nhttps://thumbnail.url",
+    // //     idList: "whatever",
+    // //     length: 12,
+    // //     watched: 4
+    // //   }
+
+    // //   const dispatch = jest.fn()
+    // //   const trello: any = {}
+    // //   trello.post = jest.fn(() =>
+    // //   Promise.resolve({
+    // //     id: 'new-card-id',
+    // //     description: '...',
+    // //   })
+    // // );
+
+    // //   const thunk = createCard({newCard: mockNewCardData, trello})
+      
+      
+    // //   await thunk(
+    // //     dispatch,
+    // //     () => ({}),
+    // //     () => ({
+    // //       rejectWithValue() {}
+    // //     })
+    // //     )
+
+
+    // //   const { calls: trelloCalls } = trello.post.mock
+    // //   const [ cardCreationCall ] = trelloCalls
+
+    // //   cardCreationCall[2]({
+    // //     description: `This object will be passed to 'onCreationSuccess' function
+    // //     and actually should contain data about card that was just created, including 'id' field`,
+    // //     id: 'new-card-id'
+    // //   })
+      
+    // //   const { calls: dispatchCalls } = dispatch.mock
+      
+      
+    // //   const [ pending, fulfilled ] = dispatchCalls
+      
+    // })
+
     it.todo("Should throw an error if card creation response is rejected")  // async
   })
 
-
   describe("Testing 'removeCard' thunk", () => {
     it.todo("Should dispatch 'removeCardFromState' if card deletion respose is resolved")  // async
-    
+  
     it.todo("Should throw an error beacuse card deletion respose is rejected")  // async
   })
 })
@@ -316,10 +368,29 @@ describe("Testing cardsReducer's reducers", () => {
 
 describe("Testing extra reducers", () => {
   describe("Testing 'fetchCardsData' extra reducer", () => {
-    it.todo('Should set pending state to true')
+    it('Should set pending state to true', async () => {
+      // @ts-ignore
+      const state = cardsReducer(mockRootState.cardsReducer, fetchCardsData.pending())
+      expect(state.isPending).toBe(true)
+      
+    })
 
-    it.todo('Should set pending state to false because thunk is fulfilled')
+    it('Should set pending state to false because thunk is fulfilled', () => {
+      // @ts-expect-error
+      let state = cardsReducer(mockRootState.cardsReducer, fetchCardsData.pending())
 
-    it.todo('Should set pending state to false because thunk is rejected')
+      // @ts-expect-error
+      state = cardsReducer(state, fetchCardsData.fulfilled())
+      expect(state.isPending).toBe(false)
+    })
+
+    it('Should set pending state to false because thunk is rejected', () => {
+       // @ts-expect-error
+       let state = cardsReducer(mockRootState.cardsReducer, fetchCardsData.pending())
+    
+       // @ts-expect-error
+       state = cardsReducer(state, fetchCardsData.rejected())
+       expect(state.isPending).toBe(false) 
+    })
   })
 })

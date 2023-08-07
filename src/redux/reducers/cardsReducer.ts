@@ -1,7 +1,7 @@
 import { checkCardSuitability } from './../../utils/stringUtils';
 import { Week } from './../../utils/dateTimeUtils';
 
-import { createAsyncThunk, createSlice, current, PayloadAction } from "@reduxjs/toolkit";
+import { AsyncThunk, createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createChecklist } from '../../utils/reduxUtils';
 
 import { deauthorize } from './authReducer';
@@ -30,6 +30,7 @@ export const fetchCardsData = createAsyncThunk(
 			const data = await response.json()
 
 		  thunkAPI.dispatch(distributeCards(data))
+      return data
 		} catch (err) {
 			if (err?.message?.includes("expired token")) {
 			 thunkAPI.dispatch(deauthorize())
@@ -77,7 +78,6 @@ export const completeLastCheckItem = createAsyncThunk(
 		}
 	}
 )
-
 
 export const createCard = createAsyncThunk<unknown, ICreateCardThunkProps>(
   "cardsReducer/createCard",

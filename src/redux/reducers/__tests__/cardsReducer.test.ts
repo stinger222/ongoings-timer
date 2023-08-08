@@ -1,7 +1,7 @@
 import { mockDestributedData, mockRootState } from "../../../constants/constants";
 import { ITrelloCardData } from "../../../types/Trello";
 import { getTestCardData, TestDataVariant } from "../../../utils/testUtils";
-import cardsReducer, { clearDistributedCards, completeLastCheckItem, distributeCards, fetchCardsData, updateCard } from "../cardsReducer"
+import cardsReducer, { clearDistributedCards, completeLastCheckItem, distributeCards, fetchCardsData, removeCard, removeCardFromState, updateCard } from "../cardsReducer"
 
 global.fetch = jest.fn()
 
@@ -373,12 +373,11 @@ describe("Testing cardsReducer's reducers", () => {
 
   describe("Testing 'updateCard' reducer", () => {
     it("Should update card from the payload", () => {
-
       const mockProcessedCard = getTestCardData(0, TestDataVariant.PROCESSED)
 
       const initialState = {
         ...mockRootState.cardsReducer,
-        distributedData: [[mockProcessedCard]] // Whole week empty except Sunday
+        distributedData: [[mockProcessedCard]] // Only Sunday have one single card
       }
 
       expect(initialState.distributedData[0][0]).toEqual(mockProcessedCard)
@@ -401,7 +400,25 @@ describe("Testing cardsReducer's reducers", () => {
 
 
   describe("Testing 'removeCardFromState' reducer", () => {
-    it.todo("Should filted out card with passed id from destributed cards")
+    it("Should filted out card with passed id from destributed cards", () => {
+      const mockProcessedCard = getTestCardData(0, TestDataVariant.PROCESSED)
+
+      const initialState = {
+        ...mockRootState.cardsReducer,
+        distributedData: [[mockProcessedCard]] // Only Sunday have one single card
+      }
+
+      expect(initialState.distributedData[0][0]).toEqual(mockProcessedCard)
+      expect(initialState.distributedData[0]).toHaveLength(1)
+
+      // Remove card from state
+      const newState = cardsReducer(initialState, removeCardFromState({
+        cardId: mockProcessedCard.cardId,
+        cardDayId: 0
+      }))
+
+      expect(newState.distributedData[0]).toHaveLength(0)
+    })
   })
 }) 
 

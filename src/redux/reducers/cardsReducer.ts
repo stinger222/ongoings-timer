@@ -178,14 +178,13 @@ const cardsReducer = createSlice({
     })
     builder.addCase(fetchCardsData.rejected, (state, action: PayloadAction<{message?: string}>) => {
       state.isPending = false
-      console.error("Can't load data from trello!!");
-      console.error(action?.payload?.message)
+      console.error("Can't load data from trello!!")
     })
 
     builder.addCase(completeLastCheckItem.fulfilled, () => {
       console.log('Marked as watched successfully.')
     })
-    builder.addCase(completeLastCheckItem.rejected, (state, action: PayloadAction<any>) => {
+    builder.addCase(completeLastCheckItem.rejected, (_, action: PayloadAction<any>) => {
       console.error(action.payload)
     })
   }

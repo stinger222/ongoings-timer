@@ -1,6 +1,6 @@
 import { fetchSelectedBoardLists, selectBoard, selectList} from "../../redux/reducers/authSlice";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { setActiveMenu } from "../../redux/reducers/headerSlice";
+import { setActiveMenu } from "../../redux/reducers/UISlice";
 
 import { ReactComponent as BackIcon } from "../../assets/back.svg";
 import { ITrelloList } from "../../types/Trello";

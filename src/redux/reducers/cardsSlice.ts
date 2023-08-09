@@ -20,7 +20,7 @@ const initialState: ICardsReducerState = {
 }
 
 export const fetchCardsData = createAsyncThunk(
-  "cardsReducer/fetchCardsData",
+  "cards/fetchCardsData",
   async (_, thunkAPI) => {
     const state = thunkAPI.getState() as RootState
     const { trelloKey, trelloToken, selectedList } = state.authReducer
@@ -41,7 +41,7 @@ export const fetchCardsData = createAsyncThunk(
 )
 
 export const completeLastCheckItem = createAsyncThunk(
-	"cardsReducer/completeLastCheckItem",
+	"cards/completeLastCheckItem",
 	async (cardData: ITrelloCardData, thunkAPI) => {
     const state = thunkAPI.getState() as RootState
     const { trelloKey, trelloToken } = state.authReducer
@@ -80,7 +80,7 @@ export const completeLastCheckItem = createAsyncThunk(
 )
 
 export const createCard = createAsyncThunk<unknown, ICreateCardThunkProps>(
-  "cardsReducer/createCard",
+  "cards/createCard",
   async ({ newCard, Trello}, thunkAPI) => {
     try {
       const onCreationSuccess = async (createdCard) => {
@@ -99,7 +99,7 @@ export const createCard = createAsyncThunk<unknown, ICreateCardThunkProps>(
 )
 
 export const removeCard = createAsyncThunk<unknown, IRemoveCardThunkProps>(
-  "cardsReducer/removeCard",
+  "cards/removeCard",
 	async ({cardToRemove, Trello}, thunkAPI) => {
    	try {
 			Trello.delete(`/cards/${cardToRemove.cardId}`).then(() => {
@@ -118,8 +118,8 @@ export const removeCard = createAsyncThunk<unknown, IRemoveCardThunkProps>(
 	}
 )
 
-const cardsReducer = createSlice({
-	name: "cardsReducer",
+const cardsSlice = createSlice({
+	name: "cards",
 	initialState,
 	reducers: {
 		distributeCards(state: ICardsReducerState, action: PayloadAction<object[]>)  {
@@ -190,6 +190,6 @@ const cardsReducer = createSlice({
   }
 })
 
-export const { distributeCards, clearDistributedCards, updateCard, removeCardFromState } = cardsReducer.actions
+export const { distributeCards, clearDistributedCards, updateCard, removeCardFromState } = cardsSlice.actions
 
-export default cardsReducer.reducer
+export default cardsSlice.reducer

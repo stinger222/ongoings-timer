@@ -21,7 +21,7 @@ export const mockRootState: RootState = {
     isPending: false,
     distributedData: [[], [], [], [], [], [], []]
   },
-  headerReducer: {
+  UIReducer: {
     selectedDay: new Date().getDay(),
     today: new Date().getDay(),
     isDropdownOpen: false,

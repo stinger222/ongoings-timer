@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { selectDay } from "../redux/reducers/headerSlice";
+import { selectDay } from "../redux/reducers/UISlice";
 import styles from './Header/Header.module.css';
 
 interface IProps {
@@ -9,7 +9,7 @@ interface IProps {
 
 export default function HeaderButton({id, children}: IProps) {
 	const dispatch = useAppDispatch()
-	const { selectedDay, today} = useAppSelector(state => state.headerReducer)
+	const { selectedDay, today} = useAppSelector(state => state.UIReducer)
 	const isDayEmpty = useAppSelector(state => state.cardsReducer.distributedData[id].length === 0) 
 
 	const classNames = `

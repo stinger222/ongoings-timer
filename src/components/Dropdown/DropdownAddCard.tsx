@@ -1,6 +1,6 @@
 import { useAppDispatch } from "../../hooks/redux";
 import { createCard } from "../../redux/reducers/cardsSlice";
-import { setActiveMenu } from "../../redux/reducers/headerSlice";
+import { setActiveMenu } from "../../redux/reducers/UISlice";
 
 import { Trello, storageKeys } from "../../constants/constants";
 import { processTitle } from "../../utils/stringUtils";

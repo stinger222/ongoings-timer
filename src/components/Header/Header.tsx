@@ -2,13 +2,13 @@ import HeaderButton from '../HeaderButton'
 import Dropdown from '../Dropdown/Dropdown';
 
 import { useAppDispatch, useAppSelector } from '../../hooks/redux';
-import { setDropdownState } from '../../redux/reducers/headerSlice';
+import { setDropdownState } from '../../redux/reducers/UISlice';
 import { ReactComponent as SettingsIcon } from "../../assets/settings-stroke.svg";
 import styles from './Header.module.css'
 
 export default function Header() {
   const dispatch = useAppDispatch()
-  const isDropdownOpen = useAppSelector(state => state.headerReducer.isDropdownOpen)
+  const isDropdownOpen = useAppSelector(state => state.UIReducer.isDropdownOpen)
 
 	return (
 		<header className={styles.header}>

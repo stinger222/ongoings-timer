@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
-import { setActiveMenu } from "../../redux/reducers/headerSlice";
+import { setActiveMenu } from "../../redux/reducers/UISlice";
 import { fetchSelectedBoardLists, fetchTrelloBoards } from "../../redux/reducers/authSlice";
 
 import DropdownAddCard from "./DropdownAddCard";
@@ -13,7 +13,7 @@ import { CSSTransition } from 'react-transition-group';
 
 export default function Dropdown({className}: any) {
   const dispatch = useAppDispatch()
-  const activeMenu = useAppSelector(state => state.headerReducer.dropdownActiveMenu)
+  const activeMenu = useAppSelector(state => state.UIReducer.dropdownActiveMenu)
 	const { trelloBoards, selectedBoard } = useAppSelector(state => state.authReducer)
   
   const [menuHeight, setMenuHeight] = useState(null)  

@@ -24,7 +24,7 @@ const initialState: IAuthState = {
 }
 
 export const fetchTrelloBoards = createAsyncThunk(
-	"authReducer/fetchTrelloBoards",
+	"auth/fetchTrelloBoards",
 	async (_, { dispatch, rejectWithValue}) => {
 		try {
 			Trello.get("/members/me/boards").then((boards: any) => {
@@ -46,7 +46,7 @@ export const fetchTrelloBoards = createAsyncThunk(
 )
 
 export const fetchSelectedBoardLists = createAsyncThunk(
-	"authReducer/fetchSelectedBoardLists",
+	"auth/fetchSelectedBoardLists",
 	async (boardId: string, { dispatch, rejectWithValue }) => {
 		try {
 			Trello.get(`/boards/${boardId}/lists`).then((lists: any) => {
@@ -59,8 +59,8 @@ export const fetchSelectedBoardLists = createAsyncThunk(
 	}
 )
 
-const authReducer = createSlice({
-	name: "authReducer",
+const authSlice = createSlice({
+	name: "auth",
 	initialState,
 	reducers: {
 		authorize(state: IAuthState) {
@@ -108,6 +108,6 @@ export const {
 	authorize, deauthorize,
 	setBoards, selectBoard,
 	selectList, setSelectedBoardLists
-} = authReducer.actions
+} = authSlice.actions
 
-export default authReducer.reducer
+export default authSlice.reducer

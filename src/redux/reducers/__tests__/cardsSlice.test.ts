@@ -1,7 +1,10 @@
 import { mockDestributedData, mockRootState } from "../../../constants/constants";
 import { ITrelloCardData } from "../../../types/Trello";
 import { getTestCardData, TestDataVariant } from "../../../utils/testUtils";
-import cardsReducer, { clearDistributedCards, completeLastCheckItem, distributeCards, fetchCardsData, removeCard, removeCardFromState, updateCard } from "../cardsSlice"
+import cardsSlice, {
+  clearDistributedCards, completeLastCheckItem, distributeCards,
+  fetchCardsData,removeCardFromState, updateCard
+} from "../cardsSlice"
 
 global.fetch = jest.fn()
 
@@ -31,10 +34,10 @@ describe("Testing async thunks", () => {
       
       const [pending, distributeCards, resolved] = calls
   
-      expect(pending[0].type).toBe('cardsReducer/fetchCardsData/pending')
-      expect(distributeCards[0].type).toBe('cardsReducer/distributeCards')
+      expect(pending[0].type).toBe('cards/fetchCardsData/pending')
+      expect(distributeCards[0].type).toBe('cards/distributeCards')
       expect(distributeCards[0].payload).toBe(mockTrelloResponse)
-      expect(resolved[0].type).toBe('cardsReducer/fetchCardsData/fulfilled')
+      expect(resolved[0].type).toBe('cards/fetchCardsData/fulfilled')
     })
   
     it('Should fetch cards data with rejected response', async () => {
@@ -56,8 +59,8 @@ describe("Testing async thunks", () => {
       
       const [pending, rejected] = calls
   
-      expect(pending[0].type).toBe('cardsReducer/fetchCardsData/pending')
-      expect(rejected[0].type).toBe('cardsReducer/fetchCardsData/rejected')
+      expect(pending[0].type).toBe('cards/fetchCardsData/pending')
+      expect(rejected[0].type).toBe('cards/fetchCardsData/rejected')
       expect(rejected[0].payload).toBeInstanceOf(Error)
       expect(rejected[0].payload.message).toBe("Can't fetch cards data!")
     })
@@ -81,11 +84,11 @@ describe("Testing async thunks", () => {
       
       const [pending, deauthorize, rejected] = calls
   
-      expect(pending[0].type).toBe('cardsReducer/fetchCardsData/pending')
+      expect(pending[0].type).toBe('cards/fetchCardsData/pending')
   
-      expect(deauthorize[0].type).toBe('authReducer/deauthorize')
+      expect(deauthorize[0].type).toBe('auth/deauthorize')
   
-      expect(rejected[0].type).toBe('cardsReducer/fetchCardsData/rejected')
+      expect(rejected[0].type).toBe('cards/fetchCardsData/rejected')
       expect(rejected[0].payload).toBeInstanceOf(Error)
       expect(rejected[0].payload.message).toBe(errMessage)
     })
@@ -143,17 +146,17 @@ describe("Testing async thunks", () => {
       
       const [pending, updateCard, fulfilled] = calls
   
-      expect(pending[0].type).toBe('cardsReducer/completeLastCheckItem/pending')
+      expect(pending[0].type).toBe('cards/completeLastCheckItem/pending')
 
       const {cardDayId, cardId, checkItemsChecked} = mockCardData
-      expect(updateCard[0].type).toBe('cardsReducer/updateCard')
+      expect(updateCard[0].type).toBe('cards/updateCard')
       expect(updateCard[0].payload).toEqual({
         cardDayId: cardDayId,
         cardId: cardId,
         checkItemsChecked: checkItemsChecked + 1
       })
       
-      expect(fulfilled[0].type).toBe('cardsReducer/completeLastCheckItem/fulfilled')
+      expect(fulfilled[0].type).toBe('cards/completeLastCheckItem/fulfilled')
     })
 
     it('Should throw an error because there is no checklist or checkitems in checklist', async () => {
@@ -184,9 +187,9 @@ describe("Testing async thunks", () => {
       
       const [pending, rejected] = calls
   
-      expect(pending[0].type).toBe('cardsReducer/completeLastCheckItem/pending')
+      expect(pending[0].type).toBe('cards/completeLastCheckItem/pending')
 
-      expect(rejected[0].type).toBe('cardsReducer/completeLastCheckItem/rejected')
+      expect(rejected[0].type).toBe('cards/completeLastCheckItem/rejected')
       expect(rejected[0].payload).toBeInstanceOf(Error)
       expect(rejected[0].payload.message).toBe('All checkitems is completed or there is no checklist in this card.\n')
     })
@@ -241,9 +244,9 @@ describe("Testing async thunks", () => {
       
       const [pending, rejected] = calls
   
-      expect(pending[0].type).toBe('cardsReducer/completeLastCheckItem/pending')
+      expect(pending[0].type).toBe('cards/completeLastCheckItem/pending')
 
-      expect(rejected[0].type).toBe('cardsReducer/completeLastCheckItem/rejected')
+      expect(rejected[0].type).toBe('cards/completeLastCheckItem/rejected')
       expect(rejected[0].payload).toBeInstanceOf(Error)
       expect(rejected[0].payload.message).toBe('Can\'t complete checkitem.')
     })
@@ -328,7 +331,7 @@ describe("Testing cardsReducer's reducers", () => {
         getTestCardData(6, TestDataVariant.RAW)
       ]
 
-      const newState = cardsReducer(initialState, distributeCards(cards))
+      const newState = cardsSlice(initialState, distributeCards(cards))
 
       // Sunday has 2 cards, and they're equal between each other
       expect(newState.distributedData[0]).toHaveLength(2)
@@ -353,7 +356,7 @@ describe("Testing cardsReducer's reducers", () => {
       ]
 
       expect(() => {
-        cardsReducer(initialState, distributeCards(cards))
+        cardsSlice(initialState, distributeCards(cards))
       }).toThrowError("Cards in selected list doesn't match required pattern.")
     })
   })
@@ -364,7 +367,7 @@ describe("Testing cardsReducer's reducers", () => {
       const initialState = {...mockRootState.cardsReducer, distributedData: [...mockDestributedData]}
       expect(initialState.distributedData).toStrictEqual(mockDestributedData)
 
-      const newState = cardsReducer(initialState, clearDistributedCards())
+      const newState = cardsSlice(initialState, clearDistributedCards())
       expect(newState.distributedData).toStrictEqual([[],[],[],[],[],[],[]])
     })
   })
@@ -382,7 +385,7 @@ describe("Testing cardsReducer's reducers", () => {
       expect(initialState.distributedData[0][0]).toEqual(mockProcessedCard)
       
       // Increase "checkItemsChecked" by 4
-      const newState = cardsReducer(initialState, updateCard({
+      const newState = cardsSlice(initialState, updateCard({
         cardDayId: 0,
         cardId: initialState.distributedData[0][0].cardId,
         checkItemsChecked: initialState.distributedData[0][0].checkItemsChecked + 4
@@ -411,7 +414,7 @@ describe("Testing cardsReducer's reducers", () => {
       expect(initialState.distributedData[0]).toHaveLength(1)
 
       // Remove card from state
-      const newState = cardsReducer(initialState, removeCardFromState({
+      const newState = cardsSlice(initialState, removeCardFromState({
         cardId: mockProcessedCard.cardId,
         cardDayId: 0
       }))
@@ -425,26 +428,26 @@ describe("Testing extra reducers", () => {
   describe("Testing 'fetchCardsData' extra reducer", () => {
     it('Should set pending state to true', async () => {
       // @ts-ignore
-      const state = cardsReducer(mockRootState.cardsReducer, fetchCardsData.pending())
+      const state = cardsSlice(mockRootState.cardsReducer, fetchCardsData.pending())
       expect(state.isPending).toBe(true)
       
     })
 
     it('Should set pending state to false because thunk is fulfilled', () => {
       // @ts-expect-error
-      let state = cardsReducer(mockRootState.cardsReducer, fetchCardsData.pending())
+      let state = cardsSlice(mockRootState.cardsReducer, fetchCardsData.pending())
 
       // @ts-expect-error
-      state = cardsReducer(state, fetchCardsData.fulfilled())
+      state = cardsSlice(state, fetchCardsData.fulfilled())
       expect(state.isPending).toBe(false)
     })
 
     it('Should set pending state to false because thunk is rejected', () => {
        // @ts-expect-error
-       let state = cardsReducer(mockRootState.cardsReducer, fetchCardsData.pending())
+       let state = cardsSlice(mockRootState.cardsReducer, fetchCardsData.pending())
     
        // @ts-expect-error
-       state = cardsReducer(state, fetchCardsData.rejected())
+       state = cardsSlice(state, fetchCardsData.rejected())
        expect(state.isPending).toBe(false) 
     })
   })

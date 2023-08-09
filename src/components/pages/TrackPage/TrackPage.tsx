@@ -13,7 +13,7 @@ import ErrorMessage from "../../ErrorMessage/ErrorMessage";
 export default function TrackPage() {  
 	const dispatch = useAppDispatch()
 
-  const selectedDay = useAppSelector(state => state.headerReducer.selectedDay)
+  const selectedDay = useAppSelector(state => state.UIReducer.selectedDay)
 	const selectedDayCardsData = useAppSelector(state => state.cardsReducer.distributedData[selectedDay])
 	const isPending = useAppSelector(state => state.cardsReducer.isPending)
   const { isAuthorized, selectedBoard, selectedList } = useAppSelector(state => state.authReducer)

@@ -4,7 +4,7 @@ import { getTestCardData, TestDataVariant } from "../../../utils/testUtils";
 import { Trello, mockDestributedData, mockRootState } from "../../../constants/constants";
 import cardsSlice, {
   clearDistributedCards, completeLastCheckItem, createCard, distributeCards,
-  fetchCardsData, removeCardFromState, updateCard
+  fetchCardsData, removeCard, removeCardFromState, updateCard
 } from "../cardsSlice"
 
 jest.mock('../../../utils/reduxUtils')
@@ -26,19 +26,20 @@ describe("Testing async thunks", () => {
       
       const thunk = fetchCardsData()
   
-      await thunk(dispatch, () => mockRootState, () => ({
-        rejectWithValue() {}
-      }))
+      await thunk(
+        dispatch,
+        () => mockRootState,
+        () => ({})
+      )
   
       const { calls } = dispatch.mock
-  
       expect(calls).toHaveLength(3)
       
       const [pending, distributeCards, resolved] = calls
   
       expect(pending[0].type).toBe('cards/fetchCardsData/pending')
       expect(distributeCards[0].type).toBe('cards/distributeCards')
-      expect(distributeCards[0].payload).toBe(mockTrelloResponse)
+      expect(distributeCards[0].payload).toEqual(mockTrelloResponse)
       expect(resolved[0].type).toBe('cards/fetchCardsData/fulfilled')
     })
   
@@ -51,12 +52,13 @@ describe("Testing async thunks", () => {
       
       const thunk = fetchCardsData()
   
-      await thunk(dispatch, () => mockRootState, () => ({
-        rejectWithValue() {}
-      }))
+      await thunk(
+        dispatch,
+        () => mockRootState,
+        () => ({})
+      )
   
       const { calls } = dispatch.mock
-  
       expect(calls).toHaveLength(2)
       
       const [pending, rejected] = calls
@@ -76,20 +78,19 @@ describe("Testing async thunks", () => {
       
       const thunk = fetchCardsData()
   
-      await thunk(dispatch, () => mockRootState, () => ({
-        rejectWithValue() {}
-      }))
+      await thunk(
+        dispatch,
+        () => mockRootState,
+        () => ({})
+      )
   
       const { calls } = dispatch.mock
-  
       expect(calls).toHaveLength(3)
       
       const [pending, deauthorize, rejected] = calls
   
       expect(pending[0].type).toBe('cards/fetchCardsData/pending')
-  
       expect(deauthorize[0].type).toBe('auth/deauthorize')
-  
       expect(rejected[0].type).toBe('cards/fetchCardsData/rejected')
       expect(rejected[0].payload).toBeInstanceOf(Error)
       expect(rejected[0].payload.message).toBe(errMessage)
@@ -99,7 +100,6 @@ describe("Testing async thunks", () => {
 
   describe("Testing 'completeLastCheckItem' thunk", () => {
     it('Should mark last incompleted checkitem in the checklist as completed', async () => {
-      // cardData that passed in the thunk
       const mockCardData: ITrelloCardData = getTestCardData(0, TestDataVariant.PROCESSED) as ITrelloCardData
       
       // repose from Trello with all checkitems in requested checklist
@@ -137,13 +137,10 @@ describe("Testing async thunks", () => {
       await thunk(
         dispatch,
         () => mockRootState,
-        () => ({
-          rejectWithValue() {}
-        })
+        () => ({})
       )
       
       const { calls } = dispatch.mock
-  
       expect(calls).toHaveLength(3)
       
       const [pending, updateCard, fulfilled] = calls
@@ -162,7 +159,6 @@ describe("Testing async thunks", () => {
     })
 
     it('Should throw an error because there is no checklist or checkitems in checklist', async () => {
-      // cardData that passed in the thunk
       const mockCardData: ITrelloCardData = getTestCardData(0, TestDataVariant.PROCESSED) as ITrelloCardData
     
       // First mock fetch
@@ -178,26 +174,21 @@ describe("Testing async thunks", () => {
       await thunk(
         dispatch,
         () => mockRootState,
-        () => ({
-          rejectWithValue() {}
-        })
+        () => ({})
       )
       
       const { calls } = dispatch.mock
-  
       expect(calls).toHaveLength(2)
       
       const [pending, rejected] = calls
   
       expect(pending[0].type).toBe('cards/completeLastCheckItem/pending')
-
       expect(rejected[0].type).toBe('cards/completeLastCheckItem/rejected')
       expect(rejected[0].payload).toBeInstanceOf(Error)
       expect(rejected[0].payload.message).toBe('All checkitems is completed or there is no checklist in this card.\n')
     })
     
     it('Should throw an error because can\'t mark last incompleted checkitem as completed', async () => {
-       // cardData that passed in the thunk
        const mockCardData: ITrelloCardData = getTestCardData(0, TestDataVariant.PROCESSED) as ITrelloCardData
 
       // repose from Trello with all checkitems in requested checklist
@@ -235,19 +226,15 @@ describe("Testing async thunks", () => {
       await thunk(
         dispatch,
         () => mockRootState,
-        () => ({
-          rejectWithValue() {}
-        })
+        () => ({})
       )
       
       const { calls } = dispatch.mock
-  
       expect(calls).toHaveLength(2)
       
       const [pending, rejected] = calls
   
       expect(pending[0].type).toBe('cards/completeLastCheckItem/pending')
-
       expect(rejected[0].type).toBe('cards/completeLastCheckItem/rejected')
       expect(rejected[0].payload).toBeInstanceOf(Error)
       expect(rejected[0].payload.message).toBe('Can\'t complete checkitem.')
@@ -268,17 +255,16 @@ describe("Testing async thunks", () => {
       const dispatch = jest.fn()
 
       const thunk = createCard(mockNewCardData)
-      
+          
       await thunk(
         dispatch,
         () => ({}),
-        () => ({
-          rejectWithValue() {}
-        })
+        () => ({})
       )
 
-      const cardCreationRequest = Trello.post.mock.calls[0] // post request to /cards/
-      
+      // post request to /cards/
+      const cardCreationRequest = Trello.post.mock.calls[0] 
+
       expect(cardCreationRequest[0]).toBe('/cards/')
       expect(cardCreationRequest[1]).toEqual(mockNewCardData)
 
@@ -289,6 +275,7 @@ describe("Testing async thunks", () => {
       })
 
       const { calls: dispatchCalls } = dispatch.mock
+      expect(dispatchCalls).toHaveLength(4)
 
       const [pending, fulfilled, clearDistributedCards, fetchCardsDataThunk] = dispatchCalls
 
@@ -298,14 +285,98 @@ describe("Testing async thunks", () => {
       expect(fetchCardsDataThunk[0]).toBeInstanceOf(Function)
     })
 
-    it.todo("Should throw an error if card creation response is rejected")  // async
+    it("Should throw an error if card creation response is rejected", async () => {
+      const mockNewCardData = {
+        name: "Some Card Name - Вт 13:30",
+        desc: "https://player.url\nhttps://thumbnail.url",
+        idList: "whatever",
+        length: 12,
+        watched: 4
+      }
+
+      const dispatch = jest.fn()
+
+      const thunk = createCard(mockNewCardData)
+
+      ;(Trello.post as jest.Mock).mockImplementationOnce(() => {
+        throw new Error("Trello response be like: \"Card creation failed for some reason, fu\"")
+      })
+      
+      await thunk(
+        dispatch,
+        () => ({}),
+        () => ({})
+      )
+      
+      const { calls } = dispatch.mock
+      expect(calls).toHaveLength(2)
+
+      const [pending, rejected] = calls
+      expect(pending[0].type).toBe('cards/createCard/pending')
+      expect(rejected[0].type).toBe('cards/createCard/rejected')
+      expect(rejected[0].payload).toBeInstanceOf(Error)
+      expect(rejected[0].payload.message).toBe("Trello response be like: \"Card creation failed for some reason, fu\"")
+    })
   })
 
 
   describe("Testing 'removeCard' thunk", () => {
-    it.todo("Should dispatch 'removeCardFromState' if card deletion respose is resolved")  // async
-  
-    it.todo("Should throw an error beacuse card deletion respose is rejected")  // async
+    it("Should dispatch 'removeCardFromState' if card deletion response is resolved", async () => {
+      const dispatch = jest.fn()
+      const cardToRemove = { cardDayId: 0, cardId: 'whatever-id' }
+      const thunk = removeCard(cardToRemove)
+
+      // delete request to /cards/${cardToRemove.cardId}
+      ;(Trello.delete as jest.Mock).mockReturnValue(Promise.resolve()) 
+
+      await thunk(
+        dispatch,
+        () => ({}),
+        () => ({})
+      )
+      const { calls } = dispatch.mock
+      expect(calls).toHaveLength(3)
+
+      const [pending, removeCardFromState, fulfilled ] = calls
+
+      expect(pending[0].type).toBe("cards/removeCard/pending")
+      expect(removeCardFromState[0].type).toBe("cards/removeCardFromState")
+      expect(removeCardFromState[0].payload).toEqual(cardToRemove)
+      expect(fulfilled[0].type).toBe("cards/removeCard/fulfilled")
+    })
+
+    it("Should throw an error beacuse card deletion respose is rejected", async () => {
+      const dispatch = jest.fn()
+      const cardToRemove = { cardDayId: 0, cardId: 'whatever-id' }
+      const thunk = removeCard(cardToRemove)
+
+      // delete request to /cards/${cardToRemove.cardId}
+      ;(Trello.delete as jest.Mock).mockReturnValue(Promise.reject({
+        ok: false,
+        status: 999,
+        responseText: "Some error text that Trello responsed with beacuse it can't create card"
+      })) 
+
+      await thunk(
+        dispatch,
+        () => ({}),
+        () => ({})
+      )
+      const { calls } = dispatch.mock
+      expect(calls).toHaveLength(2)
+
+      console.log(calls);
+      
+      const [pending, rejected ] = calls
+
+      expect(pending[0].type).toBe("cards/removeCard/pending")
+      expect(rejected[0].type).toBe("cards/removeCard/rejected")
+      expect(rejected[0].payload).toEqual({
+        ok: false,
+        status: 999,
+        responseText: "Some error text that Trello responsed with beacuse it can't create card"
+      })
+    })
   })
 })
 

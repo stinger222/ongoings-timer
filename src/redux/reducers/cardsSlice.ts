@@ -83,6 +83,9 @@ export const completeLastCheckItem = createAsyncThunk(
 export const createCard = createAsyncThunk<unknown, INewCardData>(
   "cards/createCard",
   async (newCard, thunkAPI) => {
+    console.log("APIIII", thunkAPI);
+    thunkAPI.rejectWithValue(2)
+    
     try {
       const onCreationSuccess = async (createdCard) => {
         console.log('\nCard created successfully!')
@@ -95,6 +98,7 @@ export const createCard = createAsyncThunk<unknown, INewCardData>(
 
       Trello.post('/cards/', newCard, onCreationSuccess)
 		} catch (err) {
+      
 			return thunkAPI.rejectWithValue(err)
 		}
 	}
@@ -104,17 +108,14 @@ export const removeCard = createAsyncThunk<unknown, Pick<ITrelloCardData, "cardI
   "cards/removeCard",
 	async (cardToRemove, thunkAPI) => {
    	try {
-			Trello.delete(`/cards/${cardToRemove.cardId}`).then(() => {
-				console.log('Card deleted successfully!')
-				
-				thunkAPI.dispatch(removeCardFromState({...cardToRemove}))
-			}).catch((err) => {
-				console.error('Can\'t delete card. Trello resonded with status code: ' + err.status)
-				console.error('Response message: ', err.responseText)
-				thunkAPI.rejectWithValue(err)
-			})
-			
+			await Trello.delete(`/cards/${cardToRemove.cardId}`)
+      console.log('Card deleted successfully!')
+      thunkAPI.dispatch(removeCardFromState({...cardToRemove}))
+
 		} catch (err) {
+      console.error('Can\'t delete card. Trello resonded with status code: ' + err.status)
+      console.error('Response message: ', err.responseText)
+
 			return thunkAPI.rejectWithValue(err)
 		}
 	}

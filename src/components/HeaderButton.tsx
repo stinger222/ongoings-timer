@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "../hooks/redux";
-import { selectDay } from "../redux/reducers/headerReducer";
+import { selectDay } from "../redux/reducers/headerSlice";
 import styles from './Header/Header.module.css';
 
 interface IProps {

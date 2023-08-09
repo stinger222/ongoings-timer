@@ -1,6 +1,6 @@
 import { useNavigate, Route, Routes } from "react-router-dom";
 import { useAppDispatch } from "./hooks/redux";
-import { authorize } from "./redux/reducers/authReducer";
+import { authorize } from "./redux/reducers/authSlice";
 import { useEffect } from "react";
 import { Trello } from "./constants/constants";
 

@@ -1,14 +1,14 @@
-import { checkCardSuitability } from './../../utils/stringUtils';
-import { Week } from './../../utils/dateTimeUtils';
+import { checkCardSuitability } from '../../utils/stringUtils';
+import { Week } from '../../utils/dateTimeUtils';
 
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { createChecklist } from '../../utils/reduxUtils';
 
-import { deauthorize } from './authReducer';
+import { deauthorize } from './authSlice';
 import { RootState } from '../store';
 
-import { mockDestributedData } from './../../constants/constants';
-import { ITrelloCardData } from './../../types/Trello';
+import { mockDestributedData } from '../../constants/constants';
+import { ITrelloCardData } from '../../types/Trello';
 import { ICardsReducerState, ICreateCardThunkProps, IRemoveCardThunkProps } from '../../types/redux';
 
 const __DEV__ = process.env.NODE_ENV === "development"

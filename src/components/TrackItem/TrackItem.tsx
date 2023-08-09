@@ -1,4 +1,4 @@
-import { completeLastCheckItem, removeCard, updateCard } from "../../redux/reducers/cardsReducer";
+import { completeLastCheckItem, removeCard, updateCard } from "../../redux/reducers/cardsSlice";
 import { easings, useSpring, animated } from "react-spring";
 import { useAppDispatch } from "../../hooks/redux";
 

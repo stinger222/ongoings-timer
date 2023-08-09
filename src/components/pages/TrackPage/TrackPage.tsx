@@ -1,4 +1,4 @@
-import { clearDistributedCards, fetchCardsData } from "../../../redux/reducers/cardsReducer";
+import { clearDistributedCards, fetchCardsData } from "../../../redux/reducers/cardsSlice";
 import { useAppDispatch, useAppSelector } from "../../../hooks/redux";
 import { useEffect } from "react";
 

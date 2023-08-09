@@ -1,7 +1,7 @@
 import { mockDestributedData, mockRootState } from "../../../constants/constants";
 import { ITrelloCardData } from "../../../types/Trello";
 import { getTestCardData, TestDataVariant } from "../../../utils/testUtils";
-import cardsReducer, { clearDistributedCards, completeLastCheckItem, distributeCards, fetchCardsData, removeCard, removeCardFromState, updateCard } from "../cardsReducer"
+import cardsReducer, { clearDistributedCards, completeLastCheckItem, distributeCards, fetchCardsData, removeCard, removeCardFromState, updateCard } from "../cardsSlice"
 
 global.fetch = jest.fn()
 
@@ -316,7 +316,6 @@ describe("Testing async thunks", () => {
 })
 
 
-// yeaa, I probably should've call them slices as docs suggested... :D
 describe("Testing cardsReducer's reducers", () => { 
   describe("Testing 'distributeCards' reducer", () => {
     it('Should destribute array of valid cards', () => {

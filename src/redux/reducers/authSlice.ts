@@ -1,4 +1,4 @@
-import { getStoredJSON } from './../../utils/localStorageUtils';
+import { getStoredJSON } from '../../utils/localStorageUtils';
 import { storageKeys, Trello } from "../../constants/constants";
 import { ITrelloBoard, ITrelloList } from "../../types/Trello";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";

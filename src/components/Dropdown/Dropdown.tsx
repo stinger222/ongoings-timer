@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
 
-import { setActiveMenu } from "../../redux/reducers/headerReducer";
-import { fetchSelectedBoardLists, fetchTrelloBoards } from "../../redux/reducers/authReducer";
+import { setActiveMenu } from "../../redux/reducers/headerSlice";
+import { fetchSelectedBoardLists, fetchTrelloBoards } from "../../redux/reducers/authSlice";
 
 import DropdownAddCard from "./DropdownAddCard";
 import DropdownMain from "./DropdownMain";

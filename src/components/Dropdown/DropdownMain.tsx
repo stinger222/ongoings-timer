@@ -3,11 +3,11 @@ import { ReactComponent as SignOutIcon } from "../../assets/sign-out.svg";
 import { ReactComponent as PlusIcon } from "../../assets/plus.svg";
 
 import { useAppDispatch, useAppSelector } from "../../hooks/redux";
-import { setActiveMenu } from "../../redux/reducers/headerReducer";
+import { setActiveMenu } from "../../redux/reducers/headerSlice";
 import { useNavigate } from "react-router-dom";
 
 import styles from './Dropdown.module.css';
-import { deauthorize } from "../../redux/reducers/authReducer";
+import { deauthorize } from "../../redux/reducers/authSlice";
 
 export default function DropdownMain({ className }: any) {
   const dispatch = useAppDispatch()

@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 import styles from './Dropdown.module.css';
 import { deauthorize } from "../../redux/reducers/authSlice";
 
-export default function DropdownMain({ className }: any) {
+export default function DropdownMain({ className }) {
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
 	const anyListSelected = !!useAppSelector(state => state.authReducer.selectedList)

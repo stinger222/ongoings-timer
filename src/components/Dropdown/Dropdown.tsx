@@ -11,7 +11,7 @@ import DropdownSettings from "./DropdownSettings";
 import styles from "./Dropdown.module.css";
 import { CSSTransition } from 'react-transition-group';
 
-export default function Dropdown({className}: any) {
+export default function Dropdown({ className }) {
   const dispatch = useAppDispatch()
   const activeMenu = useAppSelector(state => state.UIReducer.dropdownActiveMenu)
 	const { trelloBoards, selectedBoard } = useAppSelector(state => state.authReducer)
@@ -19,7 +19,7 @@ export default function Dropdown({className}: any) {
   const [menuHeight, setMenuHeight] = useState(null)  
   const menuRef = useRef(null)
 
-  const calculateHeight = (element: any) => { 
+  const calculateHeight = (element) => { 
     setMenuHeight(element.offsetHeight)
   }
 

@@ -28,7 +28,7 @@ export default function DropdownMain({ className }: { className: string }) {
 	}
 
 	const handleListSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
-		const selectedList = selectedBoardLists.find((list: any) => {
+		const selectedList = selectedBoardLists.find((list: ITrelloList) => {
 			return list.name === e.target.value
 		})
 

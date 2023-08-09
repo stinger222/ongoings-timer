@@ -2,7 +2,7 @@ import { INewCardData, ITrelloCardData } from "./Trello";
 
 // CardsSlice:
 
-export interface ICardsReducerState {
+export interface ICardsState {
 	distributedData: Array<Array<ITrelloCardData>> | [],
 	isPending: boolean
 }

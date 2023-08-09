@@ -22,8 +22,8 @@ export const mockRootState: RootState = {
     distributedData: [[], [], [], [], [], [], []]
   },
   UIReducer: {
-    selectedDay: new Date().getDay(),
-    today: new Date().getDay(),
+    selectedDay: 3,
+    today: 3,
     isDropdownOpen: false,
     dropdownActiveMenu: 'main'
   }

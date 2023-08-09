@@ -21,7 +21,7 @@ const uiSlice = createSlice({
       state.dropdownActiveMenu = action.payload
     },
     setDropdownState(state: IUIState, action: PayloadAction<boolean>) {
-      state.isDropdownOpen = action.payload
+      state.isDropdownOpen = action.payload === undefined ? !state.isDropdownOpen : action.payload
     }
 	}
 })

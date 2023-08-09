@@ -9,11 +9,11 @@ import { RootState } from '../store';
 
 import { mockDestributedData } from '../../constants/constants';
 import { ITrelloCardData } from '../../types/Trello';
-import { ICardsReducerState, ICreateCardThunkProps, IRemoveCardThunkProps } from '../../types/redux';
+import { ICardsState, ICreateCardThunkProps, IRemoveCardThunkProps } from '../../types/redux';
 
 const __DEV__ = process.env.NODE_ENV === "development"
 
-const initialState: ICardsReducerState = {
+const initialState: ICardsState = {
 	isPending: false,
 	// Array index represents day of the week (0 - Sunday, 6 - Saturday)
 	distributedData: __DEV__ ? mockDestributedData : [[],[],[],[],[],[],[]]
@@ -122,9 +122,9 @@ const cardsSlice = createSlice({
 	name: "cards",
 	initialState,
 	reducers: {
-		distributeCards(state: ICardsReducerState, action: PayloadAction<object[]>)  {
+		distributeCards(state: ICardsState, action: PayloadAction<any[]>)  {
 
-      const validCards = action.payload.filter((card: any) => {
+      const validCards: any[] = action.payload.filter((card: any) => {
         return checkCardSuitability(card.name)
       })
 
@@ -147,11 +147,11 @@ const cardsSlice = createSlice({
 				})
 			})
 		},
-    clearDistributedCards(state: ICardsReducerState) {
+    clearDistributedCards(state: ICardsState) {
       state.distributedData = [[],[],[],[],[],[],[]]
     },
 		updateCard( // Currently used only inside "completeLastCheckitem" thunk, but can be extended if needed
-      state: ICardsReducerState,
+      state: ICardsState,
       action: PayloadAction<Pick<ITrelloCardData, "checkItemsChecked" | "cardId" | "cardDayId">>
     ) {
 			const dayId = action.payload.cardDayId
@@ -162,7 +162,7 @@ const cardsSlice = createSlice({
 			})
 		},
 		removeCardFromState(
-      state: ICardsReducerState,
+      state: ICardsState,
       action: PayloadAction<Pick<ITrelloCardData, "cardId" | "cardDayId">>
     ) {
 			state.distributedData[action.payload.cardDayId] = state.distributedData[action.payload.cardDayId].filter((card: ITrelloCardData) => {

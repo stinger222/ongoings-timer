@@ -1,12 +1,14 @@
-import { mockDestributedData, mockRootState } from "../../../constants/constants";
 import { ITrelloCardData } from "../../../types/Trello";
+import { createChecklist } from './../../../utils/reduxUtils'; // mocked
 import { getTestCardData, TestDataVariant } from "../../../utils/testUtils";
+import { Trello, mockDestributedData, mockRootState } from "../../../constants/constants";
 import cardsSlice, {
-  clearDistributedCards, completeLastCheckItem, distributeCards,
-  fetchCardsData,removeCardFromState, updateCard
+  clearDistributedCards, completeLastCheckItem, createCard, distributeCards,
+  fetchCardsData, removeCardFromState, updateCard
 } from "../cardsSlice"
 
-global.fetch = jest.fn()
+jest.mock('../../../utils/reduxUtils')
+globalThis.fetch = jest.fn()
 
 describe("Testing async thunks", () => {
   describe("Testing 'fetchCardsData' thunk", () => {
@@ -254,62 +256,51 @@ describe("Testing async thunks", () => {
 
 
   describe("Testing 'createCard' thunk", () => {
-    // it("Should dispatch 'clearDistributedCards' & 'fetchCardsData' if new card create successfully", async () => {
-      
-    // //   console.log(performance.now(), 1)
-    // //   const wait = async () => new Promise(resolve => {
-    // //     setTimeout(resolve, 3000)
-    // //   })
-    // //   await wait()
-    // //   console.log(performance.now(), 2)
-      
-    // //   const mockNewCardData: INewCardData = {
-    // //     name: "Some Card Name - Вт 13:30",
-    // //     desc: "https://player.url\nhttps://thumbnail.url",
-    // //     idList: "whatever",
-    // //     length: 12,
-    // //     watched: 4
-    // //   }
+    it("Should dispatch 'clearDistributedCards' & 'fetchCardsData' if new card create successfully", async () => {      
+      const mockNewCardData = {
+        name: "Some Card Name - Вт 13:30",
+        desc: "https://player.url\nhttps://thumbnail.url",
+        idList: "whatever",
+        length: 12,
+        watched: 4
+      }
 
-    // //   const dispatch = jest.fn()
-    // //   const trello: any = {}
-    // //   trello.post = jest.fn(() =>
-    // //   Promise.resolve({
-    // //     id: 'new-card-id',
-    // //     description: '...',
-    // //   })
-    // // );
+      const dispatch = jest.fn()
 
-    // //   const thunk = createCard({newCard: mockNewCardData, trello})
+      const thunk = createCard(mockNewCardData)
       
-      
-    // //   await thunk(
-    // //     dispatch,
-    // //     () => ({}),
-    // //     () => ({
-    // //       rejectWithValue() {}
-    // //     })
-    // //     )
+      await thunk(
+        dispatch,
+        () => ({}),
+        () => ({
+          rejectWithValue() {}
+        })
+      )
 
+      const cardCreationRequest = Trello.post.mock.calls[0] // post request to /cards/
+      
+      expect(cardCreationRequest[0]).toBe('/cards/')
+      expect(cardCreationRequest[1]).toEqual(mockNewCardData)
 
-    // //   const { calls: trelloCalls } = trello.post.mock
-    // //   const [ cardCreationCall ] = trelloCalls
+      ;(createChecklist as jest.Mock)
+      
+      await cardCreationRequest[2]({
+        id: 'this-is-id-of-created-card'
+      })
 
-    // //   cardCreationCall[2]({
-    // //     description: `This object will be passed to 'onCreationSuccess' function
-    // //     and actually should contain data about card that was just created, including 'id' field`,
-    // //     id: 'new-card-id'
-    // //   })
-      
-    // //   const { calls: dispatchCalls } = dispatch.mock
-      
-      
-    // //   const [ pending, fulfilled ] = dispatchCalls
-      
-    // })
+      const { calls: dispatchCalls } = dispatch.mock
+
+      const [pending, fulfilled, clearDistributedCards, fetchCardsDataThunk] = dispatchCalls
+
+      expect(pending[0].type).toBe('cards/createCard/pending')
+      expect(fulfilled[0].type).toBe('cards/createCard/fulfilled')
+      expect(clearDistributedCards[0].type).toBe('cards/clearDistributedCards')
+      expect(fetchCardsDataThunk[0]).toBeInstanceOf(Function)
+    })
 
     it.todo("Should throw an error if card creation response is rejected")  // async
   })
+
 
   describe("Testing 'removeCard' thunk", () => {
     it.todo("Should dispatch 'removeCardFromState' if card deletion respose is resolved")  // async
@@ -423,6 +414,7 @@ describe("Testing cardsReducer's reducers", () => {
     })
   })
 }) 
+
 
 describe("Testing extra reducers", () => {
   describe("Testing 'fetchCardsData' extra reducer", () => {

@@ -1,6 +1,9 @@
 import { RootState } from "../redux/store"
+import { getMockTrelloObject } from "../utils/testUtils"
 
-export const Trello = (window as any).Trello
+const __TESTING__ = process.env.NODE_ENV === 'test'
+
+export const Trello = __TESTING__ ? getMockTrelloObject() : globalThis.Trello
 
 export const storageKeys = {
 	selectedBoard: "selectedBoard",

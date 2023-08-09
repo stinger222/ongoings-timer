@@ -71,7 +71,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 
     const cardToRemove = { cardId, cardDayId }
 
-		dispatch(removeCard({ cardToRemove, Trello }))
+		dispatch(removeCard(cardToRemove))
 	}
 
 	return (

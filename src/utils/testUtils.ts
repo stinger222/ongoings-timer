@@ -1,5 +1,13 @@
 import { ITrelloCardData } from "../types/Trello"
 
+export const getMockTrelloObject = () => {
+  return {
+    get: jest.fn(),
+    post: jest.fn(),
+    put: jest.fn(),
+  }
+}
+
 export enum TestDataVariant {
   RAW,
   PROCESSED,

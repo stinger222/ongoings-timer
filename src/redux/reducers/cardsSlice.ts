@@ -1,3 +1,4 @@
+import { INewCardData } from './../../types/Trello';
 import { checkCardSuitability } from '../../utils/stringUtils';
 import { Week } from '../../utils/dateTimeUtils';
 
@@ -7,9 +8,9 @@ import { createChecklist } from '../../utils/reduxUtils';
 import { deauthorize } from './authSlice';
 import { RootState } from '../store';
 
-import { mockDestributedData } from '../../constants/constants';
+import { mockDestributedData, Trello } from '../../constants/constants';
 import { ITrelloCardData } from '../../types/Trello';
-import { ICardsState, ICreateCardThunkProps, IRemoveCardThunkProps } from '../../types/redux';
+import { ICardsState } from '../../types/redux';
 
 const __DEV__ = process.env.NODE_ENV === "development"
 
@@ -79,14 +80,15 @@ export const completeLastCheckItem = createAsyncThunk(
 	}
 )
 
-export const createCard = createAsyncThunk<unknown, ICreateCardThunkProps>(
+export const createCard = createAsyncThunk<unknown, INewCardData>(
   "cards/createCard",
-  async ({ newCard, Trello}, thunkAPI) => {
+  async (newCard, thunkAPI) => {
     try {
       const onCreationSuccess = async (createdCard) => {
         console.log('\nCard created successfully!')
 
         await createChecklist(createdCard.id, "Серии", newCard.length, newCard.watched)
+        
 				thunkAPI.dispatch(clearDistributedCards())
 				thunkAPI.dispatch(fetchCardsData())
       }
@@ -98,9 +100,9 @@ export const createCard = createAsyncThunk<unknown, ICreateCardThunkProps>(
 	}
 )
 
-export const removeCard = createAsyncThunk<unknown, IRemoveCardThunkProps>(
+export const removeCard = createAsyncThunk<unknown, Pick<ITrelloCardData, "cardId" | "cardDayId">>(
   "cards/removeCard",
-	async ({cardToRemove, Trello}, thunkAPI) => {
+	async (cardToRemove, thunkAPI) => {
    	try {
 			Trello.delete(`/cards/${cardToRemove.cardId}`).then(() => {
 				console.log('Card deleted successfully!')

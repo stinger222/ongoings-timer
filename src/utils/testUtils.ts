@@ -5,7 +5,14 @@ export const getMockTrelloObject = () => {
     get: jest.fn(),
     post: jest.fn(),
     put: jest.fn(),
-    delete: jest.fn()
+    delete: jest.fn(),
+    token: jest.fn().mockImplementation(() => {
+      return "this-is-mock-trello-token"
+    }),
+    key: jest.fn().mockImplementation(() => {
+      return "this-is-mock-trello-api-key"
+    }),
+    deauthorize: jest.fn()
   }
 }
 

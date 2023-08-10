@@ -23,38 +23,33 @@ const initialState: IAuthState = {
 	selectedList: getStoredJSON('selectedList')
 }
 
-export const fetchTrelloBoards = createAsyncThunk(
+export const fetchTrelloBoards = createAsyncThunk<unknown>(
 	"auth/fetchTrelloBoards",
-	async (_, { dispatch, rejectWithValue}) => {
+	async (_, thunkAPI) => {
 		try {
-			Trello.get("/members/me/boards").then((boards: any) => {
-        boards = boards.map((board: any) => {
-          const _board = {
-            id: board.id,
-            name: board.name
-          }
+			let boards = await Trello.get("/members/me/boards")
 
-          return _board
-        })
+      boards = boards.map((board: any) => ({
+        id: board.id,
+        name: board.name
+      }))
 
-				dispatch(setBoards(boards))
-			})
+      thunkAPI.dispatch(setBoards(boards))
 		} catch (err) {
-			return rejectWithValue(err)
+			return thunkAPI.rejectWithValue(err)
 		}
 	}
 )
 
 export const fetchSelectedBoardLists = createAsyncThunk(
 	"auth/fetchSelectedBoardLists",
-	async (boardId: string, { dispatch, rejectWithValue }) => {
+	async (boardId: string, thunkAPI) => {
 		try {
-			Trello.get(`/boards/${boardId}/lists`).then((lists: any) => {
-				dispatch(setSelectedBoardLists(lists))
-			})
+			const lists = await Trello.get(`/boards/${boardId}/lists`)
+      thunkAPI.dispatch(setSelectedBoardLists(lists))
 
 		} catch (err) {
-			return rejectWithValue(err)
+			return thunkAPI.rejectWithValue(err)
 		}
 	}
 )

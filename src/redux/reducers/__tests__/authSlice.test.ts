@@ -1,5 +1,5 @@
 import { Trello } from "../../../constants/constants";
-import { fetchTrelloBoards } from "../authSlice"
+import { fetchSelectedBoardLists, fetchTrelloBoards } from "../authSlice"
 
 describe("Testing authSlice async thunks", () => {
   describe("Testing 'fetchTrelloBoards' thunk", () => {
@@ -73,7 +73,64 @@ describe("Testing authSlice async thunks", () => {
   })
 
   describe("Testing 'fetchSelectedBoardLists' thunk", () => {
-    
+    it("Should dispatch 'setSelectedBoardLists' with fetched lists for selected board", async () => {
+      const dispatch = jest.fn()
+      const thunk = fetchSelectedBoardLists("some-board-id")
+      ;(Trello.get as jest.Mock).mockReturnValueOnce(Promise.resolve([
+        {id: 'id-of-some-list-on-selected-board'},
+        {id: 'id-of-abother-list-on-selected-board'}
+      ]))
+
+      await thunk(
+        dispatch,
+        () => ({}),
+        () => ({})
+      )
+
+      // dispatch.mock.calls.forEach(i => console.log(i[0].type))
+
+      const { calls } = dispatch.mock
+      expect(calls).toHaveLength(3)
+
+      const [pending, setSelectedBoardLists, fulfilled] = calls
+
+      expect(pending[0].type).toBe('auth/fetchSelectedBoardLists/pending')
+      expect(setSelectedBoardLists[0].type).toBe('auth/setSelectedBoardLists')
+      expect(Trello.get.mock.calls).toHaveLength(1) // called just once
+      expect(Trello.get.mock.calls[0]).toHaveLength(1) // with only one param: boardId
+      expect(Trello.get.mock.calls[0][0]).toBe("/boards/some-board-id/lists") // and it's equal to..
+      expect(fulfilled[0].type).toBe('auth/fetchSelectedBoardLists/fulfilled')
+     
+    })
+
+    it("Should throw (rejectWithValue) an error if lists fetch is rejected", async () => {
+      const dispatch = jest.fn()
+      const thunk = fetchSelectedBoardLists("some-board-id")
+      ;(Trello.get as jest.Mock).mockReturnValueOnce(Promise.reject({
+        ok: false,
+        status: 999,
+        responseText: "Trello be like: Ooh, can't give you array of lists on this board, fu"
+      }))
+
+      await thunk(
+        dispatch,
+        () => ({}),
+        () => ({})
+      )
+
+      const { calls } = dispatch.mock
+      expect(calls).toHaveLength(2)
+
+      const [pending, rejected] = calls
+      expect(pending[0].type).toBe('auth/fetchSelectedBoardLists/pending')
+      expect(rejected[0].type).toBe('auth/fetchSelectedBoardLists/rejected')
+      expect(rejected[0].payload).toBeInstanceOf(Object)
+      expect(rejected[0].payload).toEqual({
+        ok: false,
+        status: 999,
+        responseText: "Trello be like: Ooh, can't give you array of lists on this board, fu"
+      })
+    })
   })
 })
 

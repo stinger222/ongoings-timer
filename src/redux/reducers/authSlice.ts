@@ -74,7 +74,7 @@ const authSlice = createSlice({
 			state.selectedBoard = null
 			state.selectedBoardLists = null
 			state.selectedList = null
-			
+
 			Object.keys(storageKeys).forEach(key => {
 				localStorage.removeItem(key)
 			})
@@ -82,6 +82,7 @@ const authSlice = createSlice({
       Trello.deauthorize()
 			globalThis.document.location.reload()
     },
+
 		setBoards(state: IAuthState, action: PayloadAction<any[]>) {
 			state.trelloBoards = action.payload
 		},

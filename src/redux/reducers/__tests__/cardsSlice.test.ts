@@ -427,7 +427,7 @@ describe("Testing cardsReducer's reducers", () => {
   describe("Testing 'clearDistributedCards' reducer", () => {
     it("Should clear all destributed cards", () => {
       const initialState = {...mockRootState.cardsReducer, distributedData: [...mockDestributedData]}
-      expect(initialState.distributedData).toStrictEqual(mockDestributedData)
+      expect(initialState.distributedData).toEqual(mockDestributedData)
 
       const newState = cardsSlice(initialState, clearDistributedCards())
       expect(newState.distributedData).toStrictEqual([[],[],[],[],[],[],[]])

@@ -27,14 +27,14 @@ export const fetchTrelloBoards = createAsyncThunk<unknown>(
 	"auth/fetchTrelloBoards",
 	async (_, thunkAPI) => {
 		try {
-			let boards = await Trello.get("/members/me/boards")
+			let boards: any[] = await Trello.get("/members/me/boards")
 
-      boards = boards.map((board: any) => ({
+      const processedBoards = boards.map<ITrelloBoard>((board: any): ITrelloBoard => ({
         id: board.id,
-        name: board.name
-      }))
+        name: board.name,
+      })) 
 
-      thunkAPI.dispatch(setBoards(boards))
+      thunkAPI.dispatch(setBoards(processedBoards))
 		} catch (err) {
 			return thunkAPI.rejectWithValue(err)
 		}
@@ -61,7 +61,7 @@ const authSlice = createSlice({
 		authorize(state: IAuthState) {
       state.trelloToken =  Trello.token()
       state.trelloKey = Trello.key()
-
+      
       if (state.trelloKey && state.trelloToken) {
         state.isAuthorized = true
       }
@@ -83,18 +83,18 @@ const authSlice = createSlice({
 			globalThis.document.location.reload()
     },
 
-		setBoards(state: IAuthState, action: PayloadAction<any[]>) {
-			state.trelloBoards = action.payload
+		setBoards(state: IAuthState, action: PayloadAction<ITrelloBoard[]>) {
+			state.trelloBoards = action.payload ?? null
 		},
 		setSelectedBoardLists(state: IAuthState, action: PayloadAction<ITrelloList[]>) {
-			state.selectedBoardLists = action.payload
+			state.selectedBoardLists = action.payload ?? null
 		},
 		selectBoard(state: IAuthState, action: PayloadAction<ITrelloBoard>) {
-			state.selectedBoard = action.payload
+			state.selectedBoard = action.payload ?? null
 			localStorage.setItem(storageKeys.selectedBoard, JSON.stringify(action.payload))
 		},
 		selectList(state: IAuthState, action: PayloadAction<ITrelloList>) {
-			state.selectedList = action.payload
+			state.selectedList = action.payload ?? null
 			localStorage.setItem(storageKeys.selectedList, JSON.stringify(action.payload))
 		}
 	}

@@ -18,7 +18,7 @@ describe("Testing UISlice reducers", () => {
 
   it("Should open/close dropdown menu", () => {
     const initialState = mockRootState.UIReducer
-    expect(initialState.isDropdownOpen).toBe(false)
+    expect(initialState.isDropdownOpen).toBe(false)  // TODO: why sould I test mockRootState here?
     
     let newState = UISlice(initialState, setDropdownState(true))
     expect(newState.isDropdownOpen).toBe(true)

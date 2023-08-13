@@ -10,7 +10,7 @@ export default function Timer({ rawTargetDate }: IProps) {
 	const [difference, setDifference] = useState<number>(0)
 	const timerValue = formatTimeDuration(difference)
 	
-	const targetDayId = Week.getIdByName(rawTargetDate)
+	const targetDayId = Week.getIdByCardName(rawTargetDate)
 	const [targetHour, targetMinute] = [+rawTargetDate.substring(3, 5), +rawTargetDate.substring(6, 8)]
 
 	// calculate diffenence betwen now and taget unix time

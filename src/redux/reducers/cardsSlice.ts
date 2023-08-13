@@ -136,7 +136,7 @@ const cardsSlice = createSlice({
       }
       
 			validCards.forEach((card: any) => {
-				const cardDayId = Week.getIdByName(card.name)
+				const cardDayId = Week.getIdByCardName(card.name)
 
 				state.distributedData[cardDayId].push({
 					checkItems: card.badges.checkItems,
@@ -146,7 +146,7 @@ const cardsSlice = createSlice({
 					cardDesc: card.desc,
 					cardUrl: card.url,
 					cardId: card.id,
-					cardDayId: Week.getIdByName(card.name)
+					cardDayId: Week.getIdByCardName(card.name)
 				})
 			})
 		},

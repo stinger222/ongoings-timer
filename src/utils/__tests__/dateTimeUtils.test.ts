@@ -33,7 +33,6 @@ describe("Testing 'formatTimeDuration' function", () => {
   })
 })
 
-
 describe("Testing Week class", () => {
   describe("Testing '.getIdByDay()' method", () => {
     it("Should return the correct ID for a valid day abbreviation", () => {

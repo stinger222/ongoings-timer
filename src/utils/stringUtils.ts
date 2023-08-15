@@ -1,5 +1,25 @@
+const extractDayAndTime = (cardName: string): [string, number, number] => {
+  const splittedName = cardName.split(" - ")
+  const dayAndTimePart = splittedName[splittedName.length-1] // if there is more than one " - " parts
+  const splittedDayAndTime = dayAndTimePart.split(" ")
+
+  const dayAbbr = splittedDayAndTime[0]
+  const [ hours, minutes ] = splittedDayAndTime[1].split(":").map(i => Number(i))
+
+  return [dayAbbr, hours, minutes]
+
+}
+
 export const checkCardSuitability = (cardName: string): boolean => {
-  return /.*\s[-]\s[А-Я][а-я]\s[0-9]{2}[:][0-9]{2}$/.test(cardName)
+  if (!/^.+ - [А-Я][а-я] [0-2][0-9]:[0-5][0-9]$/.test(cardName)) return false
+  
+  const [dayAbbr, hours, minutes] = extractDayAndTime(cardName)
+
+  if (!['Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб', 'Вс'].includes(dayAbbr)) return false
+  if (hours >= 24) return false
+  if (minutes >= 60) return false
+
+  return true
 }
 
 // Capitalize first letter of each word if it's not jsut one letter

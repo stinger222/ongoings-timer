@@ -29,12 +29,12 @@ export const fetchTrelloBoards = createAsyncThunk<unknown>(
 		try {
 			let boards: any[] = await Trello.get("/members/me/boards")
 
-      const processedBoards = boards.map<ITrelloBoard>((board: any): ITrelloBoard => ({
+      const mappedBoards = boards.map<ITrelloBoard>((board: any): ITrelloBoard => ({
         id: board.id,
         name: board.name,
       })) 
 
-      thunkAPI.dispatch(setBoards(processedBoards))
+      thunkAPI.dispatch(setBoards(mappedBoards))
 		} catch (err) {
 			return thunkAPI.rejectWithValue(err)
 		}

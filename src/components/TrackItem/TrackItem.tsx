@@ -11,7 +11,6 @@ import Timer from "../Timer/Timer";
 
 import styles from "./TrackItem.module.css";
 import { ITrelloCardData } from "../../types/Trello";
-import { Trello } from "../../constants/constants";
 
 interface IProps {
 	cardData: ITrelloCardData,
@@ -33,6 +32,8 @@ export default function TrackItem({ cardData, index }: IProps) {
 
 	const dispatch = useAppDispatch()
 
+  // TODO: use 'extractDayAndTime' utility here
+  // (but it first should be finished, and I can't finish it cause app not working anymore :/)
 	const delimiterIndex = rawCardTitle.lastIndexOf(' - ')
 	const title = rawCardTitle.substring(0, delimiterIndex)
 	const rawTargetDate = rawCardTitle.substring(delimiterIndex + 3, rawCardTitle.length) // Пн 21:30 etc.

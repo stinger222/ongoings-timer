@@ -1,5 +1,8 @@
- # Ongoings Timer
+# Ongoings Timer
 This is Trello-based app for tracking your anime (or not so) ongoings with timer until next episode.
+<br/>
+<br/>
+_(or at least it was, until **Trello leaved russia**, rendering it useless for now)_
 
 ## Preview
 
@@ -10,7 +13,8 @@ This is Trello-based app for tracking your anime (or not so) ongoings with timer
 ![Card Creation](https://github.com/stinger222/ongoings-timer/assets/39219491/1f9e3a89-0700-4c9c-9e29-9dc2e6f3d2de)
 
 ## Demo
-Check out [the demo](https://stinger222.github.io/ongoings-timer) to explore all features of the app!
+~~Check out [the demo](https://stinger222.github.io/ongoings-timer) to explore all features of the app!~~
+Trello deleted all ru accounts, including the one I used for OAuth Client, so even it you have working Trello account, app still not working yet
 
 ## Features
   - Create cards for each ongoing series you want to track

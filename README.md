@@ -39,9 +39,7 @@ Trello deleted all ru accounts, including the one I used for OAuth Client, so ev
 
  <details>
    <summary><b>Jest</b></summary>
-  
-   - (❌ NOT YET) Unit testing 
-   - (❌ NOT YET) A to B testing
+   - Unit testing 
 </details>
 
  <details>
@@ -58,7 +56,7 @@ Trello deleted all ru accounts, including the one I used for OAuth Client, so ev
 ## Usage
   1. Log in using your Trello account
   2. Select the Trello board and list where your ongoing series data will be stored
-  3. Open card creation form  using the "New Card" button
+  3. Open card creation form  using the "New Card" button in dropdown menu
   4. Fill out the form with necessary data such as: 
     - Title
     - Time and day of the week when new episodes released

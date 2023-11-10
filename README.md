@@ -14,7 +14,7 @@ _(or at least it was, until **Trello leaved russia**, rendering it useless for n
 
 ## Demo
 ~~Check out [the demo](https://stinger222.github.io/ongoings-timer) to explore all features of the app!~~
-Trello deleted all ru accounts, including the one I used for OAuth Client, so even it you have working Trello account, app still not working yet
+Trello deleted all ru accounts, including the one I used for OAuth Client, so even if you have working Trello account, app still won't work
 
 ## Features
   - Create cards for each ongoing series you want to track

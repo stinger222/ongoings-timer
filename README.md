@@ -1,46 +1,72 @@
-# Getting Started with Create React App
+# Ongoings Timer
+This is Trello-based app for tracking your anime (or not so) ongoings with timer until next episode.
+<br/>
+<br/>
+_(or at least it was, until **Trello leaved russia**, rendering it useless for now)_
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Preview
 
-## Available Scripts
+**Result example:**
+![Preview](https://github.com/stinger222/ongoings-timer/assets/39219491/a25edcbd-165e-44b4-a506-b7bf8458f08c)
 
-In the project directory, you can run:
+**Card Creation process:**
+![Card Creation](https://github.com/stinger222/ongoings-timer/assets/39219491/1f9e3a89-0700-4c9c-9e29-9dc2e6f3d2de)
 
-### `npm start`
+## Demo
+~~Check out [the demo](https://stinger222.github.io/ongoings-timer) to explore all features of the app!~~
+Trello deleted all ru accounts, including the one I used for OAuth Client, so even if you have valid Trello account, app still won't work
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+## Features
+  - Create cards for each ongoing series you want to track
+  - Go to player url by simply clicking on the title of the card
+  - Handy progress bar will help you keeping track of episodes you already watched 
+  - Delete card from Trello in one click
+  - Countdown timer until next episode
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Tech Stack <i><sub><sup>(❗click to expand❗)</sup></sub></i>
+ <b>▷ Typescript</b>
+ 
+ <details>
+   <summary><b>React</b></summary>
+  
+   - Redux & Redux Toolkit
+     > For global state management and data fetching
+   - Formik
+     > To create card creation form with necessary logic such as validation and form state management
+   - React Router Dom
+     > For dynamic routing and navigation in the app 
+</details>
 
-### `npm test`
+ <details>
+   <summary><b>Jest</b></summary>
+  
+   - Unit Testing
+</details>
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+ <details>
+   <summary><b>CSS</b></summary>
 
-### `npm run build`
+   - React Spring
+     > Used to create mount animation for cards
+   - React transition group
+     > To animate navigation in dropdown menu
+   - CSS Modules
+     > For general components styling
+</details>
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Usage
+  1. Log in using your Trello account
+  2. Select the Trello board and list where your ongoing series data will be stored
+  3. Open card creation form  using the "New Card" button in dropdown menu
+  4. Fill out the form with necessary data such as:
+      - Title
+      - Time and day of the week when new episodes released
+      - Amount of watched episodes (optional) and their overall amount
+      - Thumbnail (optional) and player urls 
+  5. Press "Create" and that's it!
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
+## Development
+1. Clone app using `git clone`
+2. Install dependencies using `npm install`
+3. Create `.env` file in the root directory
+4. Run `npm start` 

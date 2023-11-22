@@ -1,9 +1,9 @@
-import { checkCardSuitability } from "../stringUtils"
+import { checkCardSuitability, processTitle } from "../stringUtils"
 
 describe("Testing 'checkCardSuitability' function", () => {
 
   it("Tests 'time' part of the card name", () => {
-    // Valid
+    // Both valid
     expect(checkCardSuitability("Whatever - Пн 00:00")).toBe(true)
     expect(checkCardSuitability("Whatever - Вт 04:10")).toBe(true)
     expect(checkCardSuitability("Whatever - Ср 08:20")).toBe(true)
@@ -60,7 +60,22 @@ describe("Testing 'checkCardSuitability' function", () => {
 })
 
 describe("Testing 'processTitle' function", () => {
-  
+
+  it("Should calitalize each word", () => {
+    expect(processTitle("whatever")).toBe("Whatever")
+    expect(processTitle("what ever")).toBe("What Ever")
+    expect(processTitle("wh at ev er")).toBe("Wh At Ev Er")
+  })
+
+  it("Should make single characters lower case", () => {
+    expect(processTitle("wh a te v er")).toBe("Wh a Te v Er")
+    // expect(processTitle("w hat eve r")).toBe("w Hat Eve r")
+    expect(processTitle("w h a t e v e r")).toBe("w h a t e v e r")
+  })
+
+  it("Should make Roman numerals uppercase", () => {
+
+  })
 })
 
 

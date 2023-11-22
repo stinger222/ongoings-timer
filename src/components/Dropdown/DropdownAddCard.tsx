@@ -2,7 +2,7 @@ import { useAppDispatch } from "../../hooks/redux";
 import { createCard } from "../../redux/reducers/cardsSlice";
 import { setActiveMenu } from "../../redux/reducers/UISlice";
 
-import { Trello, storageKeys } from "../../constants/constants";
+import { storageKeys } from "../../constants/constants";
 import { processTitle } from "../../utils/stringUtils";
 import { INewCardData, INewCardForm } from "../../types/Trello";
 
@@ -11,7 +11,7 @@ import { ReactComponent as BackIcon } from "../../assets/back.svg";
 import styles from './Dropdown.module.css';
 import AddCardForm from "./AddCardForm";
 
-const getNewCardData = ({
+const extractNewCardData = ({
   title, day, time, length, watched, player_url, thumbnail_url
 }: INewCardForm): INewCardData => {
   const name = `${processTitle(title)} - ${day} ${time}`
@@ -33,7 +33,7 @@ export default function DropdownAddCard({ className }: { className: string }) {
   const dispatch = useAppDispatch()
 
   const handleSubmit = (formValues) => {
-    const newCardData: INewCardData = getNewCardData(formValues)
+    const newCardData: INewCardData = extractNewCardData(formValues)
     dispatch(createCard(newCardData))
   }
 

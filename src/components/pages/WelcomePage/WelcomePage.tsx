@@ -25,7 +25,7 @@ export default function WelcomePage() {
 
 
       <div className={`${styles.info_card} ${styles.info_card_left}`}>
-        <h2 className={styles.info_card__title}>What Is It?</h2>
+        <h2 className={styles.info_card__title}>What Is This App??</h2>
         <div className={styles.info_card__desc}>
           Trello-based app for tracking <br />
           your anime (or not so) ongoings with <br />

@@ -23,7 +23,7 @@ Trello deleted all ru accounts, including the one I used for OAuth Client, so ev
   - Delete card from Trello in one click
   - Countdown timer until next episode
 
-## Tech Stack <i><sub><sup>(click to expand)</sup></sub></i>
+## Tech Stack <i><sub><sup>(❗click to expand❗)</sup></sub></i>
  <b>▷ Typescript</b>
  
  <details>
@@ -39,7 +39,8 @@ Trello deleted all ru accounts, including the one I used for OAuth Client, so ev
 
  <details>
    <summary><b>Jest</b></summary>
-   - Unit testing 
+  
+   - Unit Testing
 </details>
 
  <details>
@@ -64,5 +65,8 @@ Trello deleted all ru accounts, including the one I used for OAuth Client, so ev
       - Thumbnail (optional) and player urls 
   5. Press "Create" and that's it!
 
-## Installation / Dev stuff
-npm i
+## Development
+1. Clone app using `git clone`
+2. Install dependencies using `npm install`
+3. Create `.env` file in the root directory
+4. Run `npm start` 

@@ -1,8 +1,6 @@
 # Ongoings Timer
 This is Trello-based app for tracking your anime (or not so) ongoings with timer until next episode.
 <br/>
-<br/>
-_(or at least it was, until **Trello leaved russia**, rendering it useless for now)_
 
 ## Preview
 
@@ -13,8 +11,7 @@ _(or at least it was, until **Trello leaved russia**, rendering it useless for n
 ![Card Creation](https://github.com/stinger222/ongoings-timer/assets/39219491/1f9e3a89-0700-4c9c-9e29-9dc2e6f3d2de)
 
 ## Demo
-~~Check out [the demo](https://stinger222.github.io/ongoings-timer) to explore all features of the app!~~
-Trello deleted all ru accounts, including the one I used for OAuth Client, so even if you have valid Trello account, app still won't work
+Check out the demo [here](https://stinger222.github.io/ongoings-timer)!
 
 ## Features
   - Create cards for each ongoing series you want to track
@@ -23,10 +20,12 @@ Trello deleted all ru accounts, including the one I used for OAuth Client, so ev
   - Delete card from Trello in one click
   - Countdown timer until next episode
 
-## Tech Stack <i><sub><sup>(❗click to expand❗)</sup></sub></i>
+## Tech Stack <i><sub><sup>(click to collapse)</sup></sub></i>
  <b>▷ Typescript</b>
  
- <details>
+ <b>▷ Jest </b>
+ 
+ <details open>
    <summary><b>React</b></summary>
   
    - Redux & Redux Toolkit
@@ -37,13 +36,7 @@ Trello deleted all ru accounts, including the one I used for OAuth Client, so ev
      > For dynamic routing and navigation in the app 
 </details>
 
- <details>
-   <summary><b>Jest</b></summary>
-  
-   - Unit Testing
-</details>
-
- <details>
+ <details open>
    <summary><b>CSS</b></summary>
 
    - React Spring

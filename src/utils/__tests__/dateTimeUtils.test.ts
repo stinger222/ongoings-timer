@@ -67,6 +67,133 @@ describe("Testing Week class", () => {
       expect(Week.getIdByCardName("Some Card Name - Ср 12:00")).toBe(3)
       expect(Week.getIdByCardName("Some Card Name - Сб 15:00")).toBe(6)
     })
+
+    it("Should return the correct ID for a card name that have words with day abbr inside them", () => {
+      // includes "пн"
+      expect(Week.getIdByCardName("Отступница Габриэль - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("Отступница Габриэль - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("Отступница Габриэль - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("Отступница Габриэль - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("Отступница Габриэль - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("Отступница Габриэль - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("Отступница Габриэль - Вс 15:00")).toBe(0)
+      
+      expect(Week.getIdByCardName("Великий Небесный Пневмопровод - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("Великий Небесный Пневмопровод - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("Великий Небесный Пневмопровод - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("Великий Небесный Пневмопровод - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("Великий Небесный Пневмопровод - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("Великий Небесный Пневмопровод - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("Великий Небесный Пневмопровод - Вс 15:00")).toBe(0)
+      
+      
+      // includes "вт"
+      expect(Week.getIdByCardName("Монолог Фармацевта - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("Монолог Фармацевта - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("Монолог Фармацевта - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("Монолог Фармацевта - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("Монолог Фармацевта - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("Монолог Фармацевта - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("Монолог Фармацевта - Вс 15:00")).toBe(0)
+      
+      expect(Week.getIdByCardName("Унеси Меня На Вторцветмет - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("Унеси Меня На Вторцветмет - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("Унеси Меня На Вторцветмет - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("Унеси Меня На Вторцветмет - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("Унеси Меня На Вторцветмет - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("Унеси Меня На Вторцветмет - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("Унеси Меня На Вторцветмет - Вс 15:00")).toBe(0)
+      
+      
+      // includes "ср"
+      expect(Week.getIdByCardName("Агенты Росрегистра - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("Агенты Росрегистра - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("Агенты Росрегистра - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("Агенты Росрегистра - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("Агенты Росрегистра - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("Агенты Росрегистра - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("Агенты Росрегистра - Вс 15:00")).toBe(0)
+
+      expect(Week.getIdByCardName("Некий Средневзвешенный Рейлган - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("Некий Средневзвешенный Рейлган - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("Некий Средневзвешенный Рейлган - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("Некий Средневзвешенный Рейлган - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("Некий Средневзвешенный Рейлган - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("Некий Средневзвешенный Рейлган - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("Некий Средневзвешенный Рейлган - Вс 15:00")).toBe(0)
+      
+      
+      // includes "чт"
+      expect(Week.getIdByCardName("Лшогатдчторвы - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("Лшогатдчторвы - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("Лшогатдчторвы - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("Лшогатдчторвы - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("Лшогатдчторвы - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("Лшогатдчторвы - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("Лшогатдчторвы - Вс 15:00")).toBe(0)
+      
+      expect(Week.getIdByCardName("ХХХ Чтрывр - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("ХХХ Чтрывр - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("ХХХ Чтрывр - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("ХХХ Чтрывр - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("ХХХ Чтрывр - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("ХХХ Чтрывр - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("ХХХ Чтрывр - Вс 15:00")).toBe(0)
+      
+
+      // includes "пт"
+      expect(Week.getIdByCardName("Манускрипт Ниндзя - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("Манускрипт Ниндзя - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("Манускрипт Ниндзя - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("Манускрипт Ниндзя - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("Манускрипт Ниндзя - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("Манускрипт Ниндзя - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("Манускрипт Ниндзя - Вс 15:00")).toBe(0)
+
+      expect(Week.getIdByCardName("На Птицефабрике Со Смартфоном - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("На Птицефабрике Со Смартфоном - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("На Птицефабрике Со Смартфоном - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("На Птицефабрике Со Смартфоном - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("На Птицефабрике Со Смартфоном - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("На Птицефабрике Со Смартфоном - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("На Птицефабрике Со Смартфоном - Вс 15:00")).toBe(0)
+      
+
+      // includes "сб"
+      expect(Week.getIdByCardName("йРооырсбыа - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("йРооырсбыа - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("йРооырсбыа - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("йРооырсбыа - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("йРооырсбыа - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("йРооырсбыа - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("йРооырсбыа - Вс 15:00")).toBe(0)
+
+      expect(Week.getIdByCardName("Лывошор Сборвав - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("Лывошор Сборвав - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("Лывошор Сборвав - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("Лывошор Сборвав - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("Лывошор Сборвав - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("Лывошор Сборвав - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("Лывошор Сборвав - Вс 15:00")).toBe(0)
+      
+
+      // includes "вс"
+      expect(Week.getIdByCardName("Ощцтвсдш - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("Ощцтвсдш - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("Ощцтвсдш - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("Ощцтвсдш - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("Ощцтвсдш - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("Ощцтвсдш - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("Ощцтвсдш - Вс 15:00")).toBe(0)
+
+      expect(Week.getIdByCardName("Лдроыуот Вслоыув - Пн 15:00")).toBe(1)
+      expect(Week.getIdByCardName("Лдроыуот Вслоыув - Вт 15:00")).toBe(2)
+      expect(Week.getIdByCardName("Лдроыуот Вслоыув - Ср 15:00")).toBe(3)
+      expect(Week.getIdByCardName("Лдроыуот Вслоыув - Чт 15:00")).toBe(4)
+      expect(Week.getIdByCardName("Лдроыуот Вслоыув - Пт 15:00")).toBe(5)
+      expect(Week.getIdByCardName("Лдроыуот Вслоыув - Сб 15:00")).toBe(6)
+      expect(Week.getIdByCardName("Лдроыуот Вслоыув - Вс 15:00")).toBe(0)
+    })
   
     it("Should return -1 for an invalid day abbreviation", () => {
       expect(Week.getIdByCardName("Some Card Name - xyz 10:00")).toBe(-1)

@@ -1,6 +1,7 @@
 import { Trello } from "../constants/constants"
+import { ICompleteCheckItems, ICreateCheckItems, ICreateChecklist } from "../types/utils"
 
-const createCheckItems = (checklistId: string, checkItemsCount: number) => {
+const createCheckItems: ICreateCheckItems = (checklistId, checkItemsCount) => {
   const promise = new Promise<void>((resolve) => {    
     for (let i = 0; i < checkItemsCount; i++) {
       setTimeout(() => {
@@ -13,7 +14,7 @@ const createCheckItems = (checklistId: string, checkItemsCount: number) => {
   return promise
 }
 
-const completeCheckItems = (checklistId: string, cardId: string, toCheck: number) => {
+const completeCheckItems: ICompleteCheckItems = (checklistId, cardId, toCheck) => {
 	const promise = new Promise<void>(async (resolve) => {
 		const checkItems = await Trello.get(`/checklists/${checklistId}/checkItems`)
 		checkItems.sort((a: any, b: any) => a.pos - b.pos)
@@ -32,8 +33,8 @@ const completeCheckItems = (checklistId: string, cardId: string, toCheck: number
 	return promise
 }
 
-export const createChecklist = async (
-  cardId: string, checklistName: string = 'Серии', length: number, toCheck: number
+export const createChecklist: ICreateChecklist = async (
+  cardId, checklistName = 'Серии', length, toCheck
 ) => {
 	const promise = new Promise<void>(async (resolve) => {
 		const createdChecklist = await Trello.post(`/checklists?idCard=${cardId}&name=${checklistName}`)

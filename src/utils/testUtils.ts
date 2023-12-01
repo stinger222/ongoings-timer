@@ -99,7 +99,7 @@ export const getTestCardData = (
       checkItems: 12,
       checkItemsChecked: 4,
       checklistId: "61cf425af76148f7ca71d5",
-      cardTitle: `Mushoku Tensei II - ${daysOfTheWeek[dayId]} 19:00`,
+      cardName: `Mushoku Tensei II - ${daysOfTheWeek[dayId]} 19:00`,
       cardDesc: "https://yummyani.me/catalog/item/reinkarnatsiya-bezrabotnogo-istoriya-priklyucheniyah-drugom-mire-chast-1?video=534100\nhttps://animego.org/upload/anime/images/64a1a7f30aefe207920191.jpg",
       cardUrl: "https://trello.com/c/???/1234-mushoku-tensei-ii",
       cardId: "15cacf61672c5796852e850",

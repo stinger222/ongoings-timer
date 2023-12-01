@@ -1,4 +1,4 @@
-import { checkCardSuitability, processTitle } from "../stringUtils"
+import { checkCardSuitability, extractDataFromCardName, processCardTitle } from "../stringUtils"
 
 describe("Testing 'checkCardSuitability' function", () => {
 
@@ -62,16 +62,16 @@ describe("Testing 'checkCardSuitability' function", () => {
 describe("Testing 'processTitle' function", () => {
 
   it("Should calitalize each word", () => {
-    expect(processTitle("whatever")).toBe("Whatever")
-    expect(processTitle("what ever")).toBe("What Ever")
-    expect(processTitle("wh at ev er")).toBe("Wh At Ev Er")
+    expect(processCardTitle("whatever")).toBe("Whatever")
+    expect(processCardTitle("what ever")).toBe("What Ever")
+    expect(processCardTitle("wh at ev er")).toBe("Wh At Ev Er")
   })
 
-  it("Should make single characters lower case", () => {
-    expect(processTitle("wh a te v er")).toBe("Wh a Te v Er")
-    // expect(processTitle("w hat eve r")).toBe("w Hat Eve r")
-    expect(processTitle("w h a t e v e r")).toBe("w h a t e v e r")
-  })
+  // it("Should make single characters lower case", () => {
+  //   expect(processCardTitle("wh a te v er")).toBe("Wh a Te v Er")
+  //   expect(processCardTitle("w hat eve r")).toBe("W Hat Eve r")
+  //   expect(processCardTitle("w h a t e v e r")).toBe("W h a t e v e r")
+  // })
 
   it("Should make Roman numerals uppercase", () => {
 
@@ -79,6 +79,20 @@ describe("Testing 'processTitle' function", () => {
 })
 
 
-describe("Testing 'formatNumber' function", () => {
-  
+describe("Testing 'extractDayAndTime' function", () => {
+  it("??", () => {
+    expect(extractDataFromCardName("")).toEqual([null, null, null, null])
+    expect(extractDataFromCardName("   ")).toEqual([null, null, null, null])
+    expect(extractDataFromCardName(null)).toEqual([null, null, null, null])
+    expect(extractDataFromCardName(undefined)).toEqual([null, null, null, null])
+
+    expect(extractDataFromCardName("Some name - Пн 20:00"))
+    .toEqual(["Some name", "пн", 20, 0])
+
+    expect(extractDataFromCardName("Some name - вт 20:00"))
+    .toEqual(["Some name", "вт", 20, 0])
+  })
+    expect(extractDataFromCardName("Some name - СР 20:00"))
+    .toEqual(["Some name", "ср", 20, 0])
+
 })

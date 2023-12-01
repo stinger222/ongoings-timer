@@ -12,8 +12,8 @@ const handleLogIn = () => {
     },
     interactive: true,
     expiration: '30days',
-    success: () => console.log("Explicit Login: SUCCESS"),
-    error: () => console.log("Explicit Login: FAILURE")
+    success: () => console.log('Successfully signed in!'),
+    error: () => console.error('Can\'t sign in!')
   })
 }
 

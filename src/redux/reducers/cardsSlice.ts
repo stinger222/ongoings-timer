@@ -142,7 +142,7 @@ const cardsSlice = createSlice({
 					checkItems: card.badges.checkItems,
 					checkItemsChecked: card.badges.checkItemsChecked,
 					checklistId: card.idChecklists[0],
-					cardTitle: card.name,
+					cardName: card.name,
 					cardDesc: card.desc,
 					cardUrl: card.url,
 					cardId: card.id,

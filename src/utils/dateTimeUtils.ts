@@ -1,10 +1,11 @@
-import { formatNumber } from "./stringUtils"
+import { IFormatTimeDuration, IWeek } from "../types/utils"
+import { formatNumber, extractDataFromCardName } from "./stringUtils"
 
-// this function takes ammount of seconds as a parameter
-// and returns string with days, hours, minutes and seconds
-// that fits inside given ammount of seconds
-
-export const formatTimeDuration = (difference: number): string => {
+/** 
+  * @param difference Some ammount of seconds
+  * @returns String with days, hours, minutes and seconds that fits inside given ammount of seconds
+ */
+export const formatTimeDuration: IFormatTimeDuration = (difference) => {
   const isNegative = difference < 0
   difference = Math.ceil(Math.abs(difference))
 
@@ -19,26 +20,34 @@ export const formatTimeDuration = (difference: number): string => {
 
   const seconds = formatNumber(difference)
 
-  // e.g. -05:56:59
+  // e.g. -01:56:59
   if (isNegative) return `-${hours}:${minutes}:${seconds}`
   
   // e.g. 6:20:50:05
   return `${days}:${hours}:${minutes}:${seconds}`
 }
 
-export class Week {
+export const Week: IWeek = class {
 	public static daysAbbr = [
 		"вс", "пн", "вт", "ср", "чт", "пт", "сб"
 	]
-
-	public static getIdByDay = (day: string): number => {
-    day = day?.toLowerCase?.()
-    return this.daysAbbr.findIndex((dayCondidate: string) => day === dayCondidate)
+  
+  /**
+   * @param abbr one of the `Week.daysAbbr`
+   * @returns Index of given day abbreviation in the week. Вс - 0, Пн - 1, etc.
+  */
+	public static getIdByAbbr = (abbr) => {
+    abbr = abbr?.toLowerCase?.()
+    return this.daysAbbr.findIndex((dayCondidate) => abbr === dayCondidate)
 	}
 
-	public static getIdByCardName = (name: string): number => {
-		return Week.daysAbbr.findIndex((day: string) => (
-			name?.toLowerCase().includes(day)
-		))
+  /**
+   * @param name Full name of the card
+   * @returns Index of the day of the week that this card points to. Вс - 0, Пн - 1, etc.
+  */
+	public static getIdByCardName = (name) => {
+    const [_, dayAbbr] = extractDataFromCardName(name)
+    
+		return Week.daysAbbr.findIndex((day) => dayAbbr === day)
 	}
 }

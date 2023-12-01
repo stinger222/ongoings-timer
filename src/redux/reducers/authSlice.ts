@@ -2,16 +2,7 @@ import { getStoredJSON } from '../../utils/localStorageUtils';
 import { storageKeys, Trello } from "../../constants/constants";
 import { ITrelloBoard, ITrelloList } from "../../types/Trello";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
-
-interface IAuthState {
-  isAuthorized: boolean,
-  trelloToken: string | null,
-  trelloKey: string | null,
-	trelloBoards: any[] | null,
-	selectedBoard: ITrelloBoard | null,
-	selectedBoardLists: ITrelloList[] | null
-	selectedList: ITrelloList | null
-}
+import { IAuthState } from '../../types/utils';
 
 const initialState: IAuthState = {
   isAuthorized: false,
@@ -29,7 +20,7 @@ export const fetchTrelloBoards = createAsyncThunk<unknown>(
 		try {
 			let boards: any[] = await Trello.get("/members/me/boards")
 
-      const mappedBoards = boards.map<ITrelloBoard>((board: any): ITrelloBoard => ({
+      const mappedBoards = boards.map<ITrelloBoard>((board): ITrelloBoard => ({
         id: board.id,
         name: board.name,
       })) 

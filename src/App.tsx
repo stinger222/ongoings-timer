@@ -14,14 +14,14 @@ function App() {
 	const navigate = useNavigate()
   
 	const onAuthSuccess = () => {
-		console.log('Soft Login: SUCCESS')
+		console.log('Successfully signed in using stored credentials!')
 
     dispatch(authorize())
     navigate('/track')
    }
 
 	const onAuthFailure = () => {
-		console.error('Soft Login: FAILURE\n')
+		console.error('Can\'t sign in using stored credentials!')
     
     navigate('/welcome')
    }

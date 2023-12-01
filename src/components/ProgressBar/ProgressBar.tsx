@@ -18,7 +18,6 @@ const getRange = (watched: number, len: number): IprogressBarData => {
 	}
 
 	// 1-13 string way shorter than like 10-23, sooo...
-	
 	if (start > 5) {
 		result.splice(0, 2)
 	}

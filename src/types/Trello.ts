@@ -2,7 +2,7 @@ export interface ITrelloCardData {
 	checkItems: number,
 	checkItemsChecked: number,
 	checklistId: string,
-	cardTitle: string,
+	cardName: string,
 	cardDayId: number,
 	cardDesc: string,
 	cardUrl: string,

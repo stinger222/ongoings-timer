@@ -11,6 +11,7 @@ import Timer from "../Timer/Timer";
 
 import styles from "./TrackItem.module.css";
 import { ITrelloCardData } from "../../types/Trello";
+import { extractDataFromCardName } from "../../utils/stringUtils";
 
 interface IProps {
 	cardData: ITrelloCardData,
@@ -21,7 +22,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 	const {
 		checkItems,
 		checkItemsChecked,
-		cardTitle: rawCardTitle,
+		cardName,
 		cardDayId,
 		cardDesc,
 		cardUrl,
@@ -32,12 +33,7 @@ export default function TrackItem({ cardData, index }: IProps) {
 
 	const dispatch = useAppDispatch()
 
-  // TODO: use 'extractDayAndTime' utility here
-  // (but it first should be finished, and I can't finish it cause app not working anymore :/)
-	const delimiterIndex = rawCardTitle.lastIndexOf(' - ')
-	const title = rawCardTitle.substring(0, delimiterIndex)
-	const rawTargetDate = rawCardTitle.substring(delimiterIndex + 3, rawCardTitle.length) // Пн 21:30 etc.
-	
+  const [ title ] = extractDataFromCardName(cardName)
 	const [playerUrl, imageUrl] = [...cardDesc.match(/(?<=\()(https\:\/\/.*)(?=(\s\"))|^https\:\/\/.*$/gm) || []]
 
 	const spring = useSpring({
@@ -113,11 +109,11 @@ export default function TrackItem({ cardData, index }: IProps) {
           target="_blank"
           rel="noreferrer"
         >
-          {__DEV__ ? rawCardTitle : title}
+          {__DEV__ ? cardName : title}
         </a>
         
 				<ProgressBar checkItems={checkItems} checkItemsChecked={checkItemsChecked}/>
-				<Timer rawTargetDate={rawTargetDate}/>
+				<Timer cardName={cardName}/>
 			</div>
 		</animated.div>
 	)

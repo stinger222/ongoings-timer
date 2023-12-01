@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react"; 
+import { extractDataFromCardName } from "../../utils/stringUtils";
 import { formatTimeDuration, Week } from "../../utils/dateTimeUtils";
 import styles from "./Timer.module.css";
 
-interface IProps { 
-	rawTargetDate: string// Пн 21:30 etc.
+interface IProps {
+  /** Full name of the card */ 
+	cardName: string
 }
 
-export default function Timer({ rawTargetDate }: IProps) {
+export default function Timer({ cardName }: IProps) {
 	const [difference, setDifference] = useState<number>(0)
 	const timerValue = formatTimeDuration(difference)
 	
-	const targetDayId = Week.getIdByCardName(rawTargetDate)
-	const [targetHour, targetMinute] = [+rawTargetDate.substring(3, 5), +rawTargetDate.substring(6, 8)]
+  const [_, dayAbbr, targetHour, targetMinute] = extractDataFromCardName(cardName)
+	const targetDayId = Week.getIdByAbbr(dayAbbr)
 
-	// calculate diffenence betwen now and taget unix time
+	// calculate diffenence betwen current and target unix time
 	const updateTimer = () => {
 		const currentDate = new Date()
 		const targetDate = new Date()
@@ -47,7 +49,6 @@ export default function Timer({ rawTargetDate }: IProps) {
 		
 		return () => window.removeEventListener('focus', handleWindowFocus)
 	}, [])
-
 
 	return (
 		<h1 className={styles.timer}>

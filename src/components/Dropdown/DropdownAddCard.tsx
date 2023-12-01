@@ -3,7 +3,7 @@ import { createCard } from "../../redux/reducers/cardsSlice";
 import { setActiveMenu } from "../../redux/reducers/UISlice";
 
 import { storageKeys } from "../../constants/constants";
-import { processTitle } from "../../utils/stringUtils";
+import { processCardTitle } from "../../utils/stringUtils";
 import { INewCardData, INewCardForm } from "../../types/Trello";
 
 import { ReactComponent as BackIcon } from "../../assets/back.svg";
@@ -14,7 +14,7 @@ import AddCardForm from "./AddCardForm";
 const extractNewCardData = ({
   title, day, time, length, watched, player_url, thumbnail_url
 }: INewCardForm): INewCardData => {
-  const name = `${processTitle(title)} - ${day} ${time}`
+  const name = `${processCardTitle(title)} - ${day} ${time}`
   const desc = player_url + "\n" + thumbnail_url
   const selectedList = localStorage.getItem(storageKeys.selectedList)
 

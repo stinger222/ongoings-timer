@@ -13,7 +13,7 @@ dist-ssr
 *.local
 
 # Editor directories and files
-.vscode/*
+.vscode
 !.vscode/extensions.json
 .idea
 .DS_Store
@@ -22,3 +22,19 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Playwright
+/tests-examples/
+/test-results*/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
+/playwright-report/
+/tests/e2e/screenshots
+
+# env
+.env*
+!.env.example
+
+# Playwright
+/test-results/

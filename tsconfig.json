@@ -1,7 +1,13 @@
 {
   "files": [],
   "references": [
-    { "path": "./tsconfig.app.json" },
-    { "path": "./tsconfig.node.json" }
-  ]
+    { "path": "./tsconfig.app.json" },  // Клиентская часть - считай Vue
+    { "path": "./tsconfig.node.json" } // Всё остальное - Vite, Vitest и тд
+  ],
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["./src/*"]
+    }
+  }
 }

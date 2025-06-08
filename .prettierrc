@@ -1,0 +1,16 @@
+{
+  "semi": false,
+  "singleQuote": true,
+  "singleAttributePerLine": true,
+  "printWidth": 120,
+  "vueIndentScriptAndStyle": false,
+  "htmlWhitespaceSensitivity": "ignore",
+  "trailingComma": "es5",
+  "importOrder": [
+    "^vue",
+    "<THIRD_PARTY_MODULES>",
+    "^[@/]",
+    "^[./]"
+  ],
+  "plugins": ["prettier-plugin-organize-imports", "@ianvs/prettier-plugin-sort-imports"]
+}

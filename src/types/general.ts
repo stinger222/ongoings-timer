@@ -1,4 +1,5 @@
 export interface CountdownCardProps {
+  id: string,
   title: string,
   imageUrl: string,
   playerUrl: string,

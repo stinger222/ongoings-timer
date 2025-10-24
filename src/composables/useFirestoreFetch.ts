@@ -1,4 +1,3 @@
-// composables/useFirestoreFetch.ts
 import { ref, onMounted, watchEffect } from 'vue'
 import { getDocs, Query, QuerySnapshot, type DocumentData } from 'firebase/firestore'
 

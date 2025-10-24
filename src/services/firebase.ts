@@ -1,8 +1,7 @@
-import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore"; // Import getFirestore
-import { getAuth } from "firebase/auth"; // Import getFirestore
+import { initializeApp } from "firebase/app"
+import { getFirestore } from "firebase/firestore"
+import { getAuth, GoogleAuthProvider, signInWithPopup  } from "firebase/auth"
 
-// Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_apiKey,
   authDomain: import.meta.env.VITE_authDomain,
@@ -10,8 +9,9 @@ const firebaseConfig = {
   storageBucket: import.meta.env.VITE_storageBucket,
   messagingSenderId: import.meta.env.VITE_messagingSenderId,
   appId: import.meta.env.VITE_appId,
-};
+}
 
-export const app = initializeApp(firebaseConfig);
+// Modules
+export const app = initializeApp(firebaseConfig)
 export const db = getFirestore(app)
 export const auth = getAuth(app)

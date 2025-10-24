@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { HomeView } from '@/views'
+import { WelcomeView } from '@/views'
 import AddCardForm from '@/components/pages/add-card/AddCardForm.vue'
 
 const router = createRouter({
@@ -7,13 +7,13 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'home',
-      component: HomeView,
+      name: 'welcome',
+      component: WelcomeView,
     },
     {
       path: '/add-card',
       name: 'add-card',
-      component: AddCardForm,
+      component: AddCardForm, // TODO: change to view, lol
     },  
   ],
 })

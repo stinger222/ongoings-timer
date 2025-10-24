@@ -14,9 +14,7 @@ const router = createRouter({
       path: '/add-card',
       name: 'add-card',
       component: AddCardForm,
-    },
-  
-    
+    },  
   ],
 })
 

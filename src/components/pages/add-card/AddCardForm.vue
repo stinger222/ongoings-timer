@@ -2,6 +2,8 @@
 import { useForm } from 'vee-validate'
 import { toTypedSchema } from '@vee-validate/zod'
 import * as z from 'zod'
+import { collection, addDoc } from 'firebase/firestore'
+import { getApp } from 'firebase/app'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -20,6 +22,9 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
+import { db } from '@/services/firebase'
+
+
 
 const formSchema = toTypedSchema(z.object({
   title: z.string().min(3),
@@ -38,9 +43,9 @@ const formSchema = toTypedSchema(z.object({
 const form = useForm({
   validationSchema: formSchema,
   initialValues: {
-    title: 'title',
-    imageUrl: 'https://url',
-    playerUrl: 'https://player',
+    title: `title ${Math.random() * 10}`,
+    imageUrl: 'https://img.yani.tv/posters/huge/1636845534.avif',
+    playerUrl: 'https://site.yummyani.me/catalog/item/molchalivaya-vedma-tayna-molchalivoy-kolduni',
     episodes: {
       total: 12,
       done: 5,
@@ -52,8 +57,15 @@ const form = useForm({
   },
 })
 
-const onSubmit = form.handleSubmit((values) => {
+const onSubmit = form.handleSubmit(async (values) => {
   console.log('Form submitted!', values)
+
+  try {
+    const docRef = await addDoc(collection(db, 'countdownCards'), values)
+    console.log('Document written with ID: ', docRef.id)
+  } catch (e) {
+    console.error('Error adding document: ', e)
+  }
 })
 </script>
 

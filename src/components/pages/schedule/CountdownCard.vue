@@ -1,20 +1,25 @@
 <script setup lang="ts">
-import type { CountdownCardProps } from '@/types';
+import type { CountdownCardProps } from '@/types'
 
-const porps = defineProps<{data: CountdownCardProps}>()
+
+const props = defineProps<{data: CountdownCardProps}>()
+const emit = defineEmits<{
+  (e: 'delete', id: string): void
+}>()
 
 const handleMarkAsWatched = (id) => {
-
-} 
+}
 const handleMarkAsUnwatched = (id) => {
 
-} 
-const handleRemove = (id) => {
+}
 
-} 
+const handleDelete = async (id) => {
+  if (!window.confirm("Delete this card?")) return
+  emit('delete', id)
+}
+
 const handleEdit = (id) => {
-
-} 
+}
 
 const mapWeekDayIndexToTitle: Record<number, string> = {
   0: 'Sunday',
@@ -25,7 +30,6 @@ const mapWeekDayIndexToTitle: Record<number, string> = {
   5: 'Friday',
   6: 'Saturday',
 }
-
 </script>
 
 <template>
@@ -42,9 +46,13 @@ const mapWeekDayIndexToTitle: Record<number, string> = {
       <header class="flex justify-between">
         <span class="max-w-[400px] truncate">{{ data.title }}</span>
         <div class="space-x-2">
+          <!-- <button @click="() => handleMarkAsWatched(data.id)" class="rounded bg-zinc-200 px-2">+</button>
+          <button @click="() => handleMarkAsUnwatched(data.id)" class="rounded bg-zinc-200 px-2">-</button>
+          <button @click="() => handleDelete(data.id)" class="rounded bg-zinc-200 px-2">Remove</button>
+          <button @click="() => handleEdit(data.id)" class="rounded bg-zinc-200 px-2">Edit</button> -->
           <button @click="() => handleMarkAsWatched(data.id)" class="rounded bg-zinc-200 px-2">+</button>
           <button @click="() => handleMarkAsUnwatched(data.id)" class="rounded bg-zinc-200 px-2">-</button>
-          <button @click="() => handleRemove(data.id)" class="rounded bg-zinc-200 px-2">Remove</button>
+          <button @click="() => handleDelete(data.id)" class="rounded bg-zinc-200 px-2">Remove</button>
           <button @click="() => handleEdit(data.id)" class="rounded bg-zinc-200 px-2">Edit</button>
           <!-- Controls -->
         </div>

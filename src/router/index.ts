@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { WelcomeView } from '@/views'
+import { WelcomeView, CardsListView } from '@/views'
 import AddCardForm from '@/components/pages/add-card/AddCardForm.vue'
 
 const router = createRouter({
@@ -9,6 +9,11 @@ const router = createRouter({
       path: '/',
       name: 'welcome',
       component: WelcomeView,
+    },
+    {
+      path: '/cards-list',
+      name: 'cards-list',
+      component: CardsListView,
     },
     {
       path: '/add-card',

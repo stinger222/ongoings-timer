@@ -16,7 +16,6 @@ const {
 <div v-if="loading">Loading...</div>
   <div v-else-if="error">Error: {{ error.message }}</div>
   <template v-else>
-    <!-- <pre>{{ JSON.stringify(cards, null, 2) }}</pre> -->
      <CountdownCard v-for="card in cards" :data="card" :key="card.id" />
   </template>
 </template>

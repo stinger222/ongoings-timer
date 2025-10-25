@@ -62,7 +62,7 @@ const onSubmit = form.handleSubmit(async (values) => {
 
   try {
     const docRef = await addDoc(collection(db, 'countdownCards'), values)
-    console.log('Document written with ID: ', docRef.id)
+    console.success('Document written with ID: ', docRef.id)
   } catch (e) {
     console.error('Error adding document: ', e)
   }

@@ -1,4 +1,4 @@
-import { auth } from "@/services/firebase"
+import { auth } from "@/firebase"
 import { GoogleAuthProvider, signInWithPopup, type User, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth"
 import { ref } from "vue"
 

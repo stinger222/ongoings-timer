@@ -22,7 +22,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select'
-import { db } from '@/services/firebase'
+import { db } from '@/firebase'
 
 
 

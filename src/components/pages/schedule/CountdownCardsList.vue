@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { collection, getDocs, deleteDoc, doc } from 'firebase/firestore'
 import { useFirestoreFetch } from '@/composables'
-import { db } from '@/services/firebase'
+import { db } from '@/firebase'
 import CountdownCard from './CountdownCard.vue'
 import { TransitionGroup } from 'vue'
 

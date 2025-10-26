@@ -1,25 +1,48 @@
 <script setup lang="ts">
-import type { CountdownCardProps } from '@/types'
+import type { CountdownCard } from '@/types'
 
-
-const props = defineProps<{data: CountdownCardProps}>()
+const props = defineProps<{ data: CountdownCard }>()
 const emit = defineEmits<{
   (e: 'delete', id: string): void
+  (e: 'increment-watched', id: string, card: object): void
+  (e: 'decrement-watched', id: string, card: object): void
 }>()
 
-const handleMarkAsWatched = (id) => {
-}
-const handleMarkAsUnwatched = (id) => {
-
-}
-
 const handleDelete = async (id) => {
-  if (!window.confirm("Delete this card?")) return
+  if (!window.confirm('Delete this card?')) return
   emit('delete', id)
 }
 
-const handleEdit = (id) => {
+const handleIncrementWatched = async (card: CountdownCard) => {
+  console.log("handleIncrementWatched: ", card)
+  const total = card.episodes.total
+  const newDone = card.episodes.done + 1
+  if (newDone >= total) {
+    return console.fail('All episodes already watched!')
+  }
+
+  emit('increment-watched', card.id, {
+    "episodes.done": newDone
+  })
 }
+
+const handleDecrementWatched = async (card: CountdownCard) => {
+  const total = card.episodes.total
+  const newDone = card.episodes.done - 1
+
+  if (newDone <= 0) {
+    return console.fail('No episodes watched!')
+  }
+
+  emit('decrement-watched', card.id, {
+    episodes: {
+      done: newDone,
+      total,
+    },
+  })
+}
+
+const handleEdit = (id) => {}
 
 const mapWeekDayIndexToTitle: Record<number, string> = {
   0: 'Sunday',
@@ -35,8 +58,11 @@ const mapWeekDayIndexToTitle: Record<number, string> = {
 <template>
   <div class="border rounded-xl border-black p-1 flex gap-3 h-[250px] max-h-[250px] max-w-[800px] mx-auto">
     <div>
-      <template v-if="(data.imageUrl)">
-        <img :src="data.imageUrl" class="max-w-[100%] max-h-[100%] rounded-[10px]"/>
+      <template v-if="data.imageUrl">
+        <img
+          :src="data.imageUrl"
+          class="max-w-[100%] max-h-[100%] rounded-[10px]"
+        />
       </template>
       <template v-else>
         <div class="w-[180px] h-full rounded-md bg-red-200"></div>
@@ -46,22 +72,36 @@ const mapWeekDayIndexToTitle: Record<number, string> = {
       <header class="flex justify-between">
         <span class="max-w-[400px] truncate">{{ data.title }}</span>
         <div class="space-x-2">
-          <!-- <button @click="() => handleMarkAsWatched(data.id)" class="rounded bg-zinc-200 px-2">+</button>
-          <button @click="() => handleMarkAsUnwatched(data.id)" class="rounded bg-zinc-200 px-2">-</button>
-          <button @click="() => handleDelete(data.id)" class="rounded bg-zinc-200 px-2">Remove</button>
-          <button @click="() => handleEdit(data.id)" class="rounded bg-zinc-200 px-2">Edit</button> -->
-          <button @click="() => handleMarkAsWatched(data.id)" class="rounded bg-zinc-200 px-2">+</button>
-          <button @click="() => handleMarkAsUnwatched(data.id)" class="rounded bg-zinc-200 px-2">-</button>
-          <button @click="() => handleDelete(data.id)" class="rounded bg-zinc-200 px-2">Remove</button>
-          <button @click="() => handleEdit(data.id)" class="rounded bg-zinc-200 px-2">Edit</button>
           <!-- Controls -->
+          <button
+            @click="() => handleDecrementWatched(data)"
+            class="rounded bg-zinc-200 px-2"
+          >
+            -
+          </button>
+          <button
+            @click="() =>handleIncrementWatched(data)"
+            class="rounded bg-zinc-200 px-2"
+          >
+            +
+          </button>
+          <button
+            @click="() => handleDelete(data.id)"
+            class="rounded bg-zinc-200 px-2"
+          >
+            Remove
+          </button>
+          <button
+            @click="() => handleEdit(data.id)"
+            class="rounded bg-zinc-200 px-2"
+          >
+            Edit
+          </button>
         </div>
       </header>
+      <div>Done: {{ data.episodes.done }} out of {{ data.episodes.total }}</div>
       <div>
-        Done: {{ data.episodes.done }} out of {{ data.episodes.total }} 
-      </div>
-      <div>
-        Next episode is on {{ mapWeekDayIndexToTitle[data.nextRelease.dayOfWeek]}} at {{ data.nextRelease.time }}
+        Next episode is on {{ mapWeekDayIndexToTitle[data.nextRelease.dayOfWeek] }} at {{ data.nextRelease.time }}
       </div>
     </div>
   </div>

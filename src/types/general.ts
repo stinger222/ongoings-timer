@@ -1,4 +1,4 @@
-export interface CountdownCardProps {
+export interface CountdownCard {
   id: string,
   title: string,
   imageUrl: string,

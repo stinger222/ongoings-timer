@@ -3,43 +3,22 @@ import type { CountdownCard } from '@/types'
 
 const props = defineProps<{ data: CountdownCard }>()
 const emit = defineEmits<{
-  (e: 'delete', id: string): void
-  (e: 'increment-watched', id: string, card: object): void
-  (e: 'decrement-watched', id: string, card: object): void
+  (e: 'delete', card: CountdownCard): void
+  (e: 'increment-watched', card: CountdownCard): void
+  (e: 'decrement-watched', card: CountdownCard): void
 }>()
 
-const handleDelete = async (id) => {
+const handleDelete = async () => {
   if (!window.confirm('Delete this card?')) return
-  emit('delete', id)
+  emit('delete', props.data)
 }
 
-const handleIncrementWatched = async (card: CountdownCard) => {
-  console.log('handleIncrementWatched: ', card)
-  const total = card.episodes.total
-  const newDone = card.episodes.done + 1
-  if (newDone >= total) {
-    return console.fail('All episodes already watched!')
-  }
-
-  emit('increment-watched', card.id, {
-    'episodes.done': newDone,
-  })
+const handleIncrementWatched = async () => {
+  emit('increment-watched', props.data)
 }
 
-const handleDecrementWatched = async (card: CountdownCard) => {
-  const total = card.episodes.total
-  const newDone = card.episodes.done - 1
-
-  if (newDone <= 0) {
-    return console.fail('No episodes watched!')
-  }
-
-  emit('decrement-watched', card.id, {
-    episodes: {
-      done: newDone,
-      total,
-    },
-  })
+const handleDecrementWatched = async () => {
+  emit('decrement-watched', props.data)
 }
 
 const handleEdit = (id) => {}
@@ -74,19 +53,19 @@ const mapWeekDayIndexToTitle: Record<number, string> = {
         <div class="space-x-2">
           <!-- Controls -->
           <button
-            @click="() => handleDecrementWatched(data)"
+            @click="handleDecrementWatched"
             class="rounded bg-zinc-200 px-2"
           >
             -
           </button>
           <button
-            @click="() => handleIncrementWatched(data)"
+            @click="handleIncrementWatched"
             class="rounded bg-zinc-200 px-2"
           >
             +
           </button>
           <button
-            @click="() => handleDelete(data.id)"
+            @click="handleDelete"
             class="rounded bg-zinc-200 px-2"
           >
             Remove

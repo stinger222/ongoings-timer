@@ -1,45 +1,56 @@
 <script setup lang="ts">
-import { collection, updateDoc, deleteDoc, doc } from 'firebase/firestore'
-import { useFirestoreFetch } from '@/composables'
-import { db } from '@/firebase'
-import CountdownCard from './CountdownCard.vue'
 import { TransitionGroup } from 'vue'
+import { useCollection } from 'vuefire'
+import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
 import { Button } from '@/components/ui/button'
+import { db } from '@/firebase'
+import { countdownCardsRef } from '@/firebase/collections'
 import type { CountdownCard as CountdownCardType } from '@/types'
+import CountdownCard from './CountdownCard.vue'
+import { increment } from 'firebase/firestore'
 
-// TODO: Type
-const { data: cards, loading, error } = useFirestoreFetch<any>(collection(db, 'countdownCards'))
+const { data: cards, pending: cardsPending, error: cardsError } = useCollection<CountdownCardType>(countdownCardsRef)
 
-const handleDelete = async (id: string) => {
+const handleDelete = async (card: CountdownCardType) => {
   try {
-    await deleteDoc(doc(db, 'countdownCards', id))
-    console.success("Card deleted!")
-    cards.value = cards.value.filter(card => card.id !== id)
+    await deleteDoc(doc(db, 'countdownCards', card.id))
+    console.success('Card deleted!')
+    cards.value = cards.value.filter((i) => i.id !== card.id)
   } catch (error) {
-    console.error("Error deleting card: ", error)
+    console.error('Error deleting card: ', error)
   }
 }
 
-// TODO: Add type cards and stuff
-const handleIncrementWatched = async (id: string, updates: object) => {
-  // try {
-  //   const response = await updateDoc(doc(db, 'countdownCards', id), updates)
-  //   console.success("Watched episodes decremented! response: ", response )
-  //   const updatedCard = cards.value.find(card => card.id === id)
-  // } catch (error) {
-  //   console.error("Error while decrementing watched episodes: ", error)
-  // }
+const handleIncrementWatched = async (card: CountdownCardType) => {
+  if (card.episodes.done >= card.episodes.total) return
+  const cardRef = await doc(db, 'countdownCards', card.id)
+  try {
+    await updateDoc(cardRef, { 'episodes.done': increment(1) })
+  } catch (error) {
+    console.error('Error incrementing watched:', error)
+  }
 }
 
-const handleDecrementWatched = async (id: string, updates: Partial<CountdownCardType>)  => {
-
+const handleDecrementWatched = async (card: CountdownCardType) => {
+  if (card.episodes.done <= 0) return
+  const cardRef = await doc(db, 'countdownCards', card.id)
+  try {
+    await updateDoc(cardRef, { 'episodes.done': increment(-1) })
+  } catch (error) {
+    console.error('Error decrementing watched:', error)
+  }
 }
 </script>
 
 <template>
-  <Button class="mb-2" @click="console.log(cards)">log cards</Button>
-  <div v-if="loading">Loading...</div>
-  <div v-else-if="error">Error: {{ error.message }}</div>
+  <Button
+    class="mb-2"
+    @click="console.log(cards)"
+  >
+    log cards
+  </Button>
+  <div v-if="cardsPending">Loading...</div>
+  <div v-else-if="cardsError">Error: {{ cardsError.message }}</div>
   <TransitionGroup
     v-else
     name="card"

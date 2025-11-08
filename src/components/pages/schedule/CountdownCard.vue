@@ -14,7 +14,7 @@ const handleDelete = async (id) => {
 }
 
 const handleIncrementWatched = async (card: CountdownCard) => {
-  console.log("handleIncrementWatched: ", card)
+  console.log('handleIncrementWatched: ', card)
   const total = card.episodes.total
   const newDone = card.episodes.done + 1
   if (newDone >= total) {
@@ -22,7 +22,7 @@ const handleIncrementWatched = async (card: CountdownCard) => {
   }
 
   emit('increment-watched', card.id, {
-    "episodes.done": newDone
+    'episodes.done': newDone,
   })
 }
 
@@ -80,7 +80,7 @@ const mapWeekDayIndexToTitle: Record<number, string> = {
             -
           </button>
           <button
-            @click="() =>handleIncrementWatched(data)"
+            @click="() => handleIncrementWatched(data)"
             class="rounded bg-zinc-200 px-2"
           >
             +

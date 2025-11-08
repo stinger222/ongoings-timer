@@ -16,7 +16,7 @@ import { Toaster } from '@/components/ui'
     :toast-options="{
       style: {
         'margin-top': '45px',
-        'pointer-events': 'auto'
+        'pointer-events': 'auto',
       },
     }"
   />

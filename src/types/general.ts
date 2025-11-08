@@ -1,14 +1,14 @@
 export interface CountdownCard {
-  id: string,
-  title: string,
-  imageUrl: string,
-  playerUrl: string,
+  id: string
+  title: string
+  imageUrl: string
+  playerUrl: string
   episodes: {
-    total: number,
+    total: number
     done: number
-  },
+  }
   nextRelease: {
-    time: string,
+    time: string
     dayOfWeek: 0 | 1 | 2 | 3 | 4 | 5 | 6
   }
 }

@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { WelcomeView, CardsListView } from '@/views'
-import AddCardForm from '@/components/pages/add-card/AddCardForm.vue'
 import { getCurrentUser, useCurrentUser } from 'vuefire'
+import AddCardForm from '@/components/pages/add-card/AddCardForm.vue'
+import { CardsListView, WelcomeView } from '@/views'
 
 const router = createRouter({
   history: createWebHistory(''),
@@ -15,13 +15,13 @@ const router = createRouter({
       path: '/cards-list',
       name: 'cards-list',
       component: CardsListView,
-      meta: { isProtected: true }
+      meta: { isProtected: true },
     },
     {
       path: '/add-card',
       name: 'add-card',
       component: AddCardForm, // TODO: change to view, lol
-      meta: { isProtected: true }
+      meta: { isProtected: true },
     },
   ],
 })
@@ -29,7 +29,7 @@ const router = createRouter({
 router.beforeEach(async (to, from) => {
   const user = await getCurrentUser()
   if (!user && to.meta.isProtected) {
-    return { name: "welcome" }
+    return { name: 'welcome' }
   }
 })
 

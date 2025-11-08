@@ -1,44 +1,30 @@
 <script setup lang="ts">
-import { useForm } from 'vee-validate'
-import { toTypedSchema } from '@vee-validate/zod'
-import * as z from 'zod'
-import { collection, addDoc } from 'firebase/firestore'
 import { getApp } from 'firebase/app'
-
+import { addDoc, collection } from 'firebase/firestore'
+import { useForm } from 'vee-validate'
+import * as z from 'zod'
 import { Button } from '@/components/ui/button'
-import {
-  FormControl,
-  FormField,
-  FormItem,
-  FormLabel,
-  FormMessage,
-} from '@/components/ui/form'
+import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectGroup,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { db } from '@/firebase'
+import { toTypedSchema } from '@vee-validate/zod'
 
-
-
-const formSchema = toTypedSchema(z.object({
-  title: z.string().min(3),
-  imageUrl: z.string().min(3),
-  playerUrl: z.string().min(3),
-  episodes: z.object({
-    total: z.number().min(0),
-    done: z.number().min(0),
-  }),
-  nextRelease: z.object({
-    dayOfWeek: z.number().min(0).max(6),
-    time: z.string().min(3),
-  }),
-}))
+const formSchema = toTypedSchema(
+  z.object({
+    title: z.string().min(3),
+    imageUrl: z.string().min(3),
+    playerUrl: z.string().min(3),
+    episodes: z.object({
+      total: z.number().min(0),
+      done: z.number().min(0),
+    }),
+    nextRelease: z.object({
+      dayOfWeek: z.number().min(0).max(6),
+      time: z.string().min(3),
+    }),
+  })
+)
 
 const form = useForm({
   validationSchema: formSchema,
@@ -70,58 +56,94 @@ const onSubmit = form.handleSubmit(async (values) => {
 </script>
 
 <template>
-  <form @submit.prevent="onSubmit" class="form">
-    <FormField v-slot="{ componentField }" name="title">
+  <form
+    @submit.prevent="onSubmit"
+    class="form"
+  >
+    <FormField
+      v-slot="{ componentField }"
+      name="title"
+    >
       <FormItem>
         <FormLabel>Title</FormLabel>
         <FormControl>
-          <Input type="text" v-bind="componentField" />
+          <Input
+            type="text"
+            v-bind="componentField"
+          />
         </FormControl>
         <FormMessage />
       </FormItem>
     </FormField>
 
-    <FormField v-slot="{ componentField }" name="imageUrl">
+    <FormField
+      v-slot="{ componentField }"
+      name="imageUrl"
+    >
       <FormItem>
         <FormLabel>Image URL</FormLabel>
         <FormControl>
-          <Input type="text" v-bind="componentField" />
+          <Input
+            type="text"
+            v-bind="componentField"
+          />
         </FormControl>
         <FormMessage />
       </FormItem>
     </FormField>
 
-    <FormField v-slot="{ componentField }" name="playerUrl">
+    <FormField
+      v-slot="{ componentField }"
+      name="playerUrl"
+    >
       <FormItem>
         <FormLabel>Player URL</FormLabel>
         <FormControl>
-          <Input type="text" v-bind="componentField" />
+          <Input
+            type="text"
+            v-bind="componentField"
+          />
         </FormControl>
         <FormMessage />
       </FormItem>
     </FormField>
 
-    <FormField v-slot="{ componentField }" name="episodes.total">
+    <FormField
+      v-slot="{ componentField }"
+      name="episodes.total"
+    >
       <FormItem>
         <FormLabel>Total Episodes</FormLabel>
         <FormControl>
-          <Input type="number" v-bind="componentField" />
+          <Input
+            type="number"
+            v-bind="componentField"
+          />
         </FormControl>
         <FormMessage />
       </FormItem>
     </FormField>
 
-    <FormField v-slot="{ componentField }" name="episodes.done">
+    <FormField
+      v-slot="{ componentField }"
+      name="episodes.done"
+    >
       <FormItem>
         <FormLabel>Episodes Done</FormLabel>
         <FormControl>
-          <Input type="number" v-bind="componentField" />
+          <Input
+            type="number"
+            v-bind="componentField"
+          />
         </FormControl>
         <FormMessage />
       </FormItem>
     </FormField>
 
-    <FormField v-slot="{ componentField }" name="nextRelease.dayOfWeek">
+    <FormField
+      v-slot="{ componentField }"
+      name="nextRelease.dayOfWeek"
+    >
       <FormItem>
         <FormLabel>Next Release Day</FormLabel>
         <Select v-bind="componentField">
@@ -146,11 +168,17 @@ const onSubmit = form.handleSubmit(async (values) => {
       </FormItem>
     </FormField>
 
-    <FormField v-slot="{ componentField }" name="nextRelease.time">
+    <FormField
+      v-slot="{ componentField }"
+      name="nextRelease.time"
+    >
       <FormItem>
         <FormLabel>Next Release Time</FormLabel>
         <FormControl>
-          <Input type="time" v-bind="componentField" />
+          <Input
+            type="time"
+            v-bind="componentField"
+          />
         </FormControl>
         <FormMessage />
       </FormItem>

@@ -1,6 +1,9 @@
-import { ref, onMounted, watchEffect } from 'vue'
+import { onMounted, ref, watchEffect } from 'vue'
 import { getDocs, Query, QuerySnapshot, type DocumentData } from 'firebase/firestore'
 
+/**
+ * @deprecated vuefire have a better alternative than self-written bullshit
+ */
 export function useFirestoreFetch<T = DocumentData>(source: Query<T>) {
   const data = ref<T[]>([])
   const loading = ref(false)
@@ -11,7 +14,7 @@ export function useFirestoreFetch<T = DocumentData>(source: Query<T>) {
     error.value = null
     try {
       const snapshot: QuerySnapshot<T> = await getDocs(source)
-      data.value = snapshot.docs.map(doc => ({
+      data.value = snapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
       })) as T[]

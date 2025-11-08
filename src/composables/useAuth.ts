@@ -1,6 +1,13 @@
-import { auth } from "@/firebase"
-import { GoogleAuthProvider, signInWithPopup, type User, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth"
-import { ref } from "vue"
+import { ref } from 'vue'
+import {
+  browserLocalPersistence,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+  setPersistence,
+  signInWithPopup,
+  type User,
+} from 'firebase/auth'
+import { auth } from '@/firebase'
 
 /**
  * @deprecated - we don't need custom solution anymore - vuefire have one built-in.
@@ -11,19 +18,19 @@ export const useAuth = () => {
   const isLoading = ref<boolean>(true)
 
   setPersistence(auth, browserLocalPersistence)
-  
+
   onAuthStateChanged(auth, (u) => {
     user.value = u
     isLoading.value = false
   })
-  
+
   const signIn = async () => {
     try {
       const result = await signInWithPopup(auth, googleProvider)
-      console.success("data: ", result)
+      console.success('data: ', result)
       user.value = result.user
-    } catch(error) {
-      console.error("data: ", error)
+    } catch (error) {
+      console.error('data: ', error)
       user.value = null
     } finally {
       isLoading.value = false
@@ -34,10 +41,9 @@ export const useAuth = () => {
     try {
       await auth.signOut()
       user.value = null
-      console.success("Signed out!")
-    }
-    catch(error) {
-      console.error("data: ", error)
+      console.success('Signed out!')
+    } catch (error) {
+      console.error('data: ', error)
       user.value = null
     } finally {
       isLoading.value = false

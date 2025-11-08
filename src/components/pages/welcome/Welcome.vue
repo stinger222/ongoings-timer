@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { Button } from '@/components/ui/button';
-import { useCurrentElement } from '@vueuse/core';
-import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth';
-import { useCurrentUser } from 'vuefire';
+import { useCurrentUser } from 'vuefire'
+import { getAuth, GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth'
+import { Button } from '@/components/ui/button'
+import { useCurrentElement } from '@vueuse/core'
 
 const auth = getAuth()
 const user = useCurrentUser()
@@ -11,7 +11,7 @@ const user = useCurrentUser()
 <template>
   <template v-if="user">
     Welcome, {{ user.displayName }}!
-    <br/>
+    <br />
     <Button @click="signOut(auth)">SignOut</Button>
   </template>
   <template v-else>
@@ -19,5 +19,4 @@ const user = useCurrentUser()
   </template>
 </template>
 
-<style scoped>
-</style>
+<style scoped></style>

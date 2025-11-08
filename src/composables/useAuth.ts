@@ -2,6 +2,9 @@ import { auth } from "@/firebase"
 import { GoogleAuthProvider, signInWithPopup, type User, onAuthStateChanged, setPersistence, browserLocalPersistence } from "firebase/auth"
 import { ref } from "vue"
 
+/**
+ * @deprecated - we don't need custom solution anymore - vuefire have one built-in.
+ */
 export const useAuth = () => {
   const googleProvider = new GoogleAuthProvider()
   const user = ref<User | null>(null)

@@ -8,7 +8,7 @@ export const useAppFetch = createFetch({
   options: {
     beforeFetch() {
       if (!import.meta.env.VITE_APP_BASE_API) {
-        console.error('⚠️ Не указан домен бекенда в переменной окружения VITE_APP_BASE_API!')
+        console.error('⚠️ No backend domain env variable present (VITE_APP_BASE_API)')
       }
     },
   },

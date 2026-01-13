@@ -1,21 +1,18 @@
 <script setup lang="ts">
 import { TransitionGroup } from 'vue'
 import { useCollection } from 'vuefire'
-import { deleteDoc, doc, updateDoc } from 'firebase/firestore'
-import { Button } from '@/components/ui/button'
+import { deleteDoc, doc, increment, updateDoc } from 'firebase/firestore'
 import { db } from '@/firebase'
-import { countdownCardsRef } from '@/firebase/collections'
+import { Button } from '@/components/ui/button'
+import { countdownCardsRef } from '@/firebase/collections/countdownCards'
 import type { CountdownCard as CountdownCardType } from '@/types'
 import CountdownCard from './CountdownCard.vue'
-import { increment } from 'firebase/firestore'
-
-const { data: cards, pending: cardsPending, error: cardsError } = useCollection<CountdownCardType>(countdownCardsRef)
+import { useCountdownCards } from '@/repositories'
 
 const handleDelete = async (card: CountdownCardType) => {
   try {
     await deleteDoc(doc(db, 'countdownCards', card.id))
     console.success('Card deleted!')
-    cards.value = cards.value.filter((i) => i.id !== card.id)
   } catch (error) {
     console.error('Error deleting card: ', error)
   }
@@ -23,7 +20,7 @@ const handleDelete = async (card: CountdownCardType) => {
 
 const handleIncrementWatched = async (card: CountdownCardType) => {
   if (card.episodes.done >= card.episodes.total) return
-  const cardRef = await doc(db, 'countdownCards', card.id)
+  const cardRef = doc(db, 'countdownCards', card.id)
   try {
     await updateDoc(cardRef, { 'episodes.done': increment(1) })
   } catch (error) {
@@ -33,24 +30,31 @@ const handleIncrementWatched = async (card: CountdownCardType) => {
 
 const handleDecrementWatched = async (card: CountdownCardType) => {
   if (card.episodes.done <= 0) return
-  const cardRef = await doc(db, 'countdownCards', card.id)
+  const cardRef = doc(db, 'countdownCards', card.id)
   try {
     await updateDoc(cardRef, { 'episodes.done': increment(-1) })
   } catch (error) {
     console.error('Error decrementing watched:', error)
   }
 }
+
+const { data, pending, error } = useCountdownCards()
+
 </script>
 
 <template>
   <Button
     class="mb-2"
-    @click="console.log(cards)"
+    @click="console.log(data)"
   >
     log cards
   </Button>
-  <div v-if="cardsPending">Loading...</div>
-  <div v-else-if="cardsError">Error: {{ cardsError.message }}</div>
+
+  <div v-if="pending">Loading...</div>
+
+  <div v-else-if="error">Error: {{ error.message }}</div>
+
+  <!-- TransitionGroup for unmount animation -->
   <TransitionGroup
     v-else
     name="card"
@@ -58,7 +62,7 @@ const handleDecrementWatched = async (card: CountdownCardType) => {
     class="space-y-2"
   >
     <CountdownCard
-      v-for="card in cards"
+      v-for="card in data"
       :data="card"
       :key="card.id"
       @delete="handleDelete"

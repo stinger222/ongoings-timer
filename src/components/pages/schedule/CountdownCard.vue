@@ -2,6 +2,7 @@
 import type { CountdownCard } from '@/types'
 
 const props = defineProps<{ data: CountdownCard }>()
+
 const emit = defineEmits<{
   (e: 'delete', card: CountdownCard): void
   (e: 'increment-watched', card: CountdownCard): void

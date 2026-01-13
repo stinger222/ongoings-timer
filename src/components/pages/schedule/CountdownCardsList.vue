@@ -1,13 +1,11 @@
 <script setup lang="ts">
 import { TransitionGroup } from 'vue'
-import { useCollection } from 'vuefire'
 import { deleteDoc, doc, increment, updateDoc } from 'firebase/firestore'
-import { db } from '@/firebase'
 import { Button } from '@/components/ui/button'
-import { countdownCardsRef } from '@/firebase/collections/countdownCards'
+import { db } from '@/firebase'
+import { useCountdownCards } from '@/repositories'
 import type { CountdownCard as CountdownCardType } from '@/types'
 import CountdownCard from './CountdownCard.vue'
-import { useCountdownCards } from '@/repositories'
 
 const handleDelete = async (card: CountdownCardType) => {
   try {
@@ -39,7 +37,6 @@ const handleDecrementWatched = async (card: CountdownCardType) => {
 }
 
 const { data, pending, error } = useCountdownCards()
-
 </script>
 
 <template>

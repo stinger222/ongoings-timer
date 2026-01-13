@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { getApp } from 'firebase/app'
 import { addDoc, collection } from 'firebase/firestore'
 import { useForm } from 'vee-validate'
 import * as z from 'zod'
@@ -7,8 +6,11 @@ import { Button } from '@/components/ui/button'
 import { FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { db } from '@/firebase'
 import { toTypedSchema } from '@vee-validate/zod'
+import { createCountdownCard } from '@/repositories'
+import type { CountdownCard } from '@/types'
+
+type CountdownCardCreate = Omit<CountdownCard, 'id'>
 
 const formSchema = toTypedSchema(
   z.object({
@@ -26,7 +28,7 @@ const formSchema = toTypedSchema(
   })
 )
 
-const form = useForm({
+const form = useForm<CountdownCardCreate>({
   validationSchema: formSchema,
   initialValues: {
     title: `title ${Math.random() * 10}`,
@@ -44,11 +46,12 @@ const form = useForm({
 })
 
 const onSubmit = form.handleSubmit(async (values) => {
-  console.log('Form submitted!', values)
+  console.log('Form submitted:', values)
 
   try {
-    const docRef = await addDoc(collection(db, 'countdownCards'), values)
-    console.success('Document written with ID: ', docRef.id)
+    const id = await createCountdownCard(values)
+    console.success('Document written with ID: ', id)
+    form.resetForm()
   } catch (e) {
     console.error('Error adding document: ', e)
   }

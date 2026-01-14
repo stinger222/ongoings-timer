@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { getCurrentUser, useCurrentUser } from 'vuefire'
-import AddCardForm from '@/components/pages/add-card/AddCardForm.vue'
 import { CardsListView, WelcomeView } from '@/views'
+import AddCardView from '@/views/AddCardView.vue'
 
 const router = createRouter({
   history: createWebHistory(''),
@@ -20,7 +20,7 @@ const router = createRouter({
     {
       path: '/add-card',
       name: 'add-card',
-      component: AddCardForm, // TODO: change to view, lol
+      component: AddCardView,
       meta: { isProtected: true },
     },
   ],

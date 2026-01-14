@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import { getCurrentUser, useCurrentUser } from 'vuefire'
+import { getCurrentUser } from 'vuefire'
 import { CardsListView, WelcomeView } from '@/views'
 import AddCardView from '@/views/AddCardView.vue'
 

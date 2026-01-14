@@ -1,5 +1,5 @@
-import { addDoc } from 'firebase/firestore'
 import { useCollection } from 'vuefire'
+import { addDoc } from 'firebase/firestore'
 import { countdownCardsRef } from '@/firebase/collections/countdownCards'
 import type { CountdownCard } from '@/types'
 

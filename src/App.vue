@@ -1,12 +1,12 @@
 <script setup lang="ts">
-// import { Header } from '@/components/shared'
+import { Header } from '@/components/shared'
 import { Toaster } from '@/components/ui'
 </script>
 
 <template>
-  <!-- <Header /> -->
-
-  <div class="max-w-[1920px] mx-auto px-4 mt-5">
+  
+  <div class="max-w-[1920px] mx-auto px-4 mt-1">
+    <Header />
     <RouterView />
   </div>
 

@@ -1,11 +1,9 @@
 <script setup lang="ts">
-import { useCurrentUser } from 'vuefire'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { useAuth } from '@/composables'
 
-const { signInWithGoogle, signOut } = useAuth()
-const user = useCurrentUser()
+const { signInWithGoogle } = useAuth()
 </script>
 
 <template>

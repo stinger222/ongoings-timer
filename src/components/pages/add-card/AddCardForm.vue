@@ -49,8 +49,8 @@ const onSubmit = form.handleSubmit(async (values) => {
   console.log('Form submitted:', values)
 
   try {
-    const id = await createCountdownCard(values)
-    console.success('Document written with ID: ', id)
+    const doc = await createCountdownCard(values)
+    console.success('Document written: ', doc)
     form.resetForm()
   } catch (e) {
     console.error('Error adding document: ', e)

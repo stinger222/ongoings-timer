@@ -9,7 +9,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { useUIStore } from '@/stores/ui-store'
+import { useUIStore } from '@/stores'
 import { jsToIsoWeekday } from '@/utils'
 import { useAuth } from '@/composables'
 

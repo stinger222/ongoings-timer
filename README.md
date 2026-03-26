@@ -1,0 +1,1 @@
+# Next.js version of the app will live here

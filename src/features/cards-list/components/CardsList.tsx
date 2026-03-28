@@ -13,6 +13,7 @@ interface Props {
 export default async function CardsList({ renderItem }: Props) {
   await new Promise(r => setTimeout(r, 300))
 
+  // TODO: Handle error. Can suspense render error messages as well?
   const cards = await getCards()
 
   return (

@@ -11,11 +11,11 @@ rpc_secret = "263b940a9ef771b8ad29b33338a59439c840885257b4b3405e12dacbf7142598"
 [s3_api]
 s3_region = "garage"
 api_bind_addr = "[::]:3900"
-root_domain = "localhost"
+root_domain = "garage"
 
 [s3_web]
 bind_addr = "[::]:3902"
-root_domain = "localhost"
+root_domain = "garage"
 index = "index.html"
 
 [k2v_api]

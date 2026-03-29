@@ -1,20 +1,11 @@
 'use server'
 
-import { db } from "@/database/drizzle";
-import { cards } from "@/database/schema";
-import { s3 } from "@/entities/card/s3";
-import { Card } from "@/entities/card/types";
+import { db } from "@/lib/database/drizzle";
+import { cards } from "@/lib/database/schema";
+import { s3 } from "@/lib/storage/s3";
 
-import { S3Client, PutObjectCommand } from "@aws-sdk/client-s3"
+import {  PutObjectCommand } from "@aws-sdk/client-s3"
 
-// const s3 = new S3Client({
-//   region: "garage",
-//   endpoint: process.env.S3_ENDPOINT,
-//   credentials: {
-//     accessKeyId: process.env.S3_KEY!,
-//     secretAccessKey: process.env.S3_SECRET!,
-//   },
-// })
 export async function getCards() {
   try {
     return await db.query.cards.findMany()

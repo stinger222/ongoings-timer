@@ -11,10 +11,11 @@ interface Props {
 // CardsList dosn't depend on card-item feature
 // It just says that it's gonna pass object of type Card into renderItem
 export default async function CardsList({ renderItem }: Props) {
-  await new Promise(r => setTimeout(r, 300))
+  // await new Promise(r => setTimeout(r, 300))
 
   // TODO: Handle error. Can suspense render error messages as well?
   const cards = await getCards()
+  console.log("CRDS LENGTH:", cards.length)
 
   return (
     <div className="space-y-5 px-2">

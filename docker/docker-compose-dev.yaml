@@ -1,0 +1,29 @@
+# Development env to run Next.
+# It runs a PostgreSQL, identical how it works in production
+
+services:
+  db:
+    image: postgres:16-alpine
+    container_name: postgresql-ongoings-countdown
+    environment:
+      POSTGRES_USER: dev
+      POSTGRES_PASSWORD: dev
+      POSTGRES_DB: ongoings-countdown-database
+    ports:
+      - "5432:5432" # Exposes DB to your host machine
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+  garage:
+    image: dxflrs/garage:v2.2.0
+    container_name: garage-ongoings-countdown
+    ports:
+      - "3900:3900" # S3 API
+      - "3901:3901" # admin RPC
+      - "3902:3902" # web
+      - "3903:3903" # admin
+      - "3904:3904" # k2v_api
+    volumes:
+      - ./garage/meta:/var/lib/garage/meta
+      - ./garage/data:/var/lib/garage/data
+      - ./garage/config.toml:/etc/garage/config.toml
+    command: /garage -c /etc/garage/config.toml server

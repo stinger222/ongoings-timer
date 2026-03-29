@@ -40,31 +40,21 @@ export function CreateCardForm() {
     }
   })
 
-  // function onSubmit(data: z.infer<typeof formSchema>, event?: React.FormEvent) {
-  function onSubmit(data: any, event?: any) {
-    toast("You submitted the following values:", {
-      description: (
-        <pre className="mt-2 w-[320px] overflow-x-auto rounded-md bg-code p-4 text-code-foreground">
-          <code>{JSON.stringify(data, null, 2)}</code>
-        </pre>
-      ),
-      position: "bottom-right",
-      classNames: {
-        content: "flex flex-col gap-2",
-      },
-      style: {
-        "--border-radius": "calc(var(--radius)  + 4px)",
-      } as React.CSSProperties,
-    })
 
-    // const formData = new FormData();
-    const formData = new FormData(event?.target as HTMLFormElement);
+  async function onSubmit(data: z.infer<typeof formSchema>, event?: React.BaseSyntheticEvent) {
+    if (!event) return
 
+    const formData = new FormData(event.target as HTMLFormElement)
+    const coverFile = formData.get("cover")
 
-    createCard(formData)
+    if (coverFile instanceof File && coverFile.size > 0) {
+      console.log("File uploaded:", coverFile.name, coverFile.size)
+    } else {
+      formData.set("cover", "null")
+    }
+    
+    await createCard(formData)
   }
-
-
 
   return (
     <div>
@@ -74,7 +64,7 @@ export function CreateCardForm() {
             <FieldLabel htmlFor="form-cover">Cover Image</FieldLabel>
             <Input
               id="form-cover"
-              name="cover" // Important: matches what createCard expects
+              name="cover"
               type="file"
               accept="image/*"
             />
@@ -150,16 +140,10 @@ export function CreateCardForm() {
           />
           
           <Field orientation="horizontal" className="mt-3">
-            <Button type="button" variant="outline" onClick={() => form.reset()}>
-              Reset
-            </Button>
-            <Button type="submit" form="form-rhf-demo">
-              Submit
-            </Button>
+            <Button type="submit" form="form-rhf-demo"> Create </Button>
           </Field>
         </FieldGroup>
       </form>
-
     </div>
   )
 }

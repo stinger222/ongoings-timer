@@ -2,4 +2,7 @@
 import { cards } from "@/lib/database/schema"
 import { InferSelectModel } from "drizzle-orm"
 
-export type Card = InferSelectModel<typeof cards>
+// Card type that frontend will recieve and work with
+export type Card = InferSelectModel<typeof cards> & {
+  next_episode_at: number
+}

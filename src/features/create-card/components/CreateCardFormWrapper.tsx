@@ -6,7 +6,6 @@ import {
   Dialog,
   DialogContent,
   DialogHeader,
-  DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { CreateCardForm } from "./CreateCardForm";
@@ -17,9 +16,8 @@ export default function CreateCardFormWrapper() {
       <DialogTrigger render={<Button>Open</Button>}></DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
+          {/* <DialogTitle className="mb-3">Add show</DialogTitle> */}
           <CreateCardForm />
-
         </DialogHeader>
       </DialogContent>
     </Dialog>

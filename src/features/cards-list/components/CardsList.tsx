@@ -19,15 +19,19 @@ export default async function CardsList({ renderItem }: Props) {
 
   return (
     <div className="space-y-5 px-2">
-      <h2 className="font-bold text-2xl">CardsList</h2>
-      <CardsListControls />
+      <h2 className="font-bold w-215 mx-auto text-2xl">CardsList</h2>
 
-      <div className="gap-5 flex flex-col-reverse items-center">
-        {cards.map(card => (
-          <React.Fragment key={`card-item-${card.id}`}>
-            { renderItem(card) }
-          </React.Fragment>
-        ))}
+      {/* List wrapper */}
+      <div className="w-215 mx-auto space-y-2">
+        <CardsListControls />
+
+        <div className="gap-5 flex flex-col">
+          {cards.map(card => (
+            <React.Fragment key={`card-item-${card.id}`}>
+              { renderItem(card) }
+            </React.Fragment>
+          ))}
+        </div>
       </div>
     </div>
   );

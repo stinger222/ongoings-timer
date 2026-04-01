@@ -140,7 +140,7 @@ export function CreateCardForm() {
           />
           
           <Field orientation="horizontal" className="mt-3">
-            <Button type="submit" form="form-rhf-demo"> Create </Button>
+            <Button type="submit" form="form-rhf-demo"> Create card </Button>
           </Field>
         </FieldGroup>
       </form>

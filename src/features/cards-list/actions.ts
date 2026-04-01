@@ -1,24 +1,27 @@
 'use server'
-
 import { db } from "@/lib/database/drizzle";
 import { cards } from "@/lib/database/schema";
 import { s3 } from "@/lib/storage/s3";
 
 import {  PutObjectCommand } from "@aws-sdk/client-s3"
+import { eq } from "drizzle-orm";
+
+export async function deleteCard(id: string) {
+  try {
+    await db.delete(cards).where(eq(cards.id, id))
+  } catch(error) {
+    console.error(error)
+  }
+}
 
 export async function getCards() {
   try {
-    // const rawCard = await db.query.cards.findFirst()
-    // return [{
-    //   ...rawCard,
-    //   next_episode_at: Date.now()
-    // }]
-    
-    const rawCards = await db.query.cards.findMany()
+    const rand = Date.now() + Math.ceil(Math.random() * 10000000000 * Math.random())
+    const rawCards = (await db.query.cards.findMany()).sort((a,b) => +b.created_at - +a.created_at)
 
     return rawCards.map(card => ({
       ...card,
-      next_episode_at: Date.now() + Math.ceil(Math.random() * 10000000000 * Math.random())
+      next_episode_at: rand
     }))
 
   } catch(error) {

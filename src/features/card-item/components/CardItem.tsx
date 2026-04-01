@@ -4,28 +4,21 @@ import { Card } from "@/entities/card/types"
 import { MinusIcon, MoreVerticalIcon, PlusIcon } from "lucide-react"
 import Image from "next/image"
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { ReactElement, useEffect, useState } from "react"
+import { parseDateToCountdown } from "../utils"
+import { deleteCard } from "@/features/cards-list/actions"
+
 interface Props {
   card: Card
 }
 export default function CardItem({ card }: Props) {
-
-  const parseDateToCountdown = (targetDate: Date) => {
-    const now = new Date();
-    // Calculate total difference in milliseconds
-    const diff = targetDate.getTime() - now.getTime();
-
-    // past dates
-    if (diff <= 0) {
-      return { days: 0, hours: 0, mins: 0, secs: 0 };
-    }
-
-    const seconds = Math.floor((diff / 1000) % 60);
-    const minutes = Math.floor((diff / (1000 * 60)) % 60);
-    const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
-    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-
-    return { days, hours, mins: minutes, secs: seconds };
-  };
   const [countdown, setCountdown] = useState(parseDateToCountdown(new Date(card.next_episode_at)))
 
   useEffect(() => {
@@ -39,7 +32,7 @@ export default function CardItem({ card }: Props) {
   })
 
   return (
-    <div className="w-215 h-60 border rounded-md overflow-hidden shadow-[-3px_4px_10px_0_rgba(0,0,0,0.25)] flex  ">
+    <div className="h-60 border rounded-md overflow-hidden shadow-[-3px_4px_10px_0_rgba(0,0,0,0.25)] flex">
       <Image
         src={`/api/images/${card.image_key}`}
         alt="Ado-san :з"
@@ -74,36 +67,26 @@ export default function CardItem({ card }: Props) {
           </span>
         </div>
         <div className="grow-5 basis-0">
-          <span className="text-4xl font-mono font-semibold tracking-wide">
-            {/* 03:13:59:39 */}
-            {countdown.days}:
-            {countdown.hours}:
-            {countdown.mins}:
-            {countdown.secs}
+          <span className="text-4xl font-mono font-semibold tracking-wide break-keep">
+            {countdown.days}:{countdown.hours}:{countdown.mins}:{countdown.seconds}
           </span>
         </div>
         <div>
-          <TestDD trigger={
-            <Button variant='ghost'>
-              <MoreVerticalIcon className="focus-within:outline-0"/>
-            </Button>
-          }/>
+          <TestDD
+            cardId={card.id}
+            trigger={
+              <Button variant='ghost'>
+                <MoreVerticalIcon className="focus-within:outline-0"/>
+              </Button>
+            }
+          />
         </div>
       </div>
     </div>
   )
 }
 
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuGroup,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { ReactElement, useEffect, useState } from "react"
-
-function TestDD({trigger}: {trigger: ReactElement}) {
+function TestDD({ trigger, cardId}: {trigger: ReactElement, cardId: string}) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger render={trigger}>
@@ -111,7 +94,7 @@ function TestDD({trigger}: {trigger: ReactElement}) {
       </DropdownMenuTrigger>
       <DropdownMenuContent>
         <DropdownMenuGroup>
-          <DropdownMenuItem>Delete</DropdownMenuItem>
+          <DropdownMenuItem onClick={() => deleteCard(cardId)}>Delete</DropdownMenuItem>
           <DropdownMenuItem>Edit</DropdownMenuItem>
           <DropdownMenuItem disabled>Archive (?)</DropdownMenuItem>
         </DropdownMenuGroup>

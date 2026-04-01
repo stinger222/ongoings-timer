@@ -8,11 +8,17 @@ import {  PutObjectCommand } from "@aws-sdk/client-s3"
 
 export async function getCards() {
   try {
+    // const rawCard = await db.query.cards.findFirst()
+    // return [{
+    //   ...rawCard,
+    //   next_episode_at: Date.now()
+    // }]
+    
     const rawCards = await db.query.cards.findMany()
 
     return rawCards.map(card => ({
       ...card,
-      next_episode_at: Date.now()
+      next_episode_at: Date.now() + Math.ceil(Math.random() * 10000000000 * Math.random())
     }))
 
   } catch(error) {

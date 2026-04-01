@@ -22,7 +22,7 @@ export default async function CardsList({ renderItem }: Props) {
       <h2 className="font-bold text-2xl">CardsList</h2>
       <CardsListControls />
 
-      <div className="gap-2 flex flex-col-reverse">
+      <div className="gap-5 flex flex-col-reverse items-center">
         {cards.map(card => (
           <React.Fragment key={`card-item-${card.id}`}>
             { renderItem(card) }

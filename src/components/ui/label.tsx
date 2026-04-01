@@ -2,7 +2,7 @@
 
 import * as React from "react"
 
-import { cn } from "../../utils/shadcn"
+import { cn } from "../../lib/shadcn/utils"
 
 function Label({ className, ...props }: React.ComponentProps<"label">) {
   return (

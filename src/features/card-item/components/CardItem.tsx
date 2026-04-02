@@ -47,7 +47,7 @@ export default function CardItem({ card }: Props) {
 
       <div className="p-5 grow gap-2 flex items-center justify-evenly">
         <div className="grow-5 shrink-0 basis-0 min-w-auto flex flex-col items-start">
-          <span className="mb-2 text-xl font-semibold text-center">Fate/Strangfe Fake I</span>
+          <span className="mb-2 text-xl font-semibold text-center">Fate/Strange Fake I</span>
           <span className="text-[#9494a2] flex items-center gap-2.5">
             <Button
               variant={"ghost"}

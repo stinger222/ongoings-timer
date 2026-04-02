@@ -10,11 +10,12 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog"
 import { CreateCardForm } from "./CreateCardForm";
+import { PlusIcon } from "lucide-react";
 
 export default function CreateCardFormWrapper() {
   return (
     <Dialog>
-      <DialogTrigger render={<Button>Open</Button>}></DialogTrigger>
+      <DialogTrigger render={<Button variant='outline' className='border-stone-300 shadow-sm/20'><PlusIcon/></Button>}></DialogTrigger>
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="text-center mb-3">Add show</DialogTitle>

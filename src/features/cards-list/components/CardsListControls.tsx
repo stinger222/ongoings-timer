@@ -8,17 +8,24 @@ import {
   InputGroupInput,
 } from "@/components/ui/input-group"
 import { SearchIcon, SortAscIcon, SortDescIcon } from "lucide-react"
+import { useQueryState } from "nuqs"
 import { useState } from "react"
 
-export default function CardsListControls() {
+interface Props {
+  extraControls?: React.ReactNode
+}
+
+export default function CardsListControls({ extraControls }: Props) {
   // TODO: Save current controls to LS
   const [ascSort, setAscSort] = useState(false)
+  const [search, setSearch] = useQueryState("search", {defaultValue: ""})
+
   return (
     <div className="space-x-3 flex">
       <Field className="shadow-sm">
         <InputGroup className="border-zinc-300 rounded-sm">
           {/* TODO: Placeholders rotation */}
-          <InputGroupInput id="cards-search-filter" placeholder="Fate/Strange Fake II"/> 
+          <InputGroupInput value={search} onChange={e => setSearch(e.target.value)} id="cards-search-filter" placeholder="Fate/Strange Fake II"/> 
           <InputGroupAddon align="inline-end">
             <SearchIcon />
           </InputGroupAddon>
@@ -28,6 +35,8 @@ export default function CardsListControls() {
       <Button onClick={() => setAscSort(prev => !prev)}>
         {ascSort ? <SortDescIcon /> :  <SortAscIcon />}
       </Button>
+
+      { extraControls }
     </div>
   )
 }

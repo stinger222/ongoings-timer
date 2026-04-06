@@ -4,6 +4,8 @@ import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import Header from "@/components/idk/Header/components/Header"
 import { NuqsAdapter } from 'nuqs/adapters/next/app'
+import { SelectedDayProvider } from "@/providers/SelectedDayContext"
+import { Suspense } from "react"
 
 
 const geistSans = Geist({
@@ -32,13 +34,20 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full max-w-480 mx-auto flex flex-col font-[Geist]">
-        <Header />
-        <NuqsAdapter>
-          {children}
-        </NuqsAdapter>
+        <Suspense>
+          <SelectedDayProvider>
+            <Header />
+            <NuqsAdapter>
+              {children}
+            </NuqsAdapter>
+          </SelectedDayProvider>
+        </Suspense>
+
         <Toaster richColors />
       </body>
       
     </html>
   )
 }
+
+

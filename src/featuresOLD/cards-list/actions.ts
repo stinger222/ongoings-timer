@@ -6,6 +6,13 @@ import { s3 } from "@/lib/storage/s3";
 import {  PutObjectCommand } from "@aws-sdk/client-s3"
 import { eq } from "drizzle-orm";
 
+
+export async function searchCards(filter: string) {
+  console.log("searchCaыыыыыыыыrds :", filter)
+  await new Promise(r => setTimeout(r, 1000))
+  return [1,2,3,4]
+}
+
 export async function deleteCard(id: string) {
   try {
     await db.delete(cards).where(eq(cards.id, id))
@@ -44,6 +51,8 @@ export async function createCard(formData: FormData) {
   try {
     const title = formData.get("title") as string
     const cover = formData.get("cover") as File | null
+    console.log(title, "title")
+    console.log(cover, "cover")
 
     let imageKey: string | null = null
 

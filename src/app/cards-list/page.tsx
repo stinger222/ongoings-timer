@@ -1,19 +1,13 @@
-import { Card } from "@/entities/card/types";
-import CardItem from "@/features/card-item/components/CardItem";
-import { CardsList } from "@/features/cards-list";
-import CreateCardFormWrapper from "@/features/create-card/components/CreateCardFormWrapper";
-import { Suspense } from "react";
+import { getInitialCards } from "@/features/cards-list/actions/getInitialCards"
+import CardsPanel from "@/features/cards-list/components/CardsPanel"
 
-export default async function CardsListPage({searchParams}: { searchParams: Promise<{ search?: string }> }) {
-  const params = await searchParams
-
+export default async function CardsListPage() {
+const initialCards = await getInitialCards() // No filters, no sotring, just basic list of cards (for SSR)
+  
   return (
-    <div>
-      <CreateCardFormWrapper />
-
-      <Suspense fallback="Skeleton loading... for list">
-        <CardsList search={params.search} renderItem={(card: Card) => <CardItem card={card}/>}/>
-      </Suspense>
+    <div className="w-260 mx-auto">
+      <CardsPanel initialCards={initialCards} />
     </div>
   )
+  
 }

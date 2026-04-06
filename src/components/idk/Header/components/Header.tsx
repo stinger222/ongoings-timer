@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { Menu, LogOut, Settings, Info } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import {
@@ -11,6 +10,7 @@ import {
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { cn } from '@/lib/shadcn/utils'
+import { useSelectedDay } from '@/hooks/useSelectedDay'
 
 const getTodayIndex = () => 0 // TODO: fix 
 // const getTodayIndex = () => new Date().getDay() 
@@ -26,10 +26,12 @@ const days = [
 ]
 
 //Mock
-const contentByDay = [false, true, false, true, false, true, false] 
+const contentByDay = [true, true, false, true, false, true, false] 
 
 export default function Header() {
-  const [activeTabIndex, setActiveTabIndex] = useState(getTodayIndex())
+  // const [activeTabIndex, setActiveTabIndex] = useState(getTodayIndex())
+  const { selectedDay: activeTabIndex, setSelectedDay: setActiveTabIndex} = useSelectedDay()
+
   const todayIndex = getTodayIndex()
 
   const handleLogout = async () => {
